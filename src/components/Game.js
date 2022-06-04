@@ -18,10 +18,10 @@ const Game = () => {
   // SG = Sacrificial goat (Defuser)
   // AS = Assert Yourself (Attack)
   // ST = Steal (Favor)
-  // SH = shuffle 
+  // SH = Shuffle  
   // SN = Snooze (Skip)
   // DR = Divine Revelation (See the future)
-  // WC = white crayon
+  // WC = White Crayon (Tacocat)
   const cards = ["SG", "SG", "SG", "SG", "AS", "AS", "AS", "AS", "ST", "ST", "ST", "ST", "SH", "SH", "SH", "SH", "SN", "SN", "SN", "SN", "DR", "DR", "DR", "DR", "DR", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
 
   // Setup game by distributing cards
@@ -71,7 +71,7 @@ const Game = () => {
         break;
       }
 
-      //Logic for skip card
+      //Logic for Snooze card
       case "SN" : {
         playerRemainingTurns = playerRemainingTurns - 1;
          if(playerRemainingTurns === 0) {
@@ -97,7 +97,7 @@ const Game = () => {
          break;
       }
 
-      //Logic for Favor card
+      //Logic for Steal card
       case "ST" : {
         let opponentsDeck;
         let currentPlayersDeck;
@@ -119,7 +119,7 @@ const Game = () => {
         break;
       }
 
-      //Logic for See the Future card
+      //Logic for Divine Revelation card
       case "DR" : {
         const topThreeCards = [];
         for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
@@ -130,7 +130,7 @@ const Game = () => {
         break;
       }
 
-      // Logic for Attack card
+      // Logic for Assert card
       case "AS" : {
         if(playerRemainingTurns === 2) {
           if(cardPlayedBy === "P1") {
