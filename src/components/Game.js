@@ -21,7 +21,7 @@ const Game = () => {
   // SK = skip
   // STF = see the future
   // WC = white crayon
-  const cards = ["BS", "DF", "DF", "DF", "DF", "AT", "AT", "AT", "AT", "FA", "FA", "FA", "FA", "SH", "SH", "SH", "SH", "SK", "SK", "SK", "SK", "STF", "STF", "STF", "STF", "STF", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
+  const cards = ["DF", "DF", "DF", "DF", "AT", "AT", "AT", "AT", "FA", "FA", "FA", "FA", "SH", "SH", "SH", "SH", "SK", "SK", "SK", "SK", "STF", "STF", "STF", "STF", "STF", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
 
   // Setup game by distributing cards
   useEffect(() => {
@@ -37,12 +37,15 @@ const Game = () => {
     const cardsForP2 = shuffledCards.splice(0,7);
     cardsForP2.push("DF");
     
-    // Add remaining cards to the sdrawCardPile
+    // Add remaining cards to the drawCardPile and insert shark and reshuffle; 
     const remainingCards = shuffledCards;
+    remainingCards.push("BS");
+    console.log("interim: " + remainingCards);
+    const shuffledShark = shuffler(remainingCards);
     
     // Set state 
     setGameOver(false);
-    setDrawCardsPile([...remainingCards]);
+    setDrawCardsPile([...shuffledShark]);
     setP1Cards([...cardsForP1]);
     setP2Cards([...cardsForP2]);
 
