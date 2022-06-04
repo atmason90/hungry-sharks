@@ -12,6 +12,7 @@ const Game = () => {
   const [p1RemainingTurns, setP1RemainingTurns] = useState(1);
   const [p2RemainingTurns, setP2RemainingTurns] = useState(0);
   const [activePlayer, setActivePlayer] = useState("P1");
+  const [threeCards, setThreeCards] = useState([]);
 
   // BS = blasting shark
   // DF = defuser
@@ -116,6 +117,16 @@ const Game = () => {
           setP1Cards([...opponentsDeck]);
         }
         break;
+      }
+
+      //Logic for See the Future card
+      case "STF" : {
+        const topThreeCards = [];
+        for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
+          topThreeCards.push(drawCardsPile[i]);
+        }
+        setThreeCards([...topThreeCards]);
+        //Display these three cards somehow to active player
       }
 
       default : {console.log("Error");};
