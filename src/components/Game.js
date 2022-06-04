@@ -54,7 +54,7 @@ const Game = () => {
     console.log("P2 Cards: " + p2Cards);
     console.log("Remaining: " + drawCardsPile);
 
-  }, []);
+  },[]);
 
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
@@ -105,7 +105,7 @@ const Game = () => {
         cardPlayedBy === "P1" ? currentPlayersDeck = [...p1Cards] : currentPlayersDeck = [...p2Cards];
         
         let indexOfCardToRemove = Math.floor(Math.random() * opponentsDeck.length);
-        let cardToAdd = opponentsDeck.splice(indexOfCardToRemove, 1);
+        let cardToAdd = opponentsDeck.splice(indexOfCardToRemove, 1); 
         currentPlayersDeck.push(cardToAdd[0]);
 
         if(cardPlayedBy === "P1") {
@@ -127,6 +127,35 @@ const Game = () => {
         }
         setThreeCards([...topThreeCards]);
         //Display these three cards somehow to active player
+        break;
+      }
+
+      // Logic for Attack card
+      case "AT" : {
+        if(playerRemainingTurns === 2) {
+          if(cardPlayedBy === "P1") {
+            setP1RemainingTurns(playerRemainingTurns - 2);
+            setP2RemainingTurns(1);
+            setActivePlayer("P2");
+          }
+          else if(cardPlayedBy === "P2") {
+            setP2RemainingTurns(playerRemainingTurns - 2);
+            setP1RemainingTurns(1);
+            setActivePlayer("P1");
+          }
+        }
+        else if(playerRemainingTurns === 1) {
+          if(cardPlayedBy === "P1") {
+            setP1RemainingTurns(playerRemainingTurns - 1);
+            setP2RemainingTurns(2);
+            setActivePlayer("P2");
+          }
+          else if(cardPlayedBy === "P2") {
+            setP2RemainingTurns(playerRemainingTurns - 1);
+            setP1RemainingTurns(2);
+            setActivePlayer("P1");
+          }
+        }
       }
 
       default : {console.log("Error");};
