@@ -63,7 +63,11 @@ const Game = () => {
 
     switch(playedCard) {
      
-      //Logic for shuffle card
+      //---------------Logic for shuffle card---------------------//
+
+      //Make array that has all cards in draw pile
+      //Use shuffler function to shuffle that array
+      //Set state to be that shuffled array
       case "SH" : {
         let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
@@ -71,7 +75,11 @@ const Game = () => {
         break;
       }
 
-      //Logic for Snooze card
+      //-----------------Logic for Snooze card----------------------------//
+
+      // Decrease current player's remaining turns by 1
+      //Check if he has no turns left. In that case end this player's turn and add 1 turn to other player
+      //If player still has a turn left, just decrement state of remaining turns for that player
       case "SN" : {
         playerRemainingTurns = playerRemainingTurns - 1;
          if(playerRemainingTurns === 0) {
@@ -97,7 +105,11 @@ const Game = () => {
          break;
       }
 
-      //Logic for Steal card
+      //-----------------------Logic for Steal card---------------------------//
+
+      //Grab a hold of current player's cards and opponent's cards
+      //Randomly remove 1 card from opponent's cards and add it to current player's cards
+      //Update states for both player's cards
       case "ST" : {
         let opponentsDeck;
         let currentPlayersDeck;
@@ -119,7 +131,11 @@ const Game = () => {
         break;
       }
 
-      //Logic for Divine Revelation card
+      //-----------------------Logic for Divine Revelation card-------------------------//
+
+      //Make new empty array and populate it with the top 3 cards in our deck
+      //set state of threecads to that new array
+      //Display these cards to active player....??????
       case "DR" : {
         const topThreeCards = [];
         for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
@@ -130,7 +146,11 @@ const Game = () => {
         break;
       }
 
-      // Logic for Assert card
+      //----------------------------Logic for Assert card---------------------------//
+
+      //Check if player has 1 or 2 remaining turns when he played the card
+      //If he had 1, end this player's turn and assign 2 turns to oppenent
+      //If he had 2, end this player's turn and assign 1 turn to opponent
       case "AS" : {
         if(playerRemainingTurns === 2) {
           if(cardPlayedBy === "P1") {
