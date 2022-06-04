@@ -14,15 +14,15 @@ const Game = () => {
   const [activePlayer, setActivePlayer] = useState("P1");
   const [threeCards, setThreeCards] = useState([]);
 
-  // BS = blasting shark
-  // DF = defuser
-  // AT = attack
-  // FA = favor
-  // SH = shuffle
-  // SK = skip
-  // STF = see the future
+  // HS = Hungry Shark (Exploding kitten)
+  // SG = Sacrificial goat (Defuser)
+  // AS = Assert Yourself (Attack)
+  // ST = Steal (Favor)
+  // SH = shuffle 
+  // SN = Snooze (Skip)
+  // DR = Divine Revelation (See the future)
   // WC = white crayon
-  const cards = ["DF", "DF", "DF", "DF", "AT", "AT", "AT", "AT", "FA", "FA", "FA", "FA", "SH", "SH", "SH", "SH", "SK", "SK", "SK", "SK", "STF", "STF", "STF", "STF", "STF", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
+  const cards = ["SG", "SG", "SG", "SG", "AS", "AS", "AS", "AS", "ST", "ST", "ST", "ST", "SH", "SH", "SH", "SH", "SN", "SN", "SN", "SN", "DR", "DR", "DR", "DR", "DR", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
 
   // Setup game by distributing cards
   useEffect(() => {
@@ -32,15 +32,15 @@ const Game = () => {
     
     //Distribute 7 cards to each player and 1 Defuse card each
     const cardsForP1 = shuffledCards.splice(0,7);
-    cardsForP1.push("DF");
+    cardsForP1.push("SG");
     
     
     const cardsForP2 = shuffledCards.splice(0,7);
-    cardsForP2.push("DF");
+    cardsForP2.push("SG");
     
     // Add remaining cards to the drawCardPile and insert shark and reshuffle; 
     const remainingCards = shuffledCards;
-    remainingCards.push("BS");
+    remainingCards.push("HS");
     console.log("interim: " + remainingCards);
     const shuffledShark = shuffler(remainingCards);
     
@@ -72,7 +72,7 @@ const Game = () => {
       }
 
       //Logic for skip card
-      case "SK" : {
+      case "SN" : {
         playerRemainingTurns = playerRemainingTurns - 1;
          if(playerRemainingTurns === 0) {
            if(cardPlayedBy === "P1") {
@@ -98,7 +98,7 @@ const Game = () => {
       }
 
       //Logic for Favor card
-      case "FA" : {
+      case "ST" : {
         let opponentsDeck;
         let currentPlayersDeck;
         cardPlayedBy === "P1" ? opponentsDeck = [...p2Cards] : opponentsDeck = [...p1Cards];
@@ -120,7 +120,7 @@ const Game = () => {
       }
 
       //Logic for See the Future card
-      case "STF" : {
+      case "DR" : {
         const topThreeCards = [];
         for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
           topThreeCards.push(drawCardsPile[i]);
@@ -131,7 +131,7 @@ const Game = () => {
       }
 
       // Logic for Attack card
-      case "AT" : {
+      case "AS" : {
         if(playerRemainingTurns === 2) {
           if(cardPlayedBy === "P1") {
             setP1RemainingTurns(playerRemainingTurns - 2);
