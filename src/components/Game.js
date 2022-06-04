@@ -57,21 +57,42 @@ const Game = () => {
 
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
-    // let playerRemainingTurns;
-    // cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
+    let playerRemainingTurns;
+    cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
     switch(playedCard) {
      
       //Logic for shuffle card
       case "SH" : {
-        const drawDeck = [...drawCardsPile];
+        let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
         setDrawCardsPile([...drawDeck]);
         break;
       }
 
+      //Logic for skip card
       case "SK" : {
-
+        playerRemainingTurns = playerRemainingTurns - 1;
+         if(playerRemainingTurns === 0) {
+           if(cardPlayedBy === "P1") {
+             setP2RemainingTurns(p2RemainingTurns + 1);
+             setP1RemainingTurns(playerRemainingTurns);
+             setActivePlayer("P2");
+           }
+           else if(cardPlayedBy === "P2") {
+             setP1RemainingTurns(p1RemainingTurns + 1);
+             setP2RemainingTurns(playerRemainingTurns);
+             setActivePlayer("P1");
+           }
+         }
+         else if(playerRemainingTurns !== 0) {
+           if(cardPlayedBy === "P1") {
+             setP1RemainingTurns(playerRemainingTurns);
+           }
+           else if(cardPlayedBy === "P2") {
+             setP2RemainingTurns(playerRemainingTurns);
+           }
+         }
       }
 
       default : {console.log("Error");};
