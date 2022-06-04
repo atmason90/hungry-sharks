@@ -93,6 +93,29 @@ const Game = () => {
              setP2RemainingTurns(playerRemainingTurns);
            }
          }
+         break;
+      }
+
+      //Logic for Favor card
+      case "FA" : {
+        let opponentsDeck;
+        let currentPlayersDeck;
+        cardPlayedBy === "P1" ? opponentsDeck = [...p2Cards] : opponentsDeck = [...p1Cards];
+        cardPlayedBy === "P1" ? currentPlayersDeck = [...p1Cards] : currentPlayersDeck = [...p2Cards];
+        
+        let indexOfCardToRemove = Math.floor(Math.random() * opponentsDeck.length);
+        let cardToAdd = opponentsDeck.splice(indexOfCardToRemove, 1);
+        currentPlayersDeck.push(cardToAdd[0]);
+
+        if(cardPlayedBy === "P1") {
+          setP1Cards([...currentPlayersDeck]);
+          setP2Cards([...opponentsDeck]);
+        }
+        else if(cardPlayedBy === "P2") {
+          setP2Cards([...currentPlayersDeck]);
+          setP1Cards([...opponentsDeck]);
+        }
+        break;
       }
 
       default : {console.log("Error");};
