@@ -1,6 +1,6 @@
 const players = [];
 
-//Function to add user to game
+//Function to add player to game
 function addPlayer({id, name, room}) {
     const playersInRoom = players.filter(player => player.room === room);
     const playersInRoomCount = playersInRoom.length;
@@ -15,7 +15,7 @@ function addPlayer({id, name, room}) {
     }
 }
 
-//Function to remove user
+//Function to remove player by ID
 function removePlayer(id) {
     const index = players.findIndex(player => player.id === id);
 
@@ -23,3 +23,9 @@ function removePlayer(id) {
         return players.splice(index, 1)[0];
     }
 }
+
+//Function to get player by ID
+function getPlayer(id) {
+    return players.find(player => player.id === id);
+}
+
