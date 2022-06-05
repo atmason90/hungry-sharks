@@ -70,9 +70,12 @@ const Game = () => {
       //Use shuffler function to shuffle that array
       //Set state to be that shuffled array
       case "SH" : {
+        setPlayedCard("SH");
+
         let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
         setDrawCardsPile([...drawDeck]);
+        
         break;
       }
 
@@ -82,6 +85,8 @@ const Game = () => {
       //Check if he has no turns left. In that case end this player's turn and add 1 turn to other player
       //If player still has a turn left, just decrement state of remaining turns for that player
       case "SN" : {
+        setPlayedCard("SN");
+
         playerRemainingTurns = playerRemainingTurns - 1;
          if(playerRemainingTurns === 0) {
            if(cardPlayedBy === "P1") {
@@ -112,6 +117,8 @@ const Game = () => {
       //Randomly remove 1 card from opponent's cards and add it to current player's cards
       //Update states for both player's cards
       case "ST" : {
+        setPlayedCard("ST");
+
         let opponentsDeck;
         let currentPlayersDeck;
         cardPlayedBy === "P1" ? opponentsDeck = [...p2Cards] : opponentsDeck = [...p1Cards];
@@ -138,6 +145,8 @@ const Game = () => {
       //set state of threecads to that new array
       //Display these cards to active player....??????
       case "DR" : {
+        setPlayedCard("DR");
+
         const topThreeCards = [];
         for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
           topThreeCards.push(drawCardsPile[i]);
@@ -153,6 +162,8 @@ const Game = () => {
       //If he had 1, end this player's turn and assign 2 turns to oppenent
       //If he had 2, end this player's turn and assign 1 turn to opponent
       case "AS" : {
+        setPlayedCard("AS");
+
         if(playerRemainingTurns === 2) {
           if(cardPlayedBy === "P1") {
             setP1RemainingTurns(playerRemainingTurns - 2);
