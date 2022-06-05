@@ -15,7 +15,7 @@ const Login = () => {
     
   return (
     <div>
-      <Form>
+      <Form onSubmit={handleFormSubmit}>
           <Form.Group>
               <Form.Label>Username</Form.Label>
               <Form.Control
@@ -33,7 +33,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
           </Form.Group>
-          <Button type='submit'>Login</Button>
+          <Button type='submit' disabled={!validateForm}>Login</Button>
       </Form>
     </div>
   )
