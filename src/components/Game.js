@@ -56,6 +56,7 @@ const Game = () => {
 
   },[]);
 
+  //Logic for action card's that player's play
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
@@ -176,11 +177,48 @@ const Game = () => {
             setActivePlayer("P1");
           }
         }
+        break;
       }
 
       default : {console.log("Error");};
     }
 
+  }
+
+  function drawCardHandler () {
+    const cardPlayedBy = activePlayer;
+    let playerRemainingTurns;
+    cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
+
+    let cardDeck = [...drawCardsPile];
+    const cardDrawn = cardDeck.pop();
+    if(cardPlayedBy === "P1") {
+      
+      if(cardDrawn === "HS") {
+        //Hungry shark handler
+      }
+      else {
+        setP1Cards([...p1Cards, cardDrawn]);
+        setP1RemainingTurns(p1RemainingTurns - 1);
+        if(p1RemainingTurns === 0) {
+          setP2RemainingTurns(p2RemainingTurns + 1);
+          setActivePlayer("P2");
+        }
+      }
+    }
+    else if(cardPlayedBy === "P2") {
+      if(cardDrawn === "HS") {
+        //Hungry shark handler
+      }
+      else {
+        setP2Cards([...p2Cards, cardDrawn]);
+        setP2RemainingTurns(p2RemainingTurns - 1);
+        if(p2RemainingTurns === 0) {
+          setP1RemainingTurns(p1RemainingTurns + 1);
+          setActivePlayer("P1");
+        }
+      }
+    }
   }
   
 return (
