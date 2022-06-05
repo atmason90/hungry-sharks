@@ -339,7 +339,7 @@ return (
                           key={i}
                           className='Card'
                           onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
+                          src={require(`../assets/HS.jpeg`).default}
                           />
                   ))}
                   {activePlayer==='P1'}

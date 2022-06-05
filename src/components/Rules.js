@@ -21,17 +21,14 @@ const Rules = () => {
       </div>
       <div>
       <h2>The Cards</h2>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>    
-        </ul>    
+        <div style={{ backgroundImage: `url(${CR})`}}></div>
+        <div style={{ backgroundImage: `url(${DR})`}}></div>
+        <div style={{ backgroundImage: `url(${DT})`}}></div>
+        <div style={{ backgroundImage: `url(${HS})`}}></div>
+        <div style={{ backgroundImage: `url(${SG})`}}></div>
+        <div style={{ backgroundImage: `url(${SH})`}}></div>
+        <div style={{ backgroundImage: `url(${SN})`}}></div>
+        <div style={{ backgroundImage: `url(${WC})`}}></div>  
       </div>
     </div>
   )
