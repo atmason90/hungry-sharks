@@ -25,7 +25,7 @@ const Game = () => {
   const cards = ["SG", "SG", "SG", "SG", "AS", "AS", "AS", "AS", "ST", "ST", "ST", "ST", "SH", "SH", "SH", "SH", "SN", "SN", "SN", "SN", "DR", "DR", "DR", "DR", "DR", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
 
   // Setup game by distributing cards
-  useEffect(() => {
+   useEffect(() => {
     
     //Shuffle cards using our shuffler function
     const shuffledCards = shuffler(cards);
@@ -41,20 +41,19 @@ const Game = () => {
     // Add remaining cards to the drawCardPile and insert shark and reshuffle; 
     const remainingCards = shuffledCards;
     remainingCards.push("HS");
-    console.log("interim: " + remainingCards);
     const shuffledShark = shuffler(remainingCards);
     
     // Set state 
-    setGameOver(false);
     setDrawCardsPile([...shuffledShark]);
     setP1Cards([...cardsForP1]);
     setP2Cards([...cardsForP2]);
+    setGameOver(false);
 
     console.log("P1 Cards: " + p1Cards);
     console.log("P2 Cards: " + p2Cards);
-    console.log("Remaining: " + drawCardsPile);
+    console.log("Remain: " + drawCardsPile);
 
-  },[]);
+  },[gameOver]);
 
   //Logic for action card's that player's play
   function cardPlayedHandler(cardPlayed) {
@@ -191,13 +190,22 @@ const Game = () => {
         break;
       }
 
-      default : {console.log("Error");};
+      default : {console.log("Yes sir");};
     }
 
   }
 
   //Logic for when a player draws a card
   function drawCardHandler () {
+    //Remove top card from card deck and check if it is hungry shark
+    //If it is not, add the card to current player's deck, decrease player's remaining turns by 1
+    //If the decrease in remaining turns caused them to be 0, add 1 remaining turn to opponent and set them as active
+
+    //If the card drawn is a Hungry shark, check player's hand to see if they have a sacrificial goat.
+    //If they do, remove goat from their hand and randomly insert HS back in the deck.
+    //Decrease their turns by 1
+    //If they dont have a goat, set game over to true, declare other player the winner, set played card to HS
+
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
     cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
@@ -217,6 +225,7 @@ const Game = () => {
           cardDeck.splice(randomIndex, 0, "HS");
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
+          setP1RemainingTurns(playerRemainingTurns - 1);
         }
         else {
           setPlayedCard("HS");
@@ -232,7 +241,7 @@ const Game = () => {
           setActivePlayer("P2");
         }
       }
-    }
+    } 
     else if(cardPlayedBy === "P2") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
@@ -246,6 +255,7 @@ const Game = () => {
           cardDeck.splice(randomIndex, 0, "HS");
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
+          setP2RemainingTurns(playerRemainingTurns - 1);
         }
         else{
           setPlayedCard("HS");
