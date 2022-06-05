@@ -3,7 +3,7 @@ const {
   createUser,
   getSingleUser,
   login,
-  getUserScores
+//   getUserScores
 } = require('../../controllers/user-controller');
 
 // import middleware
@@ -16,6 +16,6 @@ router.route('/login').post(login);
 
 router.route('/me').get(authMiddleware, getSingleUser);
 
-router.route('/scores').get(getUserScores)
+// router.route('/scores').get(getUserScores)
 
 module.exports = router;
