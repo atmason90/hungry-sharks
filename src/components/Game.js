@@ -17,12 +17,12 @@ const Game = () => {
   // HS = Hungry Shark (Exploding kitten)
   // SG = Sacrificial goat (Defuser)
   // AS = Assert Yourself (Attack)
-  // ST = Steal (Favor)
+  // CR = Communist Regime (Favor)
   // SH = Shuffle  
   // SN = Snooze (Skip)
   // DR = Divine Revelation (See the future)
   // WC = White Crayon (Tacocat)
-  const cards = ["SG", "SG", "SG", "SG", "AS", "AS", "AS", "AS", "ST", "ST", "ST", "ST", "SH", "SH", "SH", "SH", "SN", "SN", "SN", "SN", "DR", "DR", "DR", "DR", "DR", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
+  const cards = ["SG", "SG", "SG", "SG", "AS", "AS", "AS", "AS", "CR", "CR", "CR", "CR", "SH", "SH", "SH", "SH", "SN", "SN", "SN", "SN", "DR", "DR", "DR", "DR", "DR", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC"];
 
   // Setup game by distributing cards
    useEffect(() => {
@@ -115,8 +115,8 @@ const Game = () => {
       //Grab a hold of current player's cards and opponent's cards
       //Randomly remove 1 card from opponent's cards and add it to current player's cards
       //Update states for both player's cards
-      case "ST" : {
-        setPlayedCard("ST");
+      case "CR" : {
+        setPlayedCard("CR");
 
         let opponentsDeck;
         let currentPlayersDeck;
