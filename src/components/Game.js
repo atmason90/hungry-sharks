@@ -61,6 +61,15 @@ const Game = () => {
     let playerRemainingTurns;
     cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
+    if(cardPlayedBy === "P1") {
+      const cardToRemove = p1Cards.indexOf(cardPlayed);
+      p1Cards.splice(cardToRemove, 1);
+    }
+    if(cardPlayedBy === "P2") {
+      const cardToRemove = p2Cards.indexOf(cardPlayed);
+      p2Cards.splice(cardToRemove, 1);
+    }
+
     switch(cardPlayed) {
      
       //---------------Logic for shuffle card---------------------//
@@ -226,6 +235,9 @@ const Game = () => {
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
           setP1RemainingTurns(playerRemainingTurns - 1);
+          if(p1RemainingTurns === 0) {
+            setActivePlayer("P2");
+          }
         }
         else {
           setPlayedCard("HS");
@@ -256,6 +268,9 @@ const Game = () => {
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
           setP2RemainingTurns(playerRemainingTurns - 1);
+          if(p2RemainingTurns === 0) {
+            setActivePlayer("P1");
+          }
         }
         else{
           setPlayedCard("HS");
@@ -296,12 +311,13 @@ return (
               <div className='player2Deck' style={{pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P2</p>
                   {p2Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={"../assets/HS.png"}
-                          />
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={"../assets/HS.jpeg"}
+                      //     />
+                      <span>{item} - </span>
                   ))}
                   {activePlayer==='P2'}
               </div>
@@ -309,22 +325,28 @@ return (
               <div className='middleInfo' style={activePlayer === 'P2' ? {pointerEvents: 'none'} : null}>
                   <button className='game-button' disabled={activePlayer !== 'P1'} onClick={drawCardHandler}>DRAW CARD</button>
                   {playedCard &&
-                  <img
-                      className='Card'
-                      src={require(`../assets/HS.png`).default}
-                      /> }
+                  // <img
+                  //     className='Card'
+                  //     src={require(`../assets/HS.jpeg`).default}
+                  //     /> 
+                <h3>played card: {playedCard}</h3>}
                   
               </div>
               <br />
               <div className='player1Deck' style={activePlayer === 'P1' ? null : {pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P1</p>
                   {p1Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
-                          />
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={"../assets/HS.jpeg"}
+                      //     />
+                      <span 
+                      key={i}
+                      onClick={() => cardPlayedHandler(item)}
+                      >{item} - 
+                      </span>
                   ))}
               </div>
 
@@ -339,7 +361,7 @@ return (
                           key={i}
                           className='Card'
                           onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
+                          src={`../assets/HS.jpeg`}
                           />
                   ))}
                   {activePlayer==='P1'}
@@ -350,7 +372,7 @@ return (
                   {playedCard &&
                   <img
                       className='Card'
-                      src={require(`../assets/HS.png`).default}
+                      src={`../assets/HS.jpeg`}
                       /> }
                  
               </div>
@@ -362,7 +384,7 @@ return (
                           key={i}
                           className='Card'
                           onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
+                          src={`../assets/HS.jpeg`}
                           />
                   ))}
               </div>
