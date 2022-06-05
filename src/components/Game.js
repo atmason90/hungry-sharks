@@ -62,7 +62,7 @@ const Game = () => {
     let playerRemainingTurns;
     cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
-    switch(playedCard) {
+    switch(cardPlayed) {
      
       //---------------Logic for shuffle card---------------------//
 
@@ -185,6 +185,7 @@ const Game = () => {
 
   }
 
+  //Logic for when a player draws a card
   function drawCardHandler () {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
@@ -193,14 +194,29 @@ const Game = () => {
     let cardDeck = [...drawCardsPile];
     const cardDrawn = cardDeck.pop();
     if(cardPlayedBy === "P1") {
-      
       if(cardDrawn === "HS") {
         //Hungry shark handler
+        const p1Hand = [...p1Cards];
+        const goatCardIndex = p1Hand.indexOf("SG");
+        if(goatCardIndex !== -1) {
+          p1Hand.splice(goatCardIndex, 1);
+          setP1Cards([...p1Hand]);
+
+          const randomIndex = Math.floor(Math.random() * cardDeck.length);
+          cardDeck.splice(randomIndex, 0, "HS");
+          setDrawCardsPile([...cardDeck]);
+          setPlayedCard("SG");
+        }
+        else {
+          setPlayedCard("HS");
+          setGameOver(true);
+          setWinner("P2");
+        }
       }
       else {
         setP1Cards([...p1Cards, cardDrawn]);
-        setP1RemainingTurns(p1RemainingTurns - 1);
-        if(p1RemainingTurns === 0) {
+        setP1RemainingTurns(playerRemainingTurns - 1);
+        if(playerRemainingTurns === 0) {
           setP2RemainingTurns(p2RemainingTurns + 1);
           setActivePlayer("P2");
         }
@@ -209,11 +225,27 @@ const Game = () => {
     else if(cardPlayedBy === "P2") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
+        const p2Hand = [...p2Cards];
+        const goatCardIndex = p2Hand.indexOf("SG");
+        if(goatCardIndex !== -1) {
+          p2Hand.splice(goatCardIndex, 1);
+          setP2Cards([...p2Hand]);
+
+          const randomIndex = Math.floor(Math.random() * cardDeck.length);
+          cardDeck.splice(randomIndex, 0, "HS");
+          setDrawCardsPile([...cardDeck]);
+          setPlayedCard("SG");
+        }
+        else{
+          setPlayedCard("HS");
+          setGameOver(true);
+          setWinner("P1");
+        }
       }
       else {
         setP2Cards([...p2Cards, cardDrawn]);
-        setP2RemainingTurns(p2RemainingTurns - 1);
-        if(p2RemainingTurns === 0) {
+        setP2RemainingTurns(playerRemainingTurns - 1);
+        if(playerRemainingTurns === 0) {
           setP1RemainingTurns(p1RemainingTurns + 1);
           setActivePlayer("P1");
         }
