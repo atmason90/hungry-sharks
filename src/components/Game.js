@@ -6,9 +6,9 @@ const Game = () => {
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
   const [drawCardsPile, setDrawCardsPile] = useState([]);
-  const [playedCard, setPlayedCard] = useState("");
-  const [p1Cards, setP1Cards] = useState([]);
-  const [p2Cards, setP2Cards] = useState([]);
+  const [playedCard, setPlayedCard] = useState("ABC");
+  const [p1Cards, setP1Cards] = useState(["ABC", "DEF", "GHI"]);
+  const [p2Cards, setP2Cards] = useState(["UVW", "XYZ"]);
   const [p1RemainingTurns, setP1RemainingTurns] = useState(1);
   const [p2RemainingTurns, setP2RemainingTurns] = useState(0);
   const [activePlayer, setActivePlayer] = useState("P1");
@@ -274,10 +274,108 @@ const Game = () => {
     }
   }
   
+  
 return (
-    <div>
-        Game
-    </div>
+  <div className={`Game`}>
+  <>
+
+      <div className='topInfo'>
+          
+          <h1>Game Code:</h1>
+          
+      </div>
+
+     
+
+      <>
+
+          {gameOver ? <div>{winner !== '' && <><h1>GAME OVER</h1><h2>{winner} wins!</h2></>}</div> :
+          <div>
+              {/* P1 VIEW */}
+              {activePlayer === 'P1' && <>    
+              <div className='player2Deck' style={{pointerEvents: 'none'}}>
+                  <p className='playerDeckText'>P2</p>
+                  {p2Cards.map((item, i) => (
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={"../assets/HS.png"}
+                          />
+                  ))}
+                  {activePlayer==='P2'}
+              </div>
+              <br />
+              <div className='middleInfo' style={activePlayer === 'P2' ? {pointerEvents: 'none'} : null}>
+                  <button className='game-button' disabled={activePlayer !== 'P1'} onClick={drawCardHandler}>DRAW CARD</button>
+                  {playedCard &&
+                  <img
+                      className='Card'
+                      src={require(`../assets/HS.png`).default}
+                      /> }
+                  
+              </div>
+              <br />
+              <div className='player1Deck' style={activePlayer === 'P1' ? null : {pointerEvents: 'none'}}>
+                  <p className='playerDeckText'>P1</p>
+                  {p1Cards.map((item, i) => (
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/HS.png`).default}
+                          />
+                  ))}
+              </div>
+
+               </> }
+
+              {/* P2 VIEW */}
+              {activePlayer === 'P2' && <>
+              <div className='player1Deck' style={{pointerEvents: 'none'}}>
+                  <p className='playerDeckText'>P1</p>
+                  {p1Cards.map((item, i) => (
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/HS.png`).default}
+                          />
+                  ))}
+                  {activePlayer==='P1'}
+              </div>
+              <br />
+              <div className='middleInfo' style={activePlayer === 'P1' ? {pointerEvents: 'none'} : null}>
+                  <button className='game-button' disabled={activePlayer !== 'P2'} onClick={drawCardHandler}>DRAW CARD</button>
+                  {playedCard &&
+                  <img
+                      className='Card'
+                      src={require(`../assets/HS.png`).default}
+                      /> }
+                 
+              </div>
+              <br />
+              <div className='player2Deck' style={activePlayer === 'P1' ? {pointerEvents: 'none'} : null}>
+                  <p className='playerDeckText'>P2</p>
+                  {p2Cards.map((item, i) => (
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/HS.png`).default}
+                          />
+                  ))}
+              </div>
+
+               </> }
+          </div> }
+      </> 
+  </>
+
+  <br />
+  <a href='/'><button className="game-button red">QUIT</button></a>
+</div>
+
   )
 }
 
