@@ -29,3 +29,10 @@ function getPlayer(id) {
     return players.find(player => player.id === id);
 }
 
+//Function to get players by room
+function getRoomPlayers(room) {
+    return players.filter(player => player.room === room);
+}
+
+//Export functions
+module.exports = {addPlayer, removePlayer, getPlayer, getRoomPlayers};
