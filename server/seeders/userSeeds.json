@@ -1,0 +1,23 @@
+[
+    {
+        "username": "Lernantino",
+        "email": "lernantino@shark.com",
+        "password": "password01"
+    },
+    {
+        "username": "Alan Kay",
+        "email": "akay@shark.com",
+        "password": "password02"
+    },
+    {
+        "username": "Kim Young",
+        "email": "kim@shark.com",
+        "password": "password03"
+    },
+    {
+        "username": "Kayla Moore",
+        "email": "kmoore@shark.com",
+        "password": "password04"
+    }
+  ]
+  
