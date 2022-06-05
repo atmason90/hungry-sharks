@@ -56,12 +56,13 @@ const Game = () => {
 
   },[]);
 
+  //Logic for action card's that player's play
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
     cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
-    switch(playedCard) {
+    switch(cardPlayed) {
      
       //---------------Logic for shuffle card---------------------//
 
@@ -69,9 +70,12 @@ const Game = () => {
       //Use shuffler function to shuffle that array
       //Set state to be that shuffled array
       case "SH" : {
+        setPlayedCard("SH");
+
         let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
         setDrawCardsPile([...drawDeck]);
+        
         break;
       }
 
@@ -81,6 +85,8 @@ const Game = () => {
       //Check if he has no turns left. In that case end this player's turn and add 1 turn to other player
       //If player still has a turn left, just decrement state of remaining turns for that player
       case "SN" : {
+        setPlayedCard("SN");
+
         playerRemainingTurns = playerRemainingTurns - 1;
          if(playerRemainingTurns === 0) {
            if(cardPlayedBy === "P1") {
@@ -111,6 +117,8 @@ const Game = () => {
       //Randomly remove 1 card from opponent's cards and add it to current player's cards
       //Update states for both player's cards
       case "ST" : {
+        setPlayedCard("ST");
+
         let opponentsDeck;
         let currentPlayersDeck;
         cardPlayedBy === "P1" ? opponentsDeck = [...p2Cards] : opponentsDeck = [...p1Cards];
@@ -137,6 +145,8 @@ const Game = () => {
       //set state of threecads to that new array
       //Display these cards to active player....??????
       case "DR" : {
+        setPlayedCard("DR");
+
         const topThreeCards = [];
         for(let i = (drawCardsPile.length-1); i>(drawCardsPile.length - 4); i--) {
           topThreeCards.push(drawCardsPile[i]);
@@ -152,6 +162,8 @@ const Game = () => {
       //If he had 1, end this player's turn and assign 2 turns to oppenent
       //If he had 2, end this player's turn and assign 1 turn to opponent
       case "AS" : {
+        setPlayedCard("AS");
+
         if(playerRemainingTurns === 2) {
           if(cardPlayedBy === "P1") {
             setP1RemainingTurns(playerRemainingTurns - 2);
@@ -176,11 +188,80 @@ const Game = () => {
             setActivePlayer("P1");
           }
         }
+        break;
       }
 
       default : {console.log("Error");};
     }
 
+  }
+
+  //Logic for when a player draws a card
+  function drawCardHandler () {
+    const cardPlayedBy = activePlayer;
+    let playerRemainingTurns;
+    cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
+
+    let cardDeck = [...drawCardsPile];
+    const cardDrawn = cardDeck.pop();
+    if(cardPlayedBy === "P1") {
+      if(cardDrawn === "HS") {
+        //Hungry shark handler
+        const p1Hand = [...p1Cards];
+        const goatCardIndex = p1Hand.indexOf("SG");
+        if(goatCardIndex !== -1) {
+          p1Hand.splice(goatCardIndex, 1);
+          setP1Cards([...p1Hand]);
+
+          const randomIndex = Math.floor(Math.random() * cardDeck.length);
+          cardDeck.splice(randomIndex, 0, "HS");
+          setDrawCardsPile([...cardDeck]);
+          setPlayedCard("SG");
+        }
+        else {
+          setPlayedCard("HS");
+          setGameOver(true);
+          setWinner("P2");
+        }
+      }
+      else {
+        setP1Cards([...p1Cards, cardDrawn]);
+        setP1RemainingTurns(playerRemainingTurns - 1);
+        if(playerRemainingTurns === 0) {
+          setP2RemainingTurns(p2RemainingTurns + 1);
+          setActivePlayer("P2");
+        }
+      }
+    }
+    else if(cardPlayedBy === "P2") {
+      if(cardDrawn === "HS") {
+        //Hungry shark handler
+        const p2Hand = [...p2Cards];
+        const goatCardIndex = p2Hand.indexOf("SG");
+        if(goatCardIndex !== -1) {
+          p2Hand.splice(goatCardIndex, 1);
+          setP2Cards([...p2Hand]);
+
+          const randomIndex = Math.floor(Math.random() * cardDeck.length);
+          cardDeck.splice(randomIndex, 0, "HS");
+          setDrawCardsPile([...cardDeck]);
+          setPlayedCard("SG");
+        }
+        else{
+          setPlayedCard("HS");
+          setGameOver(true);
+          setWinner("P1");
+        }
+      }
+      else {
+        setP2Cards([...p2Cards, cardDrawn]);
+        setP2RemainingTurns(playerRemainingTurns - 1);
+        if(playerRemainingTurns === 0) {
+          setP1RemainingTurns(p1RemainingTurns + 1);
+          setActivePlayer("P1");
+        }
+      }
+    }
   }
   
 return (
