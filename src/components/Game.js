@@ -9,9 +9,9 @@ const Game = () => {
   const [playedCard, setPlayedCard] = useState("ABC");
   const [p1Cards, setP1Cards] = useState(["ABC", "DEF", "GHI"]);
   const [p2Cards, setP2Cards] = useState(["UVW", "XYZ"]);
-  const [p1RemainingTurns, setP1RemainingTurns] = useState(1);
+  const [p1RemainingTurns, setP1RemainingTurns] = useState(0);
   const [p2RemainingTurns, setP2RemainingTurns] = useState(0);
-  const [activePlayer, setActivePlayer] = useState("P1");
+  const [activePlayer, setActivePlayer] = useState("");
   const [threeCards, setThreeCards] = useState([]);
 
   // HS = Hungry Shark (Exploding kitten)
@@ -48,18 +48,30 @@ const Game = () => {
     setP1Cards([...cardsForP1]);
     setP2Cards([...cardsForP2]);
     setGameOver(false);
+    setP1RemainingTurns(1);
+    setActivePlayer("P1");
 
-    console.log("P1 Cards: " + p1Cards);
-    console.log("P2 Cards: " + p2Cards);
-    console.log("Remain: " + drawCardsPile);
+    console.log("P1 initial turn state: " , p1RemainingTurns);
+    console.log("P1 Cards: " , p1Cards);
+    console.log("P2 Cards: " , p2Cards);
+    console.log("Remain: " , drawCardsPile);
 
-  },[gameOver]);
+  },[]);
 
   //Logic for action card's that player's play
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
     cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
+
+    if(cardPlayedBy === "P1") {
+      const cardToRemove = p1Cards.indexOf(cardPlayed);
+      p1Cards.splice(cardToRemove, 1);
+    }
+    if(cardPlayedBy === "P2") {
+      const cardToRemove = p2Cards.indexOf(cardPlayed);
+      p2Cards.splice(cardToRemove, 1);
+    }
 
     switch(cardPlayed) {
      
@@ -206,13 +218,13 @@ const Game = () => {
     //Decrease their turns by 1
     //If they dont have a goat, set game over to true, declare other player the winner, set played card to HS
 
-    const cardPlayedBy = activePlayer;
-    let playerRemainingTurns;
-    cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
+    // const cardPlayedBy = activePlayer;
+    // let playerRemainingTurns;
+    // cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
     let cardDeck = [...drawCardsPile];
-    const cardDrawn = cardDeck.pop();
-    if(cardPlayedBy === "P1") {
+    let cardDrawn = cardDeck.pop();
+    if(activePlayer === "P1") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
         const p1Hand = [...p1Cards];
@@ -225,7 +237,11 @@ const Game = () => {
           cardDeck.splice(randomIndex, 0, "HS");
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
-          setP1RemainingTurns(playerRemainingTurns - 1);
+          
+          setP1RemainingTurns(p1RemainingTurns - 1);
+          if(p1RemainingTurns === 0) {
+            setActivePlayer("P2");
+          }
         }
         else {
           setPlayedCard("HS");
@@ -235,14 +251,17 @@ const Game = () => {
       }
       else {
         setP1Cards([...p1Cards, cardDrawn]);
-        setP1RemainingTurns(playerRemainingTurns - 1);
-        if(playerRemainingTurns === 0) {
+        setDrawCardsPile([...cardDeck]);
+        let rTurns = p1RemainingTurns - 1;
+        setP1RemainingTurns(rTurns);
+        console.log("player 1 remaining turns: " , p1RemainingTurns);
+        if(p1RemainingTurns === 0) {
           setP2RemainingTurns(p2RemainingTurns + 1);
           setActivePlayer("P2");
         }
       }
-    } 
-    else if(cardPlayedBy === "P2") {
+    } /////
+    else if(activePlayer === "P2") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
         const p2Hand = [...p2Cards];
@@ -255,7 +274,10 @@ const Game = () => {
           cardDeck.splice(randomIndex, 0, "HS");
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
-          setP2RemainingTurns(playerRemainingTurns - 1);
+          setP2RemainingTurns(p2RemainingTurns - 1);
+          if(p2RemainingTurns === 0) {
+            setActivePlayer("P1");
+          }
         }
         else{
           setPlayedCard("HS");
@@ -264,9 +286,10 @@ const Game = () => {
         }
       }
       else {
+        setDrawCardsPile([...cardDeck]);
         setP2Cards([...p2Cards, cardDrawn]);
-        setP2RemainingTurns(playerRemainingTurns - 1);
-        if(playerRemainingTurns === 0) {
+        setP2RemainingTurns(p2RemainingTurns - 1);
+        if(p2RemainingTurns === 0) {
           setP1RemainingTurns(p1RemainingTurns + 1);
           setActivePlayer("P1");
         }
@@ -296,12 +319,13 @@ return (
               <div className='player2Deck' style={{pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P2</p>
                   {p2Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={"../assets/HS.png"}
-                          />
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={"../assets/HS.jpeg"}
+                      //     />
+                      <span>{item} - </span>
                   ))}
                   {activePlayer==='P2'}
               </div>
@@ -309,22 +333,30 @@ return (
               <div className='middleInfo' style={activePlayer === 'P2' ? {pointerEvents: 'none'} : null}>
                   <button className='game-button' disabled={activePlayer !== 'P1'} onClick={drawCardHandler}>DRAW CARD</button>
                   {playedCard &&
-                  <img
-                      className='Card'
-                      src={require(`../assets/HS.png`).default}
-                      /> }
+                  // <img
+                  //     className='Card'
+                  //     src={require(`../assets/HS.jpeg`).default}
+                  //     /> 
+                <h3>played card: {playedCard}</h3>}
                   
               </div>
               <br />
               <div className='player1Deck' style={activePlayer === 'P1' ? null : {pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P1</p>
                   {p1Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
-                          />
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={"../assets/HS.jpeg"}
+                      //     />
+                      <span 
+                      key={i}
+                      onClick={() => {
+                        if(item !== "WC")
+                        cardPlayedHandler(item)}}
+                      >{item} - 
+                      </span>
                   ))}
               </div>
 
@@ -335,12 +367,15 @@ return (
               <div className='player1Deck' style={{pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P1</p>
                   {p1Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.jpeg`).default}
-                          />
+
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={`../assets/HS.jpeg`}
+                      //     />
+                      <span>{item} - </span>
+
                   ))}
                   {activePlayer==='P1'}
               </div>
@@ -348,22 +383,29 @@ return (
               <div className='middleInfo' style={activePlayer === 'P1' ? {pointerEvents: 'none'} : null}>
                   <button className='game-button' disabled={activePlayer !== 'P2'} onClick={drawCardHandler}>DRAW CARD</button>
                   {playedCard &&
-                  <img
-                      className='Card'
-                      src={require(`../assets/HS.png`).default}
-                      /> }
-                 
+                  // <img
+                  //     className='Card'
+                  //     src={`../assets/HS.jpeg`}
+                  //     /> 
+                 <h3>{playedCard}</h3> }
               </div>
               <br />
               <div className='player2Deck' style={activePlayer === 'P1' ? {pointerEvents: 'none'} : null}>
                   <p className='playerDeckText'>P2</p>
                   {p2Cards.map((item, i) => (
-                      <img
-                          key={i}
-                          className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/HS.png`).default}
-                          />
+                      // <img
+                      //     key={i}
+                      //     className='Card'
+                      //     onClick={() => cardPlayedHandler(item)}
+                      //     src={`../assets/HS.jpeg`}
+                      //     />
+                      <span 
+                      key={i}
+                      onClick={() => {
+                        if(item !== "WC")
+                        cardPlayedHandler(item)}}
+                      >{item} - 
+                      </span>
                   ))}
               </div>
 
