@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import shuffler from "../utils/shuffler";
 import Modal from "./Modal";
 import io from 'socket.io-client'
+import fullname from "../utils/fullname"
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -370,16 +371,6 @@ useEffect(() => {
       }
     }
   }
-
-  function fullname(card) {
-    if(card === "WC") return "White crayon";
-    else if(card === "SG") return "Sacrificial Goat"
-    else if(card === "DT") return "Double Trouble"
-    else if(card === "DR") return "Divine Revelation"
-    else if(card === "SH") return "Shuffle"
-    else if(card === "SN") return "Snooze"
-    else if(card === "CR") return "Communist Regime"
-    }
   
 
   return (
