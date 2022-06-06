@@ -35,7 +35,7 @@ io.on('connection', socket => {
   socket.on('join', (payload, callback) => {
       let numberOfUsersInRoom = getRoomPlayers(payload.room).length
 
-      const { error, newUser} = addPlayer({
+      const { error, newPlayer} = addPlayer({
           id: socket.id,
           name: numberOfUsersInRoom===0 ? 'Player 1' : 'Player 2',
           room: payload.room
@@ -44,10 +44,10 @@ io.on('connection', socket => {
       if(error)
           return callback(error)
 
-      socket.join(newUser.room)
+      socket.join(newPlayer.room)
 
-      io.to(newUser.room).emit('roomData', {room: newUser.room, users: getRoomPlayers(newUser.room)})
-      socket.emit('currentUserData', {name: newUser.name})
+      io.to(newPlayer.room).emit('roomData', {room: newPlayer.room, users: getRoomPlayers(newPlayer.room)})
+      socket.emit('currentUserData', {name: newPlayer.name})
       callback()
   })
 

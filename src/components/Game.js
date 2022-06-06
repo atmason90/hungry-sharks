@@ -442,7 +442,7 @@ useEffect(() => {
           ) : (
             <div>
               {/* P1 VIEW */}
-              {activePlayer === "P1" && (
+              {currentUser === "Player 1" && (
                 <>
                   <div
                     className="player2Deck"
@@ -454,7 +454,7 @@ useEffect(() => {
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/${item}.jpeg`)}
+                        src={require(`../assets/back.jpeg`)}
                       />
                       // <span>{item} - </span>
                     ))}
@@ -512,7 +512,7 @@ useEffect(() => {
               )}
 
               {/* P2 VIEW */}
-              {activePlayer === "P2" && (
+              {currentUser === "Player 2" && (
                 <>
                   <div
                     className="player1Deck"
@@ -520,13 +520,13 @@ useEffect(() => {
                   >
                     <p className="playerDeckText">P1</p>
                     {p1Cards.map((item, i) => (
-                      // <img
-                      //     key={i}
-                      //     className='Card'
-                      //     onClick={() => cardPlayedHandler(item)}
-                      //     src={`../assets/HS.jpeg`}
-                      //     />
-                      <span>{item} - </span>
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/back.jpeg`)}
+                          />
+                      // <span>{item} - </span>
                     ))}
                     {activePlayer === "P1"}
                   </div>
@@ -545,11 +545,11 @@ useEffect(() => {
                       DRAW CARD
                     </button>
                     {playedCard && (
-                      // <img
-                      //     className='Card'
-                      //     src={`../assets/HS.jpeg`}
-                      //     />
-                      <h3>{playedCard}</h3>
+                      <img
+                          className='Card'
+                          src={require(`../assets/${playedCard}.jpeg`)}
+                          />
+                      // <h3>{playedCard}</h3>
                     )}
                   </div>
                   <br />
@@ -561,21 +561,21 @@ useEffect(() => {
                   >
                     <p className="playerDeckText">P2</p>
                     {p2Cards.map((item, i) => (
-                      // <img
-                      //     key={i}
-                      //     className='Card'
-                      //     onClick={() => cardPlayedHandler(item)}
-                      //     src={`../assets/HS.jpeg`}
-                      //     />
-                      <span
-                        key={i}
-                        onClick={() => {
-                          if (item !== "WC" && item !== "SG")
-                            cardPlayedHandler(item);
-                        }}
-                      >
-                        {item} -
-                      </span>
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/${item}.jpeg`)}
+                          />
+                      // <span
+                      //   key={i}
+                      //   onClick={() => {
+                      //     if (item !== "WC" && item !== "SG")
+                      //       cardPlayedHandler(item);
+                      //   }}
+                      // >
+                      //   {item} -
+                      // </span>
                     ))}
                   </div>
                 </>
