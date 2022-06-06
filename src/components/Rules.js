@@ -59,12 +59,12 @@ const Rules = () => {
       </div>
       <div>
         <h2 style={{color: 'white'}}>The Cards</h2>
-        <ImageList sx={{ width: 500, height: 800}} cols={3} rowHeight={400}>
+        <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={400}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
                     <img
-                        src={`${item.img}?w=164&h=300&fit=auto&auto=format`}
-                        srcSet={`${item.img}?w=164&h=300&fit=auto&auto=format&dpr=2 2x`}
+                        src={`${item.img}?w=164&h=300&auto=format`}
+                        srcSet={`${item.img}?w=164&h=300&auto=format&dpr=2 2x`}
                         alt={item.title}
                         loading='lazy'
                     />
