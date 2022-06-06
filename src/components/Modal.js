@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ setModalOn }) => {
+const Modal = ({ setModalOn, card1, card2, card3 }) => {
   const handleCloseModal = () => {
     setModalOn(false);
   };
@@ -10,7 +10,15 @@ const Modal = ({ setModalOn }) => {
       <div className="flex h-screen justify-center items-center ">
         <div className="flex-col justify-center  bg-white py-12 px-24 border-4 border-sky-500 rounded-xl ">
           <div className="flex  text-lg  text-zinc-600   mb-10">
-            Are you sure ?
+            The Next 3 Cards are:
+          </div>
+          <div className="flex flec-col">
+            <img src={card1}></img>
+            <img src={card2}></img>
+            <img src={card3}></img>
+            {/* <span>{card1} - </span>
+            <span>{card2} - </span>
+            <span>{card3} - </span> */}
           </div>
           <div className="flex">
             <button

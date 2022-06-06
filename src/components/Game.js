@@ -421,7 +421,11 @@ return (
   <a href='/'><button className="game-button red">QUIT</button></a>
 
   {/* Modal down here */}
-  {modalShow && < Modal setModalOn={setModalShow} />}
+  {modalShow && < Modal setModalOn={setModalShow}
+    card1 =  {`../assets/${threeCards[0]}.jpeg`}
+    card2 =  {`../assets/${threeCards[1]}.jpeg`}
+    card3 =  {`../assets/${threeCards[2]}.jpeg`}
+  />}
   
 </div>
 
