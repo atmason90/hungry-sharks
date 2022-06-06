@@ -9,7 +9,7 @@ const Game = () => {
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
   const [drawCardsPile, setDrawCardsPile] = useState([]);
-  const [playedCard, setPlayedCard] = useState("ABC");
+  const [playedCard, setPlayedCard] = useState("back");
   const [p1Cards, setP1Cards] = useState(["ABC", "DEF", "GHI"]);
   const [p2Cards, setP2Cards] = useState(["UVW", "XYZ"]);
   const [p1RemainingTurns, setP1RemainingTurns] = useState(0);
@@ -53,6 +53,8 @@ const Game = () => {
     setGameOver(false);
     setP1RemainingTurns(1);
     setActivePlayer("P1");
+
+    
 
     console.log("P1 initial turn state: " , p1RemainingTurns);
     console.log("P1 Cards: " , p1Cards);
@@ -257,8 +259,10 @@ const Game = () => {
         setDrawCardsPile([...cardDeck]);
         let rTurns = p1RemainingTurns - 1;
         setP1RemainingTurns(rTurns);
-        console.log("player 1 remaining turns: " , p1RemainingTurns);
-        if(p1RemainingTurns === 0) {
+        
+        if(rTurns === 0) {
+          console.log("player 1 remaining turns: " , rTurns);
+          console.log("Switch my turn");
           setP2RemainingTurns(p2RemainingTurns + 1);
           setActivePlayer("P2");
         }
@@ -278,6 +282,7 @@ const Game = () => {
           setDrawCardsPile([...cardDeck]);
           setPlayedCard("SG");
           setP2RemainingTurns(p2RemainingTurns - 1);
+
           if(p2RemainingTurns === 0) {
             setActivePlayer("P1");
           }
@@ -291,8 +296,9 @@ const Game = () => {
       else {
         setDrawCardsPile([...cardDeck]);
         setP2Cards([...p2Cards, cardDrawn]);
-        setP2RemainingTurns(p2RemainingTurns - 1);
-        if(p2RemainingTurns === 0) {
+        let rTurns = p2RemainingTurns - 1;
+        setP2RemainingTurns(rTurns);
+        if(rTurns === 0) {
           setP1RemainingTurns(p1RemainingTurns + 1);
           setActivePlayer("P1");
         }
@@ -322,13 +328,13 @@ return (
               <div className='player2Deck' style={{pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P2</p>
                   {p2Cards.map((item, i) => (
-                      // <img
-                      //     key={i}
-                      //     className='Card'
-                      //     onClick={() => cardPlayedHandler(item)}
-                      //     src={"../assets/HS.jpeg"}
-                      //     />
-                      <span>{item} - </span>
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/${item}.jpeg`)}
+                          />
+                      // <span>{item} - </span>
                   ))}
                   {activePlayer==='P2'}
               </div>
@@ -336,30 +342,31 @@ return (
               <div className='middleInfo' style={activePlayer === 'P2' ? {pointerEvents: 'none'} : null}>
                   <button className='game-button' disabled={activePlayer !== 'P1'} onClick={drawCardHandler}>DRAW CARD</button>
                   {playedCard &&
-                  // <img
-                  //     className='Card'
-                  //     src={require(`../assets/HS.jpeg`).default}
-                  //     /> 
-                <h3>played card: {playedCard}</h3>}
+                  <img
+                      className='Card'
+                      src={require(`../assets/${playedCard}.jpeg`)}
+                      /> 
+                // <h3>played card: {playedCard}</h3>
+              }
                   
               </div>
               <br />
               <div className='player1Deck' style={activePlayer === 'P1' ? null : {pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P1</p>
                   {p1Cards.map((item, i) => (
-                      // <img
-                      //     key={i}
-                      //     className='Card'
-                      //     onClick={() => cardPlayedHandler(item)}
-                      //     src={"../assets/HS.jpeg"}
-                      //     />
-                      <span 
-                      key={i}
-                      onClick={() => {
-                        if(item !== "WC" && item !== "SG")
-                        cardPlayedHandler(item)}}
-                      >{item} - 
-                      </span>
+                      <img
+                          key={i}
+                          className='Card'
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/${item}.jpeg`)}
+                          />
+                      // <span 
+                      // key={i}
+                      // onClick={() => {
+                      //   if(item !== "WC" && item !== "SG")
+                      //   cardPlayedHandler(item)}}
+                      // >{item} - 
+                      // </span>
                   ))}
               </div>
 
