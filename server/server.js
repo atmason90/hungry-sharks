@@ -2,9 +2,9 @@ const db = require('./config/connection');
 const express = require('express');
 const path = require('path');
 const routes = require('./routes');
-const socketio = require('socket.io')
+const socketio = require('socket.io');
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/players');
+const { addPlayer, removePlayer, getPlayer, getRoomPlayers } = require('./utils/players');
 
 const http = require('http')
 const cors = require('cors')
@@ -20,10 +20,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../build')));
 }
 
-app.use(routes);
+// app.use(routes);
 
 db.once('open', () => {
-  app.listen(PORT, () => console.log(`Now listening on localhost:${PORT}`));
+  server.listen(PORT, () => console.log(`Now listening on localhost:${PORT}`));
 });
 
 const server = http.createServer(app)
@@ -31,10 +31,11 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 io.on('connection', socket => {
+  console.log("Connection established");
   socket.on('join', (payload, callback) => {
-      let numberOfUsersInRoom = getUsersInRoom(payload.room).length
+      let numberOfUsersInRoom = getRoomPlayers(payload.room).length
 
-      const { error, newUser} = addUser({
+      const { error, newUser} = addPlayer({
           id: socket.id,
           name: numberOfUsersInRoom===0 ? 'Player 1' : 'Player 2',
           room: payload.room
@@ -45,32 +46,32 @@ io.on('connection', socket => {
 
       socket.join(newUser.room)
 
-      io.to(newUser.room).emit('roomData', {room: newUser.room, users: getUsersInRoom(newUser.room)})
+      io.to(newUser.room).emit('roomData', {room: newUser.room, users: getRoomPlayers(newUser.room)})
       socket.emit('currentUserData', {name: newUser.name})
       callback()
   })
 
   socket.on('initGameState', gameState => {
-      const user = getUser(socket.id)
+      const user = getPlayer(socket.id)
       if(user)
           io.to(user.room).emit('initGameState', gameState)
   })
 
   socket.on('updateGameState', gameState => {
-      const user = getUser(socket.id)
+      const user = getPlayer(socket.id)
       if(user)
           io.to(user.room).emit('updateGameState', gameState)
   })
 
   socket.on('sendMessage', (payload, callback) => {
-      const user = getUser(socket.id)
+      const user = getPlayer(socket.id)
       io.to(user.room).emit('message', {user: user.name, text: payload.message})
       callback()
   })
 
   socket.on('disconnect', () => {
-      const user = removeUser(socket.id)
+      const user = removePlayer(socket.id)
       if(user)
-          io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)})
+          io.to(user.room).emit('roomData', {room: user.room, users: getRoomPlayers(user.room)})
   })
 })
