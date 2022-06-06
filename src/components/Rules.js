@@ -78,7 +78,20 @@ const Rules = () => {
             <li>Snooze - Skip your turn to potentially avoid drawing a Hungry Shark</li>
             <li>White Crayon - You can not play this card because it is just as useless as a white crayon. But hey, at least it is not a Hungry Shark!</li>
         </ul>
-        <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={400}>
+        <ImageList sx={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))'}} cols={4} rowHeight={'auto'}>
+            {itemData.map((item) => (
+                <ImageListItem key={item.img}>
+                    <img
+                        width={'250px'}
+                        src={`${item.img}`}
+                        srcSet={`${item.img}`}
+                        alt={item.title}
+                        loading='lazy'
+                    />
+                </ImageListItem>
+            ))}
+        </ImageList>
+        {/* <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={'auto'}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
                     <img
@@ -89,7 +102,7 @@ const Rules = () => {
                     />
                 </ImageListItem>
             ))}
-        </ImageList>
+        </ImageList> */}
       </div>  
     </div>
   )
