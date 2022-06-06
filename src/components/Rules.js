@@ -1,6 +1,6 @@
 import React from 'react'
-import { ImageList } from '@material-ui/core';
-import { ImageListItem } from '@material-ui/core';
+// import { ImageList } from '@material-ui/core';
+// import { ImageListItem } from '@material-ui/core';
 import CR from '../assets/CR.jpeg';
 import DR from '../assets/DR.jpeg';
 import DT from '../assets/DT.jpeg';
@@ -9,6 +9,7 @@ import SG from '../assets/SG.jpeg';
 import SH from '../assets/SH.jpeg';
 import SN from '../assets/SN.jpeg';
 import WC from '../assets/WC.jpeg';
+import ImageGrid from './ImageGrid';
 
 const itemData = [
     {
@@ -78,11 +79,14 @@ const Rules = () => {
             <li>Snooze - Skip your turn to potentially avoid drawing a Hungry Shark</li>
             <li>White Crayon - You can not play this card because it is just as useless as a white crayon. But hey, at least it is not a Hungry Shark!</li>
         </ul>
-        <ImageList sx={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))'}} cols={4} rowHeight={'auto'}>
+        <ImageGrid itemData={itemData}/>
+
+       
+        {/* <ImageList cols={4} rowHeight={'auto'}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
                     <img
-                        width={'250px'}
+                        className='MuiImageListItem-img'
                         src={`${item.img}`}
                         srcSet={`${item.img}`}
                         alt={item.title}
@@ -90,7 +94,7 @@ const Rules = () => {
                     />
                 </ImageListItem>
             ))}
-        </ImageList>
+        </ImageList> */}
         {/* <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={'auto'}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
