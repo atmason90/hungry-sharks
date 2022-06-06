@@ -356,7 +356,7 @@ return (
                       <span 
                       key={i}
                       onClick={() => {
-                        if(item !== "WC")
+                        if(item !== "WC" && item !== "SG")
                         cardPlayedHandler(item)}}
                       >{item} - 
                       </span>
@@ -405,7 +405,7 @@ return (
                       <span 
                       key={i}
                       onClick={() => {
-                        if(item !== "WC")
+                        if(item !== "WC" && item !== "SG")
                         cardPlayedHandler(item)}}
                       >{item} - 
                       </span>
