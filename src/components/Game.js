@@ -223,7 +223,7 @@ const Game = () => {
     // cardPlayedBy === "P1" ? playerRemainingTurns = p1RemainingTurns : playerRemainingTurns = p2RemainingTurns;
 
     let cardDeck = [...drawCardsPile];
-    const cardDrawn = cardDeck.pop();
+    let cardDrawn = cardDeck.pop();
     if(activePlayer === "P1") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
@@ -251,6 +251,7 @@ const Game = () => {
       }
       else {
         setP1Cards([...p1Cards, cardDrawn]);
+        setDrawCardsPile([...cardDeck]);
         let rTurns = p1RemainingTurns - 1;
         setP1RemainingTurns(rTurns);
         console.log("player 1 remaining turns: " , p1RemainingTurns);
@@ -285,6 +286,7 @@ const Game = () => {
         }
       }
       else {
+        setDrawCardsPile([...cardDeck]);
         setP2Cards([...p2Cards, cardDrawn]);
         setP2RemainingTurns(p2RemainingTurns - 1);
         if(p2RemainingTurns === 0) {
