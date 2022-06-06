@@ -14,34 +14,42 @@ const itemData = [
     {
         img: `${CR}`,
         title: 'Communist Regime',
+        describe: 'Get one Random Card from the opposing player'
     },
     {
         img: `${DR}`,
         title: 'Divine Revelation',
+        describe: 'Take a peek at the top three cards from the draw pile. Plan your moves accordingly'
     },
     {
         img: `${DT}`,
         title: 'Double Trouble',
+        describe: 'Play this card to end your turn without having to draw a card. The opposing player will then have to take two turns on the next round'
     },
     {
         img: `${HS}`,
         title: 'Hungry Shark',
+        describe: 'Draw this card and it is Game Over! You Lose! (Unless you have a Sacrificial Goat, of course)'
     },
     {
         img: `${SG}`,
         title: 'Sacrificial Goat',
+        describe: 'Play this card when you draw a Hungry Shark to avoid being eaten'
     },
     {
         img: `${SH}`,
         title: 'Shuffle',
+        describe: 'Play this card to shuffle the deck if you have intel of a Hungry Shark coming up'
     },
     {
         img: `${SN}`,
         title: 'Snooze',
+        describe: 'Skip your turn to potentially avoid drawing a Hungry Shark'
     },
     {
         img: `${WC}`,
         title: 'White Crayon',
+        describe: 'You can not play this card because it is just as useless as a white crayon. But hey, at least it is not a Hungry Shark!'
     }
 ];
 
