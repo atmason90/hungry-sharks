@@ -1,7 +1,10 @@
 import {useState, useEffect} from 'react';
 import shuffler from '../utils/shuffler';
+import Modal from './Modal';
 
 const Game = () => {
+
+  const [modalShow, setModalShow] = useState(false);
   
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -163,7 +166,7 @@ const Game = () => {
           topThreeCards.push(drawCardsPile[i]);
         }
         setThreeCards([...topThreeCards]);
-        //Display these three cards somehow to active player
+        setModalShow(true);
         break;
       }
 
@@ -416,7 +419,12 @@ return (
 
   <br />
   <a href='/'><button className="game-button red">QUIT</button></a>
+
+  {/* Modal down here */}
+  {modalShow && < Modal setModalOn={setModalShow} />}
+  
 </div>
+
 
   )
 }
