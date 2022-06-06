@@ -36,51 +36,7 @@ const Game = () => {
   // DR = Divine Revelation (See the future)
   // WC = White Crayon (Tacocat)
   const cards = [
-    "SG",
-    "SG",
-    "SG",
-    "SG",
-    "DT",
-    "DT",
-    "DT",
-    "DT",
-    "CR",
-    "CR",
-    "CR",
-    "CR",
-    "SH",
-    "SH",
-    "SH",
-    "SH",
-    "SN",
-    "SN",
-    "SN",
-    "SN",
-    "DR",
-    "DR",
-    "DR",
-    "DR",
-    "DR",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
+    "SG","SG","SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC",
   ];
 //Initialize socket connection
   useEffect(() => {
@@ -415,6 +371,17 @@ useEffect(() => {
     }
   }
 
+  function fullname(card) {
+    if(card === "WC") return "White crayon";
+    else if(card === "SG") return "Sacrificial Goat"
+    else if(card === "DT") return "Double Trouble"
+    else if(card === "DR") return "Divine Revelation"
+    else if(card === "SH") return "Shuffle"
+    else if(card === "SN") return "Snooze"
+    else if(card === "CR") return "Communist Regime"
+    }
+  
+
   return (
     <div className={`Game`}>
       <>
@@ -443,13 +410,15 @@ useEffect(() => {
                   >
                     <p className="playerDeckText">P2</p>
                     {p2Cards.map((item, i) => (
+                      <div>
+                        <span>{fullname(item)}</span>
                       <img
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/back.jpeg`)}
+                        src={require(`../assets/back.png`)}
                       />
-                      // <span>{item} - </span>
+                      </div>
                     ))}
                     {activePlayer === "P2"}
                   </div>
@@ -471,7 +440,7 @@ useEffect(() => {
                       playedCard && (
                         <img
                           className="Card"
-                          src={require(`../assets/${playedCard}.jpeg`)}
+                          src={require(`../assets/${playedCard}.png`)}
                         />
                       )
                       // <h3>played card: {playedCard}</h3>
@@ -490,7 +459,7 @@ useEffect(() => {
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/${item}.jpeg`)}
+                        src={require(`../assets/${item}.png`)}
                       />
                       // <span
                       // key={i}
@@ -517,7 +486,7 @@ useEffect(() => {
                           key={i}
                           className='Card'
                           onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/back.jpeg`)}
+                          src={require(`../assets/back.png`)}
                           />
                       // <span>{item} - </span>
                     ))}
@@ -540,7 +509,7 @@ useEffect(() => {
                     {playedCard && (
                       <img
                           className='Card'
-                          src={require(`../assets/${playedCard}.jpeg`)}
+                          src={require(`../assets/${playedCard}.png`)}
                           />
                       // <h3>{playedCard}</h3>
                     )}
@@ -557,8 +526,10 @@ useEffect(() => {
                       <img
                           key={i}
                           className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/${item}.jpeg`)}
+                          onClick={() => {
+                            if(item!== "WC" && item !== "SG")
+                              {cardPlayedHandler(item)}}}
+                          src={require(`../assets/${item}.png`)}
                           />
                       // <span
                       //   key={i}
