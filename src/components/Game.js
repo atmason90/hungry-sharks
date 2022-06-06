@@ -260,7 +260,7 @@ const Game = () => {
           setActivePlayer("P2");
         }
       }
-    } /////
+    } 
     else if(activePlayer === "P2") {
       if(cardDrawn === "HS") {
         //Hungry shark handler
