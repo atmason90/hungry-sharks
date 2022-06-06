@@ -365,6 +365,7 @@ return (
               <div className='player1Deck' style={{pointerEvents: 'none'}}>
                   <p className='playerDeckText'>P1</p>
                   {p1Cards.map((item, i) => (
+
                       // <img
                       //     key={i}
                       //     className='Card'
@@ -372,6 +373,7 @@ return (
                       //     src={`../assets/HS.jpeg`}
                       //     />
                       <span>{item} - </span>
+
                   ))}
                   {activePlayer==='P1'}
               </div>

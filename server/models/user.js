@@ -2,6 +2,9 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
+const statsSchema = require('./Stats');
+
+
 const userSchema = new Schema(
   {
     username: {
@@ -19,6 +22,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    stats: [statsSchema]
   },
   // set this to use virtual below
   {
