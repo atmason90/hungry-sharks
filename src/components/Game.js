@@ -429,12 +429,15 @@ useEffect(() => {
                     </button>
                     {
                       playedCard && (
+                        <div>
                         <img
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
                         />
+                        <h3>{fullname(playedCard)}</h3>
+                      </div>
                       )
-                      // <h3>played card: {playedCard}</h3>
+                       
                     }
                   </div>
                   <br />
