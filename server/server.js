@@ -63,11 +63,11 @@ io.on('connection', socket => {
           io.to(user.room).emit('updateGameState', gameState)
   })
 
-  socket.on('sendMessage', (payload, callback) => {
-      const user = getPlayer(socket.id)
-      io.to(user.room).emit('message', {user: user.name, text: payload.message})
-      callback()
-  })
+  // socket.on('sendMessage', (payload, callback) => {
+  //     const user = getPlayer(socket.id)
+  //     io.to(user.room).emit('message', {user: user.name, text: payload.message})
+  //     callback()
+  // })
 
   socket.on('disconnect', () => {
       const user = removePlayer(socket.id)

@@ -106,30 +106,28 @@ const Game = () => {
 }, [])
 
 useEffect(() => {
-  // socket.on('initGameState', ({ gameOver, turn, player1Deck, player2Deck, currentColor, currentNumber, playedCardsPile, drawCardPile }) => {
-  //     setGameOver(gameOver)
-  //     setTurn(turn)
-  //     setPlayer1Deck(player1Deck)
-  //     setPlayer2Deck(player2Deck)
-  //     setCurrentColor(currentColor)
-  //     setCurrentNumber(currentNumber)
-  //     setPlayedCardsPile(playedCardsPile)
-  //     setDrawCardPile(drawCardPile)
-  // })
+  socket.on('initGameState', ({ gameOver, activePlayer, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns}) => {
+      setGameOver(gameOver)
+      setActivePlayer(activePlayer)
+      setP1Cards(p1Cards)
+      setP2Cards(p2Cards)
+      setDrawCardsPile(drawCardsPile)
+      setP1RemainingTurns(p1RemainingTurns)
+      setP2RemainingTurns(p2RemainingTurns);
+  })
 
-  // socket.on('updateGameState', ({ gameOver, winner, turn, player1Deck, player2Deck, currentColor, currentNumber, playedCardsPile, drawCardPile }) => {
-  //     gameOver && setGameOver(gameOver)
-  //     gameOver===true && playGameOverSound()
-  //     winner && setWinner(winner)
-  //     turn && setTurn(turn)
-  //     player1Deck && setPlayer1Deck(player1Deck)
-  //     player2Deck && setPlayer2Deck(player2Deck)
-  //     currentColor && setCurrentColor(currentColor)
-  //     currentNumber && setCurrentNumber(currentNumber)
-  //     playedCardsPile && setPlayedCardsPile(playedCardsPile)
-  //     drawCardPile && setDrawCardPile(drawCardPile)
-  //     setUnoButtonPressed(false)
-  // })
+  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards }) => {
+    gameOver && setGameOver(gameOver)
+    winner && setWinner(winner) 
+    activePlayer && setActivePlayer(activePlayer)
+    playedCard && setPlayedCard(playedCard)
+    p1Cards && setP1Cards(p1Cards)
+    p2Cards && setP2Cards(p2Cards)
+    drawCardsPile && setDrawCardsPile(drawCardsPile)
+    p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
+    p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
+    threeCards && setThreeCards(threeCards);
+  })
 
   socket.on("roomData", ({ users }) => {
       setUsers(users)
@@ -140,12 +138,7 @@ useEffect(() => {
       console.log(name);
   })
 
-  // socket.on('message', message => {
-  //     setMessages(messages => [ ...messages, message ])
-
-  //     const chatBody = document.querySelector('.chat-body')
-  //     chatBody.scrollTop = chatBody.scrollHeight
-  // })
+  
 }, [])
 
   // Setup game by distributing cards
@@ -165,18 +158,18 @@ useEffect(() => {
     remainingCards.push("HS");
     const shuffledShark = shuffler(remainingCards);
 
-    // Set state
-    setDrawCardsPile([...shuffledShark]);
-    setP1Cards([...cardsForP1]);
-    setP2Cards([...cardsForP2]);
-    setGameOver(false);
-    setP1RemainingTurns(1);
-    setActivePlayer("P1");
+    // Emit initial state to websocket
+    socket.emit('initGameState', {
+    drawCardsPile:[...shuffledShark],
+    p1Cards: [...cardsForP1],
+    p2Cards: [...cardsForP2],
+    gameOver: false,
+    p1RemainingTurns: 1,
+    p2RemainingTurns: 0,
+    activePlayer: "P1",
+    })
 
-    console.log("P1 initial turn state: ", p1RemainingTurns);
-    console.log("P1 Cards: ", p1Cards);
-    console.log("P2 Cards: ", p2Cards);
-    console.log("Remain: ", drawCardsPile);
+    
   }, []);
 
   //Logic for action card's that player's play
