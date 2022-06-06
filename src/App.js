@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Game />
       {/* <Login /> */}
-      <Rules />
+      {/* <Rules /> */}
     </div>
   );
 }
