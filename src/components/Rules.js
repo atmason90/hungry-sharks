@@ -53,6 +53,7 @@ const itemData = [
     }
 ];
 
+
 const Rules = () => {
   return (
     <div style={{backgroundColor: 'black'}}>
@@ -67,6 +68,16 @@ const Rules = () => {
       </div>
       <div>
         <h2 style={{color: 'white'}}>The Cards</h2>
+        <ul style={{color: 'white', listStyleType: 'none'}}>
+            <li>Communist Regime - Get one Random Card from the opposing player</li>
+            <li>Divine Revelation - Take a peek at the top three cards from the draw pile. Plan your moves accordingly</li>
+            <li>Double Trouble - Play this card to end your turn without having to draw a card. The opposing player will then have to take two turns on the next round</li>
+            <li>Hungry Shark - Draw this card and it is Game Over! You Lose! (Unless you have a Sacrificial Goat, of course)</li>
+            <li>Sacrificial Goat - Play this card when you draw a Hungry Shark to avoid being eaten</li>
+            <li>Shuffle - Play this card to shuffle the deck if you have intel of a Hungry Shark coming up</li>
+            <li>Snooze - Skip your turn to potentially avoid drawing a Hungry Shark</li>
+            <li>White Crayon - You can not play this card because it is just as useless as a white crayon. But hey, at least it is not a Hungry Shark!</li>
+        </ul>
         <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={400}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
