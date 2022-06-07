@@ -368,17 +368,27 @@ useEffect(() => {
         const goatCardIndex = p1Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p1Hand.splice(goatCardIndex, 1);
-          setP1Cards([...p1Hand]);
-
           const randomIndex = Math.floor(Math.random() * cardDeck.length);
           cardDeck.splice(randomIndex, 0, "HS");
-          setDrawCardsPile([...cardDeck]);
-          setPlayedCard("SG");
+          
+          // setP1Cards([...p1Hand]);
+          // setDrawCardsPile([...cardDeck]);
+          // setPlayedCard("SG");
+          // setP1RemainingTurns(p1RemainingTurns - 1);
+          socket.emit("updateGameState", ({
+            p1Cards: [...p1Hand],
+            drawCardsPile: [...cardDeck],
+            playedCard: "SG",
+            p1RemainingTurns: p1RemainingTurns - 1
+          }))
 
-          setP1RemainingTurns(p1RemainingTurns - 1);
           if (p1RemainingTurns === 0) {
-            setP2RemainingTurns(p2RemainingTurns + 1);
-            setActivePlayer("P2");
+            // setP2RemainingTurns(p2RemainingTurns + 1);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              p2RemainingTurns: p2RemainingTurns + 1,
+              activePlayer: "P2"
+            }))
           }
         } else {
           setPlayedCard("HS");
