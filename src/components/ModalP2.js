@@ -12,10 +12,10 @@ const ModalP2 = ({ setModalOn, card1, card2, card3 }) => {
           <div className="flex  text-lg  text-zinc-600   mb-10">
             The Next 3 Cards are:
           </div>
-          <div className="flex flec-col">
-            <img src={card1}></img>
-            <img src={card2}></img>
-            <img src={card3}></img>
+          <div className="flex flec-col modalDiv">
+            <img src={require(`../assets/${card1}.png`)}></img>
+            <img src={require(`../assets/${card2}.png`)}></img>
+            <img src={require(`../assets/${card3}.png`)}></img>
             {/* <span>{card1} - </span>
             <span>{card2} - </span>
             <span>{card3} - </span> */}

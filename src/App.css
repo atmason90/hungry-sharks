@@ -388,3 +388,8 @@ a {
 .msg-receive:hover, .msg-send:hover{
 	opacity: .9;
 }
+
+.modalDiv img {
+  width: 200px;
+  height: auto;
+}

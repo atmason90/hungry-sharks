@@ -83,8 +83,8 @@ useEffect(() => {
     p1Cards && setP1Cards(p1Cards)
     p2Cards && setP2Cards(p2Cards)
     drawCardsPile && setDrawCardsPile(drawCardsPile)
-    p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
-    p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
+    p1RemainingTurns !== null && setP1RemainingTurns(p1RemainingTurns)
+    p2RemainingTurns !== null && setP2RemainingTurns(p2RemainingTurns)
     threeCards && setThreeCards(threeCards)
     modalP1Show && setModalP1Show(modalP1Show)
     modalP2Show && setModalP2Show(modalP2Show);
@@ -413,22 +413,27 @@ useEffect(() => {
           }))
         }
       } else {
-        let rTurns = p1RemainingTurns - 1;
+        const p1Turns = p1RemainingTurns -1;
+        const rTurns = p1Turns;
         // setP1Cards([...p1Cards, cardDrawn]);
         // setDrawCardsPile([...cardDeck]);
         // setP1RemainingTurns(rTurns);
+        if(rTurns === 1) {
+          console.log("This was done as well")
         socket.emit("updateGameState", ({
           p1Cards: [...p1Cards, cardDrawn],
           drawCardsPile: [...cardDeck],
           p1RemainingTurns: rTurns
         }))
+      }
 
-        if (rTurns === 0) {
+        else if (rTurns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
+          console.log("This was done")
           socket.emit("updateGameState", ({
             p2RemainingTurns: p2RemainingTurns + 1,
-            p1RemainingTurns: rTurns,
+            p1RemainingTurns: 0,
             activePlayer: "P2"
           }))
         }
@@ -517,6 +522,8 @@ useEffect(() => {
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
                 <>
+                <h3>P1 remaining turns: {p1RemainingTurns}</h3>
+                <h3>P2 remaining turns: {p2RemainingTurns}</h3>
                   <div
                     className="player2Deck"
                     style={{ pointerEvents: "none" }}
@@ -594,6 +601,8 @@ useEffect(() => {
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
                 <>
+                <h3>P1 remaining turns: {p1RemainingTurns}</h3>
+                <h3>P2 remaining turns: {p2RemainingTurns}</h3>
                   <div
                     className="player1Deck"
                     style={{ pointerEvents: "none" }}
@@ -676,17 +685,17 @@ useEffect(() => {
       {currentUser === "Player 1" ? modalP1Show && (
         <ModalP1
           setModalOn={setModalP1Show}
-          card1={`../assets/${threeCards[0]}.jpeg`}
-          card2={`../assets/${threeCards[1]}.jpeg`}
-          card3={`../assets/${threeCards[2]}.jpeg`}
+          card1={threeCards[0]}
+          card2={threeCards[1]}
+          card3={threeCards[2]}
         />
       ): null}
       {currentUser === "Player 2" ? modalP2Show && (
         <ModalP2
           setModalOn={setModalP2Show}
-          card1={`../assets/${threeCards[0]}.jpeg`}
-          card2={`../assets/${threeCards[1]}.jpeg`}
-          card3={`../assets/${threeCards[2]}.jpeg`}
+          card1={threeCards[0]}
+          card2={threeCards[1]}
+          card3={threeCards[2]}
         />
       ): null}
     </div>
