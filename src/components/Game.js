@@ -491,7 +491,9 @@ useEffect(() => {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");
           socket.emit("updateGameState", ({
+            p1Cards: [...p2Cards, cardDrawn],
             p1RemainingTurns: p1RemainingTurns + 1,
+            p2RemainingTurns: rTurns,
             activePlayer: "P1"
           }))
         }
