@@ -206,13 +206,15 @@ useEffect(() => {
             // setP1RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
-              p1RemainingTurns: playerRemainingTurns
+              p1RemainingTurns: playerRemainingTurns,
+              p2RemainingTurns: p2RemainingTurns
             }))
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
-              p2RemainingTurns: playerRemainingTurns
+              p2RemainingTurns: playerRemainingTurns,
+              p1RemainingTurns: p1RemainingTurns
             }))
           }
         }
