@@ -511,7 +511,6 @@ useEffect(() => {
                     <p className="playerDeckText">P2</p>
                     {p2Cards.map((item, i) => (
                       <div>
-                        <span>{fullname(item)}</span>
                       <img
                         key={i}
                         className="Card"
@@ -558,12 +557,15 @@ useEffect(() => {
                   >
                     <p className="playerDeckText">P1</p>
                     {p1Cards.map((item, i) => (
+                      <div>
+                      <span>{fullname(item)}</span>
                       <img
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
                         src={require(`../assets/${item}.png`)}
                       />
+                      </div>
                       // <span
                       // key={i}
                       // onClick={() => {
