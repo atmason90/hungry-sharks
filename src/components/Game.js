@@ -73,7 +73,7 @@ useEffect(() => {
       setP2RemainingTurns(p2RemainingTurns);
   })
 
-  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards }) => {
+  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalShow }) => {
     gameOver && setGameOver(gameOver)
     winner && setWinner(winner) 
     activePlayer && setActivePlayer(activePlayer)
@@ -83,7 +83,8 @@ useEffect(() => {
     drawCardsPile && setDrawCardsPile(drawCardsPile)
     p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
     p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
-    threeCards && setThreeCards(threeCards);
+    threeCards && setThreeCards(threeCards)
+    modalShow && setModalShow(modalShow);
   })
 
   socket.on("roomData", ({ users }) => {
@@ -263,7 +264,6 @@ useEffect(() => {
       //set state of threecads to that new array
       //Display these cards to active player....??????
       case "DR": {
-        setPlayedCard("DR");
 
         const topThreeCards = [];
         for (
@@ -273,8 +273,13 @@ useEffect(() => {
         ) {
           topThreeCards.push(drawCardsPile[i]);
         }
-        setThreeCards([...topThreeCards]);
-        setModalShow(true);
+        // setThreeCards([...topThreeCards]);
+        // setModalShow(true);
+        socket.emit("updateGameState", ({
+          playedCard: cardPlayed,
+          threeCards: [...topThreeCards],
+          modalShow: true
+        }))
         break;
       }
 
