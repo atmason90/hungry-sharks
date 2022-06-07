@@ -3,7 +3,8 @@ import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/cor
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Signup from './Signup';
+import { loginUser } from '../utils/API';
+import Auth from '../utils/auth'
 
 
 const Login=()=>{
