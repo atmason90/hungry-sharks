@@ -555,9 +555,9 @@ useEffect(() => {
                       activePlayer === "P1" ? null : { pointerEvents: "none" }
                     }
                   >
-                    <p className="playerDeckText">P1</p>
+                    <p className="playerDeckText text-white">P1</p>
                     {p1Cards.map((item, i) => (
-                      <div>
+                      <div className="player1DeckCards">
                       <span>{fullname(item)}</span>
                       <img
                         key={i}

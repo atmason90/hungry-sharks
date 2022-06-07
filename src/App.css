@@ -104,14 +104,14 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: rgb(255, 146, 30);
+  color: #ff7691;
 }
 
-.player1Deck>img {
+.player1DeckCards {
   transition: transform 350ms;
 }
 
-.player1Deck>img:hover {
+.player1DeckCards:hover {
   transform: scale(1.08);
   opacity: 1;
 }
