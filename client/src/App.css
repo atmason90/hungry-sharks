@@ -103,7 +103,7 @@ a {
 .player1Deck {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
   color: #ff7691;
 }
 
