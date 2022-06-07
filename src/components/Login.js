@@ -3,6 +3,7 @@ import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/cor
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Signup from './Signup';
 
 
 const Login=()=>{
@@ -36,10 +37,12 @@ const Login=()=>{
                 </Link>
                 </Typography>
                 <Typography > Do you have an account ?
-                     <Link href="#" >
+                     <Link  >
+                     
                         Sign Up 
                 </Link>
                 </Typography>
+                <Signup />
             </Paper>
         </Grid>
         </div>

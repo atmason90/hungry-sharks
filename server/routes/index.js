@@ -6,6 +6,7 @@ router.use('/api', apiRoutes);
 
 // serve up react front-end in production
 router.use((req, res) => {
+  console.log(res)
   res.sendFile(path.join(__dirname, '../../build/index.html'));
 });
 

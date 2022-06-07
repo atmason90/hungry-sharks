@@ -5,7 +5,7 @@ const { signToken } = require('../utils/auth');
 
 
 module.exports = {
-    // get a single user by either their id or their username
+
     async getSingleUser({ user = null, params }, res) {
       const foundUser = await User.findOne({
         $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
@@ -17,7 +17,7 @@ module.exports = {
   
       res.json(foundUser);
     },
-    // create a user, sign a token, and send it back (to client/src/components/SignUpForm.js)
+
     async createUser({ body }, res) {
       const user = await User.create(body);
   
