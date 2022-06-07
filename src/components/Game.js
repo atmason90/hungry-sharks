@@ -391,21 +391,33 @@ useEffect(() => {
             }))
           }
         } else {
-          setPlayedCard("HS");
-          setGameOver(true);
-          setWinner("P2");
+          // setPlayedCard("HS");
+          // setGameOver(true);
+          // setWinner("P2");
+          socket.emit("updateGameState", ({
+            playedCard: "HS",
+            gameOver: true,
+            winner: "P2"
+          }))
         }
       } else {
-        setP1Cards([...p1Cards, cardDrawn]);
-        setDrawCardsPile([...cardDeck]);
         let rTurns = p1RemainingTurns - 1;
-        setP1RemainingTurns(rTurns);
+        // setP1Cards([...p1Cards, cardDrawn]);
+        // setDrawCardsPile([...cardDeck]);
+        // setP1RemainingTurns(rTurns);
+        socket.emit("updateGameState", ({
+          p1Cards: [...p1Cards, cardDrawn],
+          drawCardsPile: [...cardDeck],
+          p1RemainingTurns: rTurns
+        }))
 
         if (rTurns === 0) {
-          console.log("player 1 remaining turns: ", rTurns);
-          console.log("Switch my turn");
-          setP2RemainingTurns(p2RemainingTurns + 1);
-          setActivePlayer("P2");
+          // setP2RemainingTurns(p2RemainingTurns + 1);
+          // setActivePlayer("P2");
+          socket.emit("updateGameState", ({
+            p2RemainingTurns: p2RemainingTurns + 1,
+            activePlayer: "P2"
+          }))
         }
       }
     } else if (activePlayer === "P2") {
@@ -415,31 +427,55 @@ useEffect(() => {
         const goatCardIndex = p2Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p2Hand.splice(goatCardIndex, 1);
-          setP2Cards([...p2Hand]);
-
+          
           const randomIndex = Math.floor(Math.random() * cardDeck.length);
           cardDeck.splice(randomIndex, 0, "HS");
-          setDrawCardsPile([...cardDeck]);
-          setPlayedCard("SG");
-          setP2RemainingTurns(p2RemainingTurns - 1);
+          // setP2Cards([...p2Hand]);
+          // setDrawCardsPile([...cardDeck]);
+          // setPlayedCard("SG");
+          // setP2RemainingTurns(p2RemainingTurns - 1);
+          socket.emit("updateGameState", ({
+            p2Cards: [...p2Hand],
+            drawCardsPile: [...cardDeck],
+            playedCard: "SG",
+            p2RemainingTurns: p2RemainingTurns - 1
+          }))
 
           if (p2RemainingTurns === 0) {
-            setP1RemainingTurns(p1RemainingTurns + 1);
-            setActivePlayer("P1");
+            // setP1RemainingTurns(p1RemainingTurns + 1);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              p1RemainingTurns: p1RemainingTurns + 1,
+              activePlayer: "P1"
+            }))
           }
         } else {
-          setPlayedCard("HS");
-          setGameOver(true);
-          setWinner("P1");
+          // setPlayedCard("HS");
+          // setGameOver(true);
+          // setWinner("P1");
+          socket.emit("updateGameState", ({
+            playedCard: "HS",
+            gameOver: true,
+            winner: "P1"
+          }))
         }
       } else {
-        setDrawCardsPile([...cardDeck]);
-        setP2Cards([...p2Cards, cardDrawn]);
         let rTurns = p2RemainingTurns - 1;
-        setP2RemainingTurns(rTurns);
+        // setDrawCardsPile([...cardDeck]);
+        // setP2Cards([...p2Cards, cardDrawn]);
+        // setP2RemainingTurns(rTurns);
+        socket.emit("updateGameState", ({
+          drawCardsPile: [...cardDeck],
+          p2Cards: [...p2Cards, cardDrawn],
+          p2RemainingTurns: rTurns
+        }))
         if (rTurns === 0) {
-          setP1RemainingTurns(p1RemainingTurns + 1);
-          setActivePlayer("P1");
+          // setP1RemainingTurns(p1RemainingTurns + 1);
+          // setActivePlayer("P1");
+          socket.emit("updateGameState", ({
+            p1RemainingTurns: p1RemainingTurns + 1,
+            activePlayer: "P1"
+          }))
         }
       }
     }
