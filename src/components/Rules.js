@@ -1,6 +1,4 @@
 import React from 'react'
-// import { ImageList } from '@material-ui/core';
-// import { ImageListItem } from '@material-ui/core';
 import CR from '../assets/CR.png';
 import DR from '../assets/DR.png';
 import DT from '../assets/DT.png';
