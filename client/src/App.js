@@ -9,9 +9,9 @@ function App() {
     <div className="App">
       
       <Game/> 
-      <Login />
+      {/* <Login />
       <Rules />
-      <Signup />
+      <Signup /> */}
     </div>
   );
 }

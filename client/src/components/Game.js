@@ -248,6 +248,8 @@ useEffect(() => {
             playedCard: cardPlayed,
             p1Cards: [...currentPlayersDeck],
             p2Cards: [...opponentsDeck],
+            p1RemainingTurns: p1RemainingTurns,
+            p2RemainingTurns: p2RemainingTurns
           }))
         } else if (cardPlayedBy === "P2") {
           // setP2Cards([...currentPlayersDeck]);
@@ -255,7 +257,9 @@ useEffect(() => {
           socket.emit("updateGameState", ({
             playedCard: cardPlayed,
             p2Cards: [...currentPlayersDeck],
-            p1Cards: [...opponentsDeck]
+            p1Cards: [...opponentsDeck],
+            p1RemainingTurns: p1RemainingTurns,
+            p2RemainingTurns: p2RemainingTurns
           }))
         }
         break;
@@ -581,7 +585,7 @@ useEffect(() => {
                     <p className="playerDeckText text-white">P1</p>
                     {p1Cards.map((item, i) => (
                       <div className="player1DeckCards">
-                      <span>{fullname(item)}</span>
+                      {/* <span>{fullname(item)}</span> */}
                       <img
                         key={i}
                         className="Card"
