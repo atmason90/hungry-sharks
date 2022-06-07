@@ -45,6 +45,8 @@ a {
   background-size: cover;
   margin: 0;
   height: 100vh;
+  /* font-family: 'Gochi Hand', cursive; */
+  font-family: 'Amatic SC', cursive;
 }
 
 /* Game.js Background */
@@ -102,13 +104,14 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: #ff7691;
 }
 
-.player1Deck>img {
+.player1DeckCards {
   transition: transform 350ms;
 }
 
-.player1Deck>img:hover {
+.player1DeckCards:hover {
   transform: scale(1.08);
   opacity: 1;
 }

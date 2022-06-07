@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import shuffler from "../utils/shuffler";
-import Modal from "./Modal";
+import ModalP1 from "./ModalP1";
+import ModalP2 from "./ModalP2";
 import io from 'socket.io-client'
+import fullname from "../utils/fullname"
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -13,8 +15,9 @@ const Game = () => {
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-//Modal
-  const [modalShow, setModalShow] = useState(false);
+//Modals
+  const [modalP1Show, setModalP1Show] = useState(false);
+  const [modalP2Show, setModalP2Show] = useState(false);
 //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -36,51 +39,7 @@ const Game = () => {
   // DR = Divine Revelation (See the future)
   // WC = White Crayon (Tacocat)
   const cards = [
-    "SG",
-    "SG",
-    "SG",
-    "SG",
-    "DT",
-    "DT",
-    "DT",
-    "DT",
-    "CR",
-    "CR",
-    "CR",
-    "CR",
-    "SH",
-    "SH",
-    "SH",
-    "SH",
-    "SN",
-    "SN",
-    "SN",
-    "SN",
-    "DR",
-    "DR",
-    "DR",
-    "DR",
-    "DR",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
-    "WC",
+    "SG","SG","SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC",
   ];
 //Initialize socket connection
   useEffect(() => {
@@ -116,7 +75,7 @@ useEffect(() => {
       setP2RemainingTurns(p2RemainingTurns);
   })
 
-  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards }) => {
+  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalP1Show, modalP2Show }) => {
     gameOver && setGameOver(gameOver)
     winner && setWinner(winner) 
     activePlayer && setActivePlayer(activePlayer)
@@ -126,7 +85,9 @@ useEffect(() => {
     drawCardsPile && setDrawCardsPile(drawCardsPile)
     p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
     p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
-    threeCards && setThreeCards(threeCards);
+    threeCards && setThreeCards(threeCards)
+    modalP1Show && setModalP1Show(modalP1Show)
+    modalP2Show && setModalP2Show(modalP2Show);
   })
 
   socket.on("roomData", ({ users }) => {
@@ -172,7 +133,7 @@ useEffect(() => {
     
   }, []);
 
-  //Logic for action card's that player's play
+  //Logic for action cards that player's play
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
@@ -196,11 +157,15 @@ useEffect(() => {
       //Use shuffler function to shuffle that array
       //Set state to be that shuffled array
       case "SH": {
-        setPlayedCard("SH");
 
         let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
-        setDrawCardsPile([...drawDeck]);
+        // setDrawCardsPile([...drawDeck]);
+
+        socket.emit("updateGameState", ({
+          drawCardsPile: [...drawDeck],
+          playedCard: cardPlayed 
+        }))
 
         break;
       }
@@ -211,24 +176,44 @@ useEffect(() => {
       //Check if he has no turns left. In that case end this player's turn and add 1 turn to other player
       //If player still has a turn left, just decrement state of remaining turns for that player
       case "SN": {
-        setPlayedCard("SN");
 
         playerRemainingTurns = playerRemainingTurns - 1;
         if (playerRemainingTurns === 0) {
           if (cardPlayedBy === "P1") {
-            setP2RemainingTurns(p2RemainingTurns + 1);
-            setP1RemainingTurns(playerRemainingTurns);
-            setActivePlayer("P2");
+            // setP2RemainingTurns(p2RemainingTurns + 1);
+            // setP1RemainingTurns(playerRemainingTurns);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p2RemainingTurns: p2RemainingTurns + 1,
+              p1RemainingTurns: playerRemainingTurns,
+              activePlayer: "P2"
+            }))
+
           } else if (cardPlayedBy === "P2") {
-            setP1RemainingTurns(p1RemainingTurns + 1);
-            setP2RemainingTurns(playerRemainingTurns);
-            setActivePlayer("P1");
+            // setP1RemainingTurns(p1RemainingTurns + 1);
+            // setP2RemainingTurns(playerRemainingTurns);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: p1RemainingTurns + 1,
+              p2RemainingTurns: playerRemainingTurns,
+              activePlayer: "P1"
+            }))
           }
         } else if (playerRemainingTurns !== 0) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns);
+            // setP1RemainingTurns(playerRemainingTurns);
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns);
+            // setP2RemainingTurns(playerRemainingTurns);
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p2RemainingTurns: playerRemainingTurns
+            }))
           }
         }
         break;
@@ -240,7 +225,6 @@ useEffect(() => {
       //Randomly remove 1 card from opponent's cards and add it to current player's cards
       //Update states for both player's cards
       case "CR": {
-        setPlayedCard("CR");
 
         let opponentsDeck;
         let currentPlayersDeck;
@@ -258,11 +242,21 @@ useEffect(() => {
         currentPlayersDeck.push(cardToAdd[0]);
 
         if (cardPlayedBy === "P1") {
-          setP1Cards([...currentPlayersDeck]);
-          setP2Cards([...opponentsDeck]);
+          // setP1Cards([...currentPlayersDeck]);
+          // setP2Cards([...opponentsDeck]);
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            p1Cards: [...currentPlayersDeck],
+            p2Cards: [...opponentsDeck],
+          }))
         } else if (cardPlayedBy === "P2") {
-          setP2Cards([...currentPlayersDeck]);
-          setP1Cards([...opponentsDeck]);
+          // setP2Cards([...currentPlayersDeck]);
+          // setP1Cards([...opponentsDeck]);
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            p2Cards: [...currentPlayersDeck],
+            p1Cards: [...opponentsDeck]
+          }))
         }
         break;
       }
@@ -273,7 +267,6 @@ useEffect(() => {
       //set state of threecads to that new array
       //Display these cards to active player....??????
       case "DR": {
-        setPlayedCard("DR");
 
         const topThreeCards = [];
         for (
@@ -283,8 +276,22 @@ useEffect(() => {
         ) {
           topThreeCards.push(drawCardsPile[i]);
         }
-        setThreeCards([...topThreeCards]);
-        setModalShow(true);
+        // setThreeCards([...topThreeCards]);
+        // setModalP1Show(true);
+        if(activePlayer === "P1") {
+        socket.emit("updateGameState", ({
+          playedCard: cardPlayed,
+          threeCards: [...topThreeCards],
+          modalP1Show: true
+        }))
+      }
+        else if(activePlayer === "P2"){
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            threeCards: [...topThreeCards],
+            modalP2Show: true
+          }))
+        }
         break;
       }
 
@@ -294,27 +301,50 @@ useEffect(() => {
       //If he had 1, end this player's turn and assign 2 turns to oppenent
       //If he had 2, end this player's turn and assign 1 turn to opponent
       case "DT": {
-        setPlayedCard("DT");
 
         if (playerRemainingTurns === 2) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns - 2);
-            setP2RemainingTurns(1);
-            setActivePlayer("P2");
+            // setP1RemainingTurns(playerRemainingTurns - 2);
+            // setP2RemainingTurns(1);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns -2,
+              p2RemainingTurns: 1,
+              activePlayer: "P2"
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns - 2);
-            setP1RemainingTurns(1);
-            setActivePlayer("P1");
+            // setP2RemainingTurns(playerRemainingTurns - 2);
+            // setP1RemainingTurns(1);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: playerRemainingTurns - 2,
+              activePlayer: "P1"
+            }))
           }
         } else if (playerRemainingTurns === 1) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns - 1);
-            setP2RemainingTurns(2);
-            setActivePlayer("P2");
+            // setP1RemainingTurns(playerRemainingTurns - 1);
+            // setP2RemainingTurns(2);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns - 1,
+              p2RemainingTurns: 2,
+              activePlayer: "P2"
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns - 1);
-            setP1RemainingTurns(2);
-            setActivePlayer("P1");
+            // setP2RemainingTurns(playerRemainingTurns - 1);
+            // setP1RemainingTurns(2);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: 2,
+              p2RemainingTurns: playerRemainingTurns - 1,
+              activePlayer: "P1"
+            }))
           }
         }
         break;
@@ -350,33 +380,57 @@ useEffect(() => {
         const goatCardIndex = p1Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p1Hand.splice(goatCardIndex, 1);
-          setP1Cards([...p1Hand]);
-
           const randomIndex = Math.floor(Math.random() * cardDeck.length);
           cardDeck.splice(randomIndex, 0, "HS");
-          setDrawCardsPile([...cardDeck]);
-          setPlayedCard("SG");
+          
+          // setP1Cards([...p1Hand]);
+          // setDrawCardsPile([...cardDeck]);
+          // setPlayedCard("SG");
+          // setP1RemainingTurns(p1RemainingTurns - 1);
+          socket.emit("updateGameState", ({
+            p1Cards: [...p1Hand],
+            drawCardsPile: [...cardDeck],
+            playedCard: "SG",
+            p1RemainingTurns: p1RemainingTurns - 1
+          }))
 
-          setP1RemainingTurns(p1RemainingTurns - 1);
           if (p1RemainingTurns === 0) {
-            setActivePlayer("P2");
+            // setP2RemainingTurns(p2RemainingTurns + 1);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              p2RemainingTurns: p2RemainingTurns + 1,
+              activePlayer: "P2"
+            }))
           }
         } else {
-          setPlayedCard("HS");
-          setGameOver(true);
-          setWinner("P2");
+          // setPlayedCard("HS");
+          // setGameOver(true);
+          // setWinner("P2");
+          socket.emit("updateGameState", ({
+            playedCard: "HS",
+            gameOver: true,
+            winner: "P2"
+          }))
         }
       } else {
-        setP1Cards([...p1Cards, cardDrawn]);
-        setDrawCardsPile([...cardDeck]);
         let rTurns = p1RemainingTurns - 1;
-        setP1RemainingTurns(rTurns);
+        // setP1Cards([...p1Cards, cardDrawn]);
+        // setDrawCardsPile([...cardDeck]);
+        // setP1RemainingTurns(rTurns);
+        socket.emit("updateGameState", ({
+          p1Cards: [...p1Cards, cardDrawn],
+          drawCardsPile: [...cardDeck],
+          p1RemainingTurns: rTurns
+        }))
 
         if (rTurns === 0) {
-          console.log("player 1 remaining turns: ", rTurns);
-          console.log("Switch my turn");
-          setP2RemainingTurns(p2RemainingTurns + 1);
-          setActivePlayer("P2");
+          // setP2RemainingTurns(p2RemainingTurns + 1);
+          // setActivePlayer("P2");
+          socket.emit("updateGameState", ({
+            p2RemainingTurns: p2RemainingTurns + 1,
+            p1RemainingTurns: rTurns,
+            activePlayer: "P2"
+          }))
         }
       }
     } else if (activePlayer === "P2") {
@@ -386,34 +440,60 @@ useEffect(() => {
         const goatCardIndex = p2Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p2Hand.splice(goatCardIndex, 1);
-          setP2Cards([...p2Hand]);
-
+          
           const randomIndex = Math.floor(Math.random() * cardDeck.length);
           cardDeck.splice(randomIndex, 0, "HS");
-          setDrawCardsPile([...cardDeck]);
-          setPlayedCard("SG");
-          setP2RemainingTurns(p2RemainingTurns - 1);
+          // setP2Cards([...p2Hand]);
+          // setDrawCardsPile([...cardDeck]);
+          // setPlayedCard("SG");
+          // setP2RemainingTurns(p2RemainingTurns - 1);
+          socket.emit("updateGameState", ({
+            p2Cards: [...p2Hand],
+            drawCardsPile: [...cardDeck],
+            playedCard: "SG",
+            p2RemainingTurns: p2RemainingTurns - 1
+          }))
 
           if (p2RemainingTurns === 0) {
-            setActivePlayer("P1");
+            // setP1RemainingTurns(p1RemainingTurns + 1);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              p1RemainingTurns: p1RemainingTurns + 1,
+              activePlayer: "P1"
+            }))
           }
         } else {
-          setPlayedCard("HS");
-          setGameOver(true);
-          setWinner("P1");
+          // setPlayedCard("HS");
+          // setGameOver(true);
+          // setWinner("P1");
+          socket.emit("updateGameState", ({
+            playedCard: "HS",
+            gameOver: true,
+            winner: "P1"
+          }))
         }
       } else {
-        setDrawCardsPile([...cardDeck]);
-        setP2Cards([...p2Cards, cardDrawn]);
         let rTurns = p2RemainingTurns - 1;
-        setP2RemainingTurns(rTurns);
+        // setDrawCardsPile([...cardDeck]);
+        // setP2Cards([...p2Cards, cardDrawn]);
+        // setP2RemainingTurns(rTurns);
+        socket.emit("updateGameState", ({
+          drawCardsPile: [...cardDeck],
+          p2Cards: [...p2Cards, cardDrawn],
+          p2RemainingTurns: rTurns
+        }))
         if (rTurns === 0) {
-          setP1RemainingTurns(p1RemainingTurns + 1);
-          setActivePlayer("P1");
+          // setP1RemainingTurns(p1RemainingTurns + 1);
+          // setActivePlayer("P1");
+          socket.emit("updateGameState", ({
+            p1RemainingTurns: p1RemainingTurns + 1,
+            activePlayer: "P1"
+          }))
         }
       }
     }
   }
+  
 
   return (
     <div className={`Game`}>
@@ -443,13 +523,14 @@ useEffect(() => {
                   >
                     <p className="playerDeckText">P2</p>
                     {p2Cards.map((item, i) => (
+                      <div>
                       <img
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/back.jpeg`)}
+                        src={require(`../assets/back.png`)}
                       />
-                      // <span>{item} - </span>
+                      </div>
                     ))}
                     {activePlayer === "P2"}
                   </div>
@@ -469,12 +550,15 @@ useEffect(() => {
                     </button>
                     {
                       playedCard && (
+                        <div>
                         <img
                           className="Card"
-                          src={require(`../assets/${playedCard}.jpeg`)}
+                          src={require(`../assets/${playedCard}.png`)}
                         />
+                        <h3>{fullname(playedCard)}</h3>
+                      </div>
                       )
-                      // <h3>played card: {playedCard}</h3>
+                       
                     }
                   </div>
                   <br />
@@ -484,14 +568,17 @@ useEffect(() => {
                       activePlayer === "P1" ? null : { pointerEvents: "none" }
                     }
                   >
-                    <p className="playerDeckText">P1</p>
+                    <p className="playerDeckText text-white">P1</p>
                     {p1Cards.map((item, i) => (
+                      <div className="player1DeckCards">
+                      <span>{fullname(item)}</span>
                       <img
                         key={i}
                         className="Card"
                         onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/${item}.jpeg`)}
+                        src={require(`../assets/${item}.png`)}
                       />
+                      </div>
                       // <span
                       // key={i}
                       // onClick={() => {
@@ -517,7 +604,7 @@ useEffect(() => {
                           key={i}
                           className='Card'
                           onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/back.jpeg`)}
+                          src={require(`../assets/back.png`)}
                           />
                       // <span>{item} - </span>
                     ))}
@@ -540,7 +627,7 @@ useEffect(() => {
                     {playedCard && (
                       <img
                           className='Card'
-                          src={require(`../assets/${playedCard}.jpeg`)}
+                          src={require(`../assets/${playedCard}.png`)}
                           />
                       // <h3>{playedCard}</h3>
                     )}
@@ -557,8 +644,10 @@ useEffect(() => {
                       <img
                           key={i}
                           className='Card'
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/${item}.jpeg`)}
+                          onClick={() => {
+                            if(item!== "WC" && item !== "SG")
+                              {cardPlayedHandler(item)}}}
+                          src={require(`../assets/${item}.png`)}
                           />
                       // <span
                       //   key={i}
@@ -583,15 +672,23 @@ useEffect(() => {
         <button className="game-button red">QUIT</button>
       </a>
 
-      {/* Modal down here */}
-      {modalShow && (
-        <Modal
-          setModalOn={setModalShow}
+      {/* Modals down here */}
+      {currentUser === "Player 1" ? modalP1Show && (
+        <ModalP1
+          setModalOn={setModalP1Show}
           card1={`../assets/${threeCards[0]}.jpeg`}
           card2={`../assets/${threeCards[1]}.jpeg`}
           card3={`../assets/${threeCards[2]}.jpeg`}
         />
-      )}
+      ): null}
+      {currentUser === "Player 2" ? modalP2Show && (
+        <ModalP2
+          setModalOn={setModalP2Show}
+          card1={`../assets/${threeCards[0]}.jpeg`}
+          card2={`../assets/${threeCards[1]}.jpeg`}
+          card3={`../assets/${threeCards[2]}.jpeg`}
+        />
+      ): null}
     </div>
   );
 };

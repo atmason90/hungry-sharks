@@ -1,14 +1,14 @@
 import React from 'react'
 // import { ImageList } from '@material-ui/core';
 // import { ImageListItem } from '@material-ui/core';
-import CR from '../assets/CR.jpeg';
-import DR from '../assets/DR.jpeg';
-import DT from '../assets/DT.jpeg';
-import HS from '../assets/HS.jpeg';
-import SG from '../assets/SG.jpeg';
-import SH from '../assets/SH.jpeg';
-import SN from '../assets/SN.jpeg';
-import WC from '../assets/WC.jpeg';
+import CR from '../assets/CR.png';
+import DR from '../assets/DR.png';
+import DT from '../assets/DT.png';
+import HS from '../assets/HS.png';
+import SG from '../assets/SG.png';
+import SH from '../assets/SH.png';
+import SN from '../assets/SN.png';
+import WC from '../assets/WC.png';
 import ImageGrid from './ImageGrid';
 
 const itemData = [

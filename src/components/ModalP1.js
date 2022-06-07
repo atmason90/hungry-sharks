@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ setModalOn, card1, card2, card3 }) => {
+const ModalP1 = ({ setModalOn, card1, card2, card3 }) => {
   const handleCloseModal = () => {
     setModalOn(false);
   };
@@ -34,4 +34,4 @@ const Modal = ({ setModalOn, card1, card2, card3 }) => {
   );
 };
 
-export default Modal;
+export default ModalP1;
