@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
+// import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import { FormControl, FormGroup } from '@material-ui/core';
+// import Checkbox from '@material-ui/core/Checkbox';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { loginUser } from '../utils/API';
 import Auth from '../utils/auth'
 
@@ -50,58 +52,47 @@ const Login=()=> {
     const paperStyle={padding :20,height:'100vh',width:280, margin:"20px auto"}
     // const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
+
+
     return(
-        <div style={{backgroundColor: 'black'}}>
-        <Grid>
-            <Paper  noValidate validated={validated} onSubmit={handleFormSubmit} elevation={10} style={paperStyle}>
-            {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-            Something went wrong with your login credentials!
-            </Alert> */}
-                <Grid align='center'>
-                     {/* <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar> */}
-                    <h2>Sign In</h2>
-                </Grid>
-                <TextField 
-                label='Username' 
-                placeholder='Enter username' 
-                fullWidth 
-                onChange={handleInputChange}
-                value={userFormData.email}
-                required
-                />
-                <TextField label='Password' 
-                placeholder='Enter password' 
-                type='password' 
-                fullWidth
-                required
-                onChange={handleInputChange}
-                value={userFormData.password}
-                />
-                <FormControlLabel
-                    control={
-                    <Checkbox
-                        name="checkedB"
-                        color="primary"
-                    />
-                    }
-                    label="Remember me"
-                 />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
-                <Typography >
-                     <Link href="#" >
-                        Forgot password ?
-                </Link>
-                </Typography>
-                <Typography > Do you have an account ?
-                     <Link  >
-                     
-                        Sign Up 
-                </Link>
-                </Typography>
-    
-            </Paper>
-        </Grid>
-        </div>
+      <>
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+          Something went wrong with your login credentials!
+        </Alert>
+        <Form.Group>
+          <Form.Label htmlFor='email'>Email</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Your email'
+            name='email'
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor='password'>Password</Form.Label>
+          <Form.Control
+            type='password'
+            placeholder='Your password'
+            name='password'
+            onChange={handleInputChange}
+            value={userFormData.password}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
+        </Form.Group>
+        <Button
+          disabled={!(userFormData.email && userFormData.password)}
+          type='submit'
+          variant='success'>
+          Submit
+        </Button>
+      </Form>
+    </>
     )
 }
 
