@@ -42,5 +42,17 @@ module.exports = {
       }
       const token = signToken(user);
       res.json({ token, user });
-    }
+    },
+       // find a user's stats
+       async getUserStats({ user = null, params }, res) {
+        const foundStats = await User.findOne({
+          $or: [{ _id: user ? user._id : params.id }, { username: params.username, games: params.games, wins: params.wins, losses: params.losses }],
+        });
+  
+        if (!foundStats) {
+          return res.status(400).json({ message: 'Cannot find user!' });
+        }
+  
+        res.json(foundStats);
+      }
 }
