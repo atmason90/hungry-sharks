@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import shuffler from "../utils/shuffler";
-import Modal from "./Modal";
+import ModalP1 from "./ModalP1";
 import io from 'socket.io-client'
 import fullname from "../utils/fullname"
 
@@ -15,7 +15,7 @@ const Game = () => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 //Modal
-  const [modalShow, setModalShow] = useState(false);
+  const [modalP1Show, setModalP1Show] = useState(false);
 //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -73,7 +73,7 @@ useEffect(() => {
       setP2RemainingTurns(p2RemainingTurns);
   })
 
-  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalShow }) => {
+  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalP1Show }) => {
     gameOver && setGameOver(gameOver)
     winner && setWinner(winner) 
     activePlayer && setActivePlayer(activePlayer)
@@ -84,7 +84,7 @@ useEffect(() => {
     p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
     p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
     threeCards && setThreeCards(threeCards)
-    modalShow && setModalShow(modalShow);
+    modalP1Show && setModalP1Show(modalP1Show);
   })
 
   socket.on("roomData", ({ users }) => {
@@ -274,11 +274,11 @@ useEffect(() => {
           topThreeCards.push(drawCardsPile[i]);
         }
         // setThreeCards([...topThreeCards]);
-        // setModalShow(true);
+        // setModalP1Show(true);
         socket.emit("updateGameState", ({
           playedCard: cardPlayed,
           threeCards: [...topThreeCards],
-          modalShow: true
+          modalP1Show: true
         }))
         break;
       }
@@ -416,6 +416,7 @@ useEffect(() => {
           // setActivePlayer("P2");
           socket.emit("updateGameState", ({
             p2RemainingTurns: p2RemainingTurns + 1,
+            p1RemainingTurns: rTurns,
             activePlayer: "P2"
           }))
         }
@@ -660,9 +661,9 @@ useEffect(() => {
       </a>
 
       {/* Modal down here */}
-      {modalShow && (
-        <Modal
-          setModalOn={setModalShow}
+      {modalP1Show && (
+        <ModalP1
+          setModalOn={setModalP1Show}
           card1={`../assets/${threeCards[0]}.jpeg`}
           card2={`../assets/${threeCards[1]}.jpeg`}
           card3={`../assets/${threeCards[2]}.jpeg`}
