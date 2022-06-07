@@ -9,6 +9,43 @@ import Auth from '../utils/auth'
 
 const Login=()=>{
 
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+    const handleFormSubmit = async (event) => {
+      event.preventDefault();
+  
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+  
+      try {
+        const response = await loginUser(userFormData);
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+  
+        const { token, user } = await response.json();
+        console.log(user);
+        Auth.login(token);
+      } catch (err) {
+        console.error(err);
+        setShowAlert(true);
+      }
+  
+      setUserFormData({
+        username: '',
+        email: '',
+        password: '',
+      });
+    };
+
     const paperStyle={padding :20,height:'100vh',width:280, margin:"20px auto"}
     // const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
