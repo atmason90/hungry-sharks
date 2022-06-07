@@ -1,6 +1,4 @@
 import React from 'react'
-// import { ImageList } from '@material-ui/core';
-// import { ImageListItem } from '@material-ui/core';
 import CR from '../assets/CR.png';
 import DR from '../assets/DR.png';
 import DT from '../assets/DT.png';
@@ -80,33 +78,6 @@ const Rules = () => {
             <li>White Crayon - You can not play this card because it is just as useless as a white crayon. But hey, at least it is not a Hungry Shark!</li>
         </ul>
         <ImageGrid itemData={itemData}/>
-
-       
-        {/* <ImageList cols={4} rowHeight={'auto'}>
-            {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                    <img
-                        className='MuiImageListItem-img'
-                        src={`${item.img}`}
-                        srcSet={`${item.img}`}
-                        alt={item.title}
-                        loading='lazy'
-                    />
-                </ImageListItem>
-            ))}
-        </ImageList> */}
-        {/* <ImageList sx={{ width: 150, height: 400}} cols={4} rowHeight={'auto'}>
-            {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                    <img
-                        src={`${item.img}?w=164&h=300&auto=format`}
-                        srcSet={`${item.img}?w=164&h=300&auto=format&dpr=2 2x`}
-                        alt={item.title}
-                        loading='lazy'
-                    />
-                </ImageListItem>
-            ))}
-        </ImageList> */}
       </div>  
     </div>
   )

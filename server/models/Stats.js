@@ -1,13 +1,15 @@
 const { Schema } = require('mongoose');
 
 const statsSchema = new Schema({
-    result: {
-        type: Boolean
+    games: {
+        type: Number
     },
-    scoreCount : {
+    wins: {
+        type: Number
+    },
+    losses: {
         type: Number
     } 
-
 })
 
 module.exports = statsSchema
