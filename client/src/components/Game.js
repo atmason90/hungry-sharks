@@ -39,7 +39,7 @@ const Game = () => {
   // DR = Divine Revelation (See the future)
   // WC = White Crayon (Tacocat)
   const cards = [
-    "SG","SG","SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC",
+    "SG","SG","SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC"
   ];
 //Initialize socket connection
   useEffect(() => {
@@ -164,7 +164,9 @@ useEffect(() => {
 
         socket.emit("updateGameState", ({
           drawCardsPile: [...drawDeck],
-          playedCard: cardPlayed 
+          playedCard: cardPlayed,
+          p1RemainingTurns: p1RemainingTurns,
+          p2RemainingTurns: p2RemainingTurns 
         }))
 
         break;
@@ -288,6 +290,8 @@ useEffect(() => {
         socket.emit("updateGameState", ({
           playedCard: cardPlayed,
           threeCards: [...topThreeCards],
+          p1RemainingTurns: p1RemainingTurns,
+          p2RemainingTurns: p2RemainingTurns,
           modalP1Show: true
         }))
       }
@@ -295,6 +299,8 @@ useEffect(() => {
           socket.emit("updateGameState", ({
             playedCard: cardPlayed,
             threeCards: [...topThreeCards],
+            p1RemainingTurns: p1RemainingTurns,
+            p2RemainingTurns: p2RemainingTurns,
             modalP2Show: true
           }))
         }
@@ -315,7 +321,7 @@ useEffect(() => {
             // setActivePlayer("P2");
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
-              p1RemainingTurns: playerRemainingTurns -2,
+              p1RemainingTurns: 0,
               p2RemainingTurns: 1,
               activePlayer: "P2"
             }))
@@ -326,7 +332,7 @@ useEffect(() => {
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
               p1RemainingTurns: 1,
-              p2RemainingTurns: playerRemainingTurns - 2,
+              p2RemainingTurns: 0,
               activePlayer: "P1"
             }))
           }
@@ -337,7 +343,7 @@ useEffect(() => {
             // setActivePlayer("P2");
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
-              p1RemainingTurns: playerRemainingTurns - 1,
+              p1RemainingTurns: 0,
               p2RemainingTurns: 2,
               activePlayer: "P2"
             }))
@@ -348,7 +354,7 @@ useEffect(() => {
             socket.emit("updateGameState", ({
               playedCard: cardPlayed,
               p1RemainingTurns: 2,
-              p2RemainingTurns: playerRemainingTurns - 1,
+              p2RemainingTurns: 0,
               activePlayer: "P1"
             }))
           }
@@ -395,9 +401,11 @@ useEffect(() => {
           // setP1RemainingTurns(p1RemainingTurns - 1);
           socket.emit("updateGameState", ({
             p1Cards: [...p1Hand],
+            p2Cards: [...p2Cards],
             drawCardsPile: [...cardDeck],
             playedCard: "SG",
-            p1RemainingTurns: p1RemainingTurns - 1
+            p1RemainingTurns: p1RemainingTurns -1,
+            p2RemainingTurns: p2RemainingTurns
           }))
 
           if (p1RemainingTurns === 0) {
@@ -405,6 +413,10 @@ useEffect(() => {
             // setActivePlayer("P2");
             socket.emit("updateGameState", ({
               p2RemainingTurns: p2RemainingTurns + 1,
+              p1RemainingTurns: p1RemainingTurns,
+              p1Cards: [...p1Hand],
+              p2Cards: [...p2Cards],
+              drawCardsPile: [...cardDeck],
               activePlayer: "P2"
             }))
           }
@@ -424,11 +436,13 @@ useEffect(() => {
         // setDrawCardsPile([...cardDeck]);
         // setP1RemainingTurns(rTurns);
         if(rTurns === 1) {
-          console.log("This was done as well")
+          
         socket.emit("updateGameState", ({
           p1Cards: [...p1Cards, cardDrawn],
+          p2Cards: [...p2Cards],
           drawCardsPile: [...cardDeck],
-          p1RemainingTurns: rTurns
+          p1RemainingTurns: rTurns,
+          p2RemainingTurns: p2RemainingTurns
         }))
       }
 
@@ -439,6 +453,8 @@ useEffect(() => {
           console.log("This was done")
           socket.emit("updateGameState", ({
             p1Cards: [...p1Cards, cardDrawn],
+            p2Cards: [...p2Cards],
+            drawCardsPile: [...cardDeck],
             p2RemainingTurns: p2RemainingTurns + 1,
             p1RemainingTurns: rTurns,
             activePlayer: "P2"
@@ -461,16 +477,22 @@ useEffect(() => {
           // setP2RemainingTurns(p2RemainingTurns - 1);
           socket.emit("updateGameState", ({
             p2Cards: [...p2Hand],
+            p1Cards: [...p1Cards],
             drawCardsPile: [...cardDeck],
             playedCard: "SG",
-            p2RemainingTurns: p2RemainingTurns - 1
+            p2RemainingTurns: p2RemainingTurns -1,
+            p1RemainingTurns: p1RemainingTurns
           }))
 
           if (p2RemainingTurns === 0) {
             // setP1RemainingTurns(p1RemainingTurns + 1);
             // setActivePlayer("P1");
             socket.emit("updateGameState", ({
+              p1Cards: [...p1Cards],
+              p2Cards: [...p2Hand],
               p1RemainingTurns: p1RemainingTurns + 1,
+              p2RemainingTurns: p2RemainingTurns,
+              drawCardsPile: [...cardDeck],
               activePlayer: "P1"
             }))
           }
@@ -492,14 +514,18 @@ useEffect(() => {
         socket.emit("updateGameState", ({
           drawCardsPile: [...cardDeck],
           p2Cards: [...p2Cards, cardDrawn],
-          p2RemainingTurns: rTurns
+          p1Cards: [...p1Cards],
+          p2RemainingTurns: rTurns,
+          p1RemainingTurns: p1RemainingTurns
         }))
         if (rTurns === 0) {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");
           socket.emit("updateGameState", ({
-            p1Cards: [...p2Cards, cardDrawn],
+            p2Cards: [...p2Cards, cardDrawn],
+            p1Cards: [...p1Cards],
             p1RemainingTurns: p1RemainingTurns + 1,
+            drawCardsPile: [...cardDeck],
             p2RemainingTurns: rTurns,
             activePlayer: "P1"
           }))
