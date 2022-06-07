@@ -676,17 +676,17 @@ useEffect(() => {
       {currentUser === "Player 1" ? modalP1Show && (
         <ModalP1
           setModalOn={setModalP1Show}
-          card1={`../assets/${threeCards[0]}.jpeg`}
-          card2={`../assets/${threeCards[1]}.jpeg`}
-          card3={`../assets/${threeCards[2]}.jpeg`}
+          card1={threeCards[0]}
+          card2={threeCards[1]}
+          card3={threeCards[2]}
         />
       ): null}
       {currentUser === "Player 2" ? modalP2Show && (
         <ModalP2
           setModalOn={setModalP2Show}
-          card1={`../assets/${threeCards[0]}.jpeg`}
-          card2={`../assets/${threeCards[1]}.jpeg`}
-          card3={`../assets/${threeCards[2]}.jpeg`}
+          card1={threeCards[0]}
+          card2={threeCards[1]}
+          card3={threeCards[2]}
         />
       ): null}
     </div>
