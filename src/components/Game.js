@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import shuffler from "../utils/shuffler";
 import ModalP1 from "./ModalP1";
+import ModalP2 from "./ModalP2";
 import io from 'socket.io-client'
 import fullname from "../utils/fullname"
 
@@ -14,8 +15,9 @@ const Game = () => {
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-//Modal
+//Modals
   const [modalP1Show, setModalP1Show] = useState(false);
+  const [modalP2Show, setModalP2Show] = useState(false);
 //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -73,7 +75,7 @@ useEffect(() => {
       setP2RemainingTurns(p2RemainingTurns);
   })
 
-  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalP1Show }) => {
+  socket.on('updateGameState', ({ gameOver, winner, activePlayer, playedCard, p1Cards, p2Cards, drawCardsPile, p1RemainingTurns, p2RemainingTurns, threeCards, modalP1Show, modalP2Show }) => {
     gameOver && setGameOver(gameOver)
     winner && setWinner(winner) 
     activePlayer && setActivePlayer(activePlayer)
@@ -84,7 +86,8 @@ useEffect(() => {
     p1RemainingTurns && setP1RemainingTurns(p1RemainingTurns)
     p2RemainingTurns && setP2RemainingTurns(p2RemainingTurns)
     threeCards && setThreeCards(threeCards)
-    modalP1Show && setModalP1Show(modalP1Show);
+    modalP1Show && setModalP1Show(modalP1Show)
+    modalP2Show && setModalP2Show(modalP2Show);
   })
 
   socket.on("roomData", ({ users }) => {
@@ -130,7 +133,7 @@ useEffect(() => {
     
   }, []);
 
-  //Logic for action card's that player's play
+  //Logic for action cards that player's play
   function cardPlayedHandler(cardPlayed) {
     const cardPlayedBy = activePlayer;
     let playerRemainingTurns;
@@ -275,11 +278,20 @@ useEffect(() => {
         }
         // setThreeCards([...topThreeCards]);
         // setModalP1Show(true);
+        if(activePlayer === "P1") {
         socket.emit("updateGameState", ({
           playedCard: cardPlayed,
           threeCards: [...topThreeCards],
           modalP1Show: true
         }))
+      }
+        else if(activePlayer === "P2"){
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            threeCards: [...topThreeCards],
+            modalP2Show: true
+          }))
+        }
         break;
       }
 
@@ -660,15 +672,23 @@ useEffect(() => {
         <button className="game-button red">QUIT</button>
       </a>
 
-      {/* Modal down here */}
-      {modalP1Show && (
+      {/* Modals down here */}
+      {currentUser === "Player 1" ? modalP1Show && (
         <ModalP1
           setModalOn={setModalP1Show}
           card1={`../assets/${threeCards[0]}.jpeg`}
           card2={`../assets/${threeCards[1]}.jpeg`}
           card3={`../assets/${threeCards[2]}.jpeg`}
         />
-      )}
+      ): null}
+      {currentUser === "Player 2" ? modalP2Show && (
+        <ModalP2
+          setModalOn={setModalP2Show}
+          card1={`../assets/${threeCards[0]}.jpeg`}
+          card2={`../assets/${threeCards[1]}.jpeg`}
+          card3={`../assets/${threeCards[2]}.jpeg`}
+        />
+      ): null}
     </div>
   );
 };
