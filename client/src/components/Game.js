@@ -429,6 +429,7 @@ useEffect(() => {
         else if (rTurns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
+          //Yes
           console.log("This was done")
           socket.emit("updateGameState", ({
             p1Cards: [...p1Cards, cardDrawn],
