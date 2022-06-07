@@ -221,7 +221,6 @@ useEffect(() => {
       //Randomly remove 1 card from opponent's cards and add it to current player's cards
       //Update states for both player's cards
       case "CR": {
-        setPlayedCard("CR");
 
         let opponentsDeck;
         let currentPlayersDeck;
@@ -239,11 +238,21 @@ useEffect(() => {
         currentPlayersDeck.push(cardToAdd[0]);
 
         if (cardPlayedBy === "P1") {
-          setP1Cards([...currentPlayersDeck]);
-          setP2Cards([...opponentsDeck]);
+          // setP1Cards([...currentPlayersDeck]);
+          // setP2Cards([...opponentsDeck]);
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            p1Cards: [...currentPlayersDeck],
+            p2Cards: [...opponentsDeck],
+          }))
         } else if (cardPlayedBy === "P2") {
-          setP2Cards([...currentPlayersDeck]);
-          setP1Cards([...opponentsDeck]);
+          // setP2Cards([...currentPlayersDeck]);
+          // setP1Cards([...opponentsDeck]);
+          socket.emit("updateGameState", ({
+            playedCard: cardPlayed,
+            p2Cards: [...currentPlayersDeck],
+            p1Cards: [...opponentsDeck]
+          }))
         }
         break;
       }
