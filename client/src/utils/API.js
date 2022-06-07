@@ -29,3 +29,20 @@ export const getMe = (token) => {
       
     });
   };
+  export const getHighscores = () => {
+    return fetch('/api/users/highscores'), {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  };
+  export const getSingleHighscore = (token, username) => {
+    return fetch(`/api/users/highscores/${username}`), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
+      },
+    }
+  }
