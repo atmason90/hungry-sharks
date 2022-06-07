@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import shuffler from '../utils/shuffler';
+import Signup from './Signup';
+import Login from './Login';
 
 const Game = () => {
   
@@ -299,9 +301,11 @@ const Game = () => {
   
   
 return (
+ 
+
   <div className={`Game`}>
   <>
-
+  <Signup />
       <div className='topInfo'>
           
           <h1>Game Code:</h1>
