@@ -289,27 +289,50 @@ useEffect(() => {
       //If he had 1, end this player's turn and assign 2 turns to oppenent
       //If he had 2, end this player's turn and assign 1 turn to opponent
       case "DT": {
-        setPlayedCard("DT");
 
         if (playerRemainingTurns === 2) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns - 2);
-            setP2RemainingTurns(1);
-            setActivePlayer("P2");
+            // setP1RemainingTurns(playerRemainingTurns - 2);
+            // setP2RemainingTurns(1);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns -2,
+              p2RemainingTurns: 1,
+              activePlayer: "P2"
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns - 2);
-            setP1RemainingTurns(1);
-            setActivePlayer("P1");
+            // setP2RemainingTurns(playerRemainingTurns - 2);
+            // setP1RemainingTurns(1);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: playerRemainingTurns - 2,
+              activePlayer: "P1"
+            }))
           }
         } else if (playerRemainingTurns === 1) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns - 1);
-            setP2RemainingTurns(2);
-            setActivePlayer("P2");
+            // setP1RemainingTurns(playerRemainingTurns - 1);
+            // setP2RemainingTurns(2);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns - 1,
+              p2RemainingTurns: 2,
+              activePlayer: "P2"
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns - 1);
-            setP1RemainingTurns(2);
-            setActivePlayer("P1");
+            // setP2RemainingTurns(playerRemainingTurns - 1);
+            // setP1RemainingTurns(2);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: 2,
+              p2RemainingTurns: playerRemainingTurns - 1,
+              activePlayer: "P1"
+            }))
           }
         }
         break;
