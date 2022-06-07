@@ -153,11 +153,15 @@ useEffect(() => {
       //Use shuffler function to shuffle that array
       //Set state to be that shuffled array
       case "SH": {
-        setPlayedCard("SH");
 
         let drawDeck = [...drawCardsPile];
         drawDeck = shuffler(drawDeck);
-        setDrawCardsPile([...drawDeck]);
+        // setDrawCardsPile([...drawDeck]);
+
+        socket.emit("updateGameState", ({
+          drawCardsPile: [...drawDeck],
+          playedCard: cardPlayed 
+        }))
 
         break;
       }
@@ -168,24 +172,44 @@ useEffect(() => {
       //Check if he has no turns left. In that case end this player's turn and add 1 turn to other player
       //If player still has a turn left, just decrement state of remaining turns for that player
       case "SN": {
-        setPlayedCard("SN");
 
         playerRemainingTurns = playerRemainingTurns - 1;
         if (playerRemainingTurns === 0) {
           if (cardPlayedBy === "P1") {
-            setP2RemainingTurns(p2RemainingTurns + 1);
-            setP1RemainingTurns(playerRemainingTurns);
-            setActivePlayer("P2");
+            // setP2RemainingTurns(p2RemainingTurns + 1);
+            // setP1RemainingTurns(playerRemainingTurns);
+            // setActivePlayer("P2");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p2RemainingTurns: p2RemainingTurns + 1,
+              p1RemainingTurns: playerRemainingTurns,
+              activePlayer: "P2"
+            }))
+
           } else if (cardPlayedBy === "P2") {
-            setP1RemainingTurns(p1RemainingTurns + 1);
-            setP2RemainingTurns(playerRemainingTurns);
-            setActivePlayer("P1");
+            // setP1RemainingTurns(p1RemainingTurns + 1);
+            // setP2RemainingTurns(playerRemainingTurns);
+            // setActivePlayer("P1");
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: p1RemainingTurns + 1,
+              p2RemainingTurns: playerRemainingTurns,
+              activePlayer: "P1"
+            }))
           }
         } else if (playerRemainingTurns !== 0) {
           if (cardPlayedBy === "P1") {
-            setP1RemainingTurns(playerRemainingTurns);
+            // setP1RemainingTurns(playerRemainingTurns);
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p1RemainingTurns: playerRemainingTurns
+            }))
           } else if (cardPlayedBy === "P2") {
-            setP2RemainingTurns(playerRemainingTurns);
+            // setP2RemainingTurns(playerRemainingTurns);
+            socket.emit("updateGameState", ({
+              playedCard: cardPlayed,
+              p2RemainingTurns: playerRemainingTurns
+            }))
           }
         }
         break;
