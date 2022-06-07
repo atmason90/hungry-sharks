@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -6,8 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { loginUser } from '../utils/API';
 import Auth from '../utils/auth'
 
-
-const Login=()=>{
+const Login=()=> {
 
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
@@ -16,6 +15,8 @@ const Login=()=>{
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
+  };
+
     const handleFormSubmit = async (event) => {
       event.preventDefault();
   
@@ -52,13 +53,30 @@ const Login=()=>{
     return(
         <div style={{backgroundColor: 'black'}}>
         <Grid>
-            <Paper elevation={10} style={paperStyle}>
+            <Paper  noValidate validated={validated} onSubmit={handleFormSubmit} elevation={10} style={paperStyle}>
+            {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+            Something went wrong with your login credentials!
+            </Alert> */}
                 <Grid align='center'>
                      {/* <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar> */}
                     <h2>Sign In</h2>
                 </Grid>
-                <TextField label='Username' placeholder='Enter username' fullWidth required/>
-                <TextField label='Password' placeholder='Enter password' type='password' fullWidth required/>
+                <TextField 
+                label='Username' 
+                placeholder='Enter username' 
+                fullWidth 
+                onChange={handleInputChange}
+                value={userFormData.email}
+                required
+                />
+                <TextField label='Password' 
+                placeholder='Enter password' 
+                type='password' 
+                fullWidth
+                required
+                onChange={handleInputChange}
+                value={userFormData.password}
+                />
                 <FormControlLabel
                     control={
                     <Checkbox
@@ -80,7 +98,7 @@ const Login=()=>{
                         Sign Up 
                 </Link>
                 </Typography>
-                <Signup />
+    
             </Paper>
         </Grid>
         </div>
@@ -162,4 +180,4 @@ export default Login
 //   )
 // }
 
-// export default Login
+// e

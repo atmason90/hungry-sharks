@@ -11,7 +11,7 @@ function App() {
       <Game/> 
       <Login />
       <Rules />
-      <Signup />
+      {/* <Signup /> */}
     </div>
   );
 }
