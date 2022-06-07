@@ -316,6 +316,7 @@ useEffect(() => {
 
           setP1RemainingTurns(p1RemainingTurns - 1);
           if (p1RemainingTurns === 0) {
+            setP2RemainingTurns(p2RemainingTurns + 1);
             setActivePlayer("P2");
           }
         } else {
@@ -352,6 +353,7 @@ useEffect(() => {
           setP2RemainingTurns(p2RemainingTurns - 1);
 
           if (p2RemainingTurns === 0) {
+            setP1RemainingTurns(p1RemainingTurns + 1);
             setActivePlayer("P1");
           }
         } else {
