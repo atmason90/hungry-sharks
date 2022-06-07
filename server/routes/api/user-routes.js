@@ -1,8 +1,10 @@
 const router = require('express').Router();
+const { default: auth } = require('../../../client/src/utils/auth');
 const {
   createUser,
   getSingleUser,
   login,
+  getUserStats,
 //   getStats
 } = require('../../controllers/user-controller');
 
@@ -17,5 +19,6 @@ router.route('/login').post(login);
 router.route('/me').get(authMiddleware, getSingleUser);
 
 // router.route('/scores').get(getStats)
+router.route('/highscores').get(authMiddleware, getUserStats)
 
 module.exports = router;
