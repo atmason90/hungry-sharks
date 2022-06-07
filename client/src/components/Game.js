@@ -413,8 +413,7 @@ useEffect(() => {
           }))
         }
       } else {
-        const p1Turns = p1RemainingTurns -1;
-        const rTurns = p1Turns;
+        const rTurns = p1RemainingTurns -1;
         // setP1Cards([...p1Cards, cardDrawn]);
         // setDrawCardsPile([...cardDeck]);
         // setP1RemainingTurns(rTurns);
@@ -430,10 +429,12 @@ useEffect(() => {
         else if (rTurns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
+          //Yes
           console.log("This was done")
           socket.emit("updateGameState", ({
+            p1Cards: [...p1Cards, cardDrawn],
             p2RemainingTurns: p2RemainingTurns + 1,
-            p1RemainingTurns: 0,
+            p1RemainingTurns: rTurns,
             activePlayer: "P2"
           }))
         }
@@ -491,7 +492,9 @@ useEffect(() => {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");
           socket.emit("updateGameState", ({
+            p1Cards: [...p2Cards, cardDrawn],
             p1RemainingTurns: p1RemainingTurns + 1,
+            p2RemainingTurns: rTurns,
             activePlayer: "P1"
           }))
         }
