@@ -4,14 +4,16 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from 'socket.io-client'
 import fullname from "../utils/fullname"
+import queryString from 'query-string'
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
 
 const Game = () => {
+  // const data = queryString.parse(props.location.search)
   
   //Websocet stuff
-  const [room, setRoom] = useState("ABCDE");
+  const [room, setRoom] = useState("ABCDEF");
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
@@ -539,7 +541,7 @@ useEffect(() => {
     <div className={`Game`}>
       <>
         <div className="topInfo">
-          <h1>Game Code:</h1>
+          <h1>Game Code: <span className="text-orange-700">{room}</span></h1>
         </div>
 
         <>
