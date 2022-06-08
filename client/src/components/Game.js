@@ -39,7 +39,7 @@ const Game = () => {
   // DR = Divine Revelation (See the future)
   // WC = White Crayon (Tacocat)
   const cards = [
-    "SG","SG","SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC"
+    "SG","SG","DT","DT","DT","DT","CR","CR","CR","CR","CR","CR","SH","SH","SH","SH","SN","SN","SN","SN","DR","DR","DR","DR","DR","DR","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC","WC"
   ];
 //Initialize socket connection
   useEffect(() => {

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Patrick Hand', cursive;
 }
 
 a {
@@ -46,7 +47,7 @@ a {
   margin: 0;
   height: 100vh;
   /* font-family: 'Gochi Hand', cursive; */
-  font-family: 'Amatic SC', cursive;
+  /* font-family: 'Amatic SC', cursive; */
 }
 
 /* Game.js Background */
