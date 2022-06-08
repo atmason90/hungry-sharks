@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  font-family: 'Patrick Hand', cursive;
+  /* font-family: 'Patrick Hand', cursive; */
+  font-family: 'Bebas Neue', cursive;
+  margin-top: 0;
 }
 
 a {
@@ -9,8 +11,9 @@ a {
 
 /* Homepage */
 .Homepage {
-  /* background-image: url('./assets/Landing-Page.gif'); */
-  /* background-size: cover; */
+  background-image: url('./assets/homepage.png');
+  background-size: cover;
+  background-position: center;
   margin: 0;
   height: 100vh;
 }
@@ -48,23 +51,6 @@ a {
   height: 100vh;
   /* font-family: 'Gochi Hand', cursive; */
   /* font-family: 'Amatic SC', cursive; */
-}
-
-/* Game.js Background */
-.backgroundColorR {
-  /* background-image: url('./assets/backgrounds/bgR.png'); */
-}
-
-.backgroundColorG {
-  /* background-image: url('./assets/backgrounds/bgG.png'); */
-}
-
-.backgroundColorB {
-  /* background-image: url('./assets/backgrounds/bgB.png'); */
-}
-
-.backgroundColorY {
-  /* background-image: url('./assets/backgrounds/bgY.png'); */
 }
 
 /* UNO Cards */
