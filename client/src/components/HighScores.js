@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect } from 'react';
 // import Auth from '../utils/auth';
 // import { getHighscores, getSingleHighscore } from '../utils/API';
@@ -11,6 +12,7 @@
 //   // useEffect(() => {
 //   //   return () => 
 //   // })
+
 
 //   // // const userData = items.map((user) => ({
 //   //   games: user.games,
@@ -30,5 +32,6 @@
 //     </div>
 //   )
 // }
+
 
 // export default HighScores
