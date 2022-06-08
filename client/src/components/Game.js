@@ -4,7 +4,6 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from 'socket.io-client'
 import fullname from "../utils/fullname"
-import queryString from 'query-string'
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -544,8 +543,8 @@ useEffect(() => {
       <>
         <div className="topInfo flex flex-row justify-center items-center">
           <h1>Game Code: <span className="text-orange-700">{room}</span></h1>
-          <h3>P1 remaining turns: {p1RemainingTurns}</h3>
-          <h3>P2 remaining turns: {p2RemainingTurns}</h3>
+          <h3 className="text-2xl">P1 remaining turns: <span className="text-orange-700 text-4xl">{p1RemainingTurns}</span></h3>
+          <h3 className="text-2xl">P2 remaining turns: <span className="text-orange-700 text-4xl">{p2RemainingTurns}</span></h3>
         </div>
 
         <>
