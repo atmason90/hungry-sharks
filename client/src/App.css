@@ -11,7 +11,7 @@ a {
 
 /* Homepage */
 .Homepage {
-  background-image: url('./assets/homepagebg.png');
+  background-image: url('./assets/hero.gif');
   background-size: cover;
   background-position: center;
   margin: 0;
@@ -46,11 +46,11 @@ a {
 
 /* Game.js parent div */
 .Game {
+  background-image: url('./assets/game.gif');
   background-size: cover;
+  background-position: center;
   margin: 0;
   height: 100vh;
-  /* font-family: 'Gochi Hand', cursive; */
-  /* font-family: 'Amatic SC', cursive; */
 }
 
 /* UNO Cards */
