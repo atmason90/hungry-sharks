@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { default: auth } = require('../../../client/src/utils/auth');
+// const { default: auth } = require('../../../client/src/utils/auth');
 const {
   createUser,
   getSingleUser,
