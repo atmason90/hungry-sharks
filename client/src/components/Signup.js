@@ -70,7 +70,7 @@ const Signup = () => {
             required
           />
         </Form.Group>
-
+        <br></br>
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
@@ -82,7 +82,7 @@ const Signup = () => {
             required
           />
         </Form.Group>
-
+        <br></br>
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
