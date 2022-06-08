@@ -1,4 +1,5 @@
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Game from './components/Game';
 import HighScores from './components/HighScores';
 import Login from './components/Login'
@@ -8,12 +9,23 @@ import Signup from './components/Signup';
 function App() {
   return (
     <div className="App">
+      <Router>
       
-      <Game/> 
+        <Routes>
+          <Route exact path="/" element={<Game/>}/>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/signup" element={<Signup/>}/>
+          <Route exact path="/rules" element={<Rules/>}/>
+          <Route path="/highscores" element={<HighScores/>}/>
+        </Routes>
+      
+    </Router>
+      
+      {/* <Game/> 
       <Login />
       <Rules />
       <Signup />
-      <HighScores />
+      <HighScores /> */}
     </div>
   );
 }
