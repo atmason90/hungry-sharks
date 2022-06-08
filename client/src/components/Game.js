@@ -10,10 +10,12 @@ let socket;
 const ENDPOINT = "http://localhost:3001";
 
 const Game = () => {
-  // const data = queryString.parse(props.location.search)
+  const locationURL = window.location.href;
+  const split = locationURL.split("=");
+  const codeForRoom = split[1];
   
   //Websocet stuff
-  const [room, setRoom] = useState("ABCDEF");
+  const [room, setRoom] = useState(codeForRoom);
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
@@ -540,8 +542,10 @@ useEffect(() => {
   return (
     <div className={`Game`}>
       <>
-        <div className="topInfo">
+        <div className="topInfo flex flex-row justify-center items-center">
           <h1>Game Code: <span className="text-orange-700">{room}</span></h1>
+          <h3>P1 remaining turns: {p1RemainingTurns}</h3>
+          <h3>P2 remaining turns: {p2RemainingTurns}</h3>
         </div>
 
         <>
@@ -559,15 +563,13 @@ useEffect(() => {
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
                 <>
-                <h3>P1 remaining turns: {p1RemainingTurns}</h3>
-                <h3>P2 remaining turns: {p2RemainingTurns}</h3>
                   <div
                     className="player2Deck"
                     style={{ pointerEvents: "none" }}
                   >
                     <p className="playerDeckText">P2</p>
                     {p2Cards.map((item, i) => (
-                      <div>
+                      <div className="shadow-xl">
                       <img
                         key={i}
                         className="Card"
@@ -594,7 +596,7 @@ useEffect(() => {
                     </button>
                     {
                       playedCard && (
-                        <div>
+                        <div className="shadow-xl">
                         <img
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
@@ -614,7 +616,7 @@ useEffect(() => {
                   >
                     <p className="playerDeckText text-white">P1</p>
                     {p1Cards.map((item, i) => (
-                      <div className="player1DeckCards">
+                      <div className="player1DeckCards shadow-xl">
                       {/* <span>{fullname(item)}</span> */}
                       <img
                         key={i}
