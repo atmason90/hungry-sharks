@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { Navbar, Nav, Container,} from 'react-bootstrap';
 import Signup from './Signup';
 import Login from './Login';
 
@@ -12,64 +12,48 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Game
+      <Navbar className="flex flex-row items-center justify-center px-6" bg='black' variant='dark' expand='lg'>
+        <Container className="flex flex-row items-center justify-center" fluid>
+          <Navbar.Brand 
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          as={Link} to='/'>
+            Home
           </Navbar.Brand>
+          
           <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/rules'>
-                View Rules
+          <Navbar.Collapse  id='navbar'>
+            <Nav className='flex flex flex-row items-center  ml-auto'>
+            <Nav.Link
+            className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+            as={Link} to='/rules'>
+                See Game Rules
               </Nav.Link>
+              <br></br>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/highscores'>
-                    See Your Books
+                  <Nav.Link 
+                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  as={Link} to='/highscores'>
+                    See HighScores
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.loggedIn()}>Logout</Nav.Link>
+                  <br></br>
+                  <Nav.Link 
+                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-              )}
+                <Nav.Link 
+                className="flex flex-row items-center bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                as={Link} to='/login'>Login</Nav.Link>
+              )
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       {/* set modal data up */}
-      <Modal
-        size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
-        {/* tab container to do either signup or login component */}
-        <Tab.Container defaultActiveKey='login'>
-          <Modal.Header closeButton>
-            <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
-                <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Tab.Content>
-              <Tab.Pane eventKey='login'>
-                <Login handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-              <Tab.Pane eventKey='signup'>
-                <Signup handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Modal.Body>
-        </Tab.Container>
-      </Modal>
+     
     </>
   );
 };
