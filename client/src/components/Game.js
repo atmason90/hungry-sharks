@@ -790,6 +790,7 @@ const sendMessage= (event) => {
 
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
+                <>
                 <Player2View
                   cardPlayedHandler={cardPlayedHandler}
                   p2Cards={p2Cards}
@@ -800,6 +801,27 @@ const sendMessage= (event) => {
                   info={info}
                   playedCard={playedCard}
                 />
+                <div className="chatBoxWrapper">
+                            <div className="chat-box chat-box-player1">
+                                <div className="chat-head" onClick={toggleChatBox} >
+                                    <h2>Chat Box</h2>
+                                </div>
+                                <div className="chat-body">
+                                    <div className="msg-insert text-black">
+                                        {messages.map(msg => {
+                                            if(msg.user === 'Player 2')
+                                                return <div className="msg-receive">{msg.text}</div>
+                                            if(msg.user === 'Player 1')
+                                                return <div className="msg-send">{msg.text}</div>
+                                        })}
+                                    </div>
+                                    <div className="chat-text">
+                                        <input className="text-black" type='text' placeholder='Type a message...' value={message} onChange={event => setMessage(event.target.value)} onKeyPress={event => event.key==='Enter' && sendMessage(event)} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </>
               )}
             </div>
           )}
