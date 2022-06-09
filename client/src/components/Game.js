@@ -384,7 +384,10 @@ const Game = () => {
             threeCards: [...topThreeCards],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            p1Cards: [...cardsOfP1],
+            p2Cards: [...cardsOfP2],
             modalP1Show: true,
+            info: `The Gods have intervened! ${activePlayer} knows the next 3 cards in the deck`
           });
         } else if (activePlayer === "P2") {
           socket.emit("updateGameState", {
@@ -392,7 +395,10 @@ const Game = () => {
             threeCards: [...topThreeCards],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            p1Cards: [...cardsOfP1],
+            p2Cards: [...cardsOfP2],
             modalP2Show: true,
+            info: `The Gods have intervened! ${activePlayer} knows the next 3 cards in the deck`
           });
         }
         break;
