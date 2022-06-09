@@ -124,7 +124,7 @@ const Game = () => {
         p1RemainingTurns,
         p2RemainingTurns,
         noobModeP1,
-        noobModeP2
+        noobModeP2,
       }) => {
         setGameOver(gameOver);
         setActivePlayer(activePlayer);
@@ -155,7 +155,7 @@ const Game = () => {
         modalP2Show,
         info,
         noobModeP1,
-        noobModeP2
+        noobModeP2,
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -698,15 +698,14 @@ const Game = () => {
 
   function toggleHandlerP1() {
     var bool = noobModeP1;
-    if(bool) {
-      console.log("bool was true")
+    if (bool) {
+      console.log("bool was true");
       socket.emit("updateGameState", {
-        noobModeP1: false
+        noobModeP1: false,
       });
-    }
-    else {
+    } else {
       socket.emit("updateGameState", {
-        noobModeP1: true
+        noobModeP1: true,
       });
     }
   }
@@ -716,7 +715,7 @@ const Game = () => {
     bool = !bool;
     // setNoobModeP2(bool);
     socket.emit("updateGameState", {
-      noobModeP2: bool
+      noobModeP2: bool,
     });
   }
 
@@ -821,14 +820,12 @@ const Game = () => {
                         <img
                           key={i}
                           className="Card"
-                          onClick={() => noobModeP1 ? 
-                          <ViewCardModal card ={item} setCardViewP1On={setCardViewP1On} playtheCard= {cardPlayedHandler(item)}/> 
-                          : cardPlayedHandler(item)}
+                          onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/${item}.png`)}
                           alt={`${fullname(item)}`}
                         />
+                        
                       </div>
-                     
                     ))}
                   </div>
                 </>
@@ -903,12 +900,12 @@ const Game = () => {
                         <img
                           key={i}
                           className="Card"
-                          onClick={() => noobModeP2 ? <ViewCardModal card ={item}/> : cardPlayedHandler(item)}
+                          onClick={() => cardPlayedHandler(item)
+                          }
                           src={require(`../assets/${item}.png`)}
                           alt={`${fullname(item)}`}
                         />
                       </div>
-                      
                     ))}
                   </div>
                 </>
@@ -925,30 +922,29 @@ const Game = () => {
             QUIT
           </button>
         </a>
-        {currentUser === "Player 1" ? <ToggleP1 toggleFunction={toggleHandlerP1}/> : <ToggleP2 toggleFunction={toggleHandlerP2}/>}
 
-      {/* Modals down here */}
-      {currentUser === "Player 1"
-        ? modalP1Show && (
-            <ModalP1
-              setModalOn={setModalP1Show}
-              card1={threeCards[0]}
-              card2={threeCards[1]}
-              card3={threeCards[2]}
-            />
-          )
-        : null}
-      {currentUser === "Player 2"
-        ? modalP2Show && (
-            <ModalP2
-              setModalOn={setModalP2Show}
-              card1={threeCards[0]}
-              card2={threeCards[1]}
-              card3={threeCards[2]}
-            />
-          )
-        : null}
-    </div>
+        {/* Modals down here */}
+        {currentUser === "Player 1"
+          ? modalP1Show && (
+              <ModalP1
+                setModalOn={setModalP1Show}
+                card1={threeCards[0]}
+                card2={threeCards[1]}
+                card3={threeCards[2]}
+              />
+            )
+          : null}
+        {currentUser === "Player 2"
+          ? modalP2Show && (
+              <ModalP2
+                setModalOn={setModalP2Show}
+                card1={threeCards[0]}
+                card2={threeCards[1]}
+                card3={threeCards[2]}
+              />
+            )
+          : null}
+      </div>
     </div>
   );
 };
