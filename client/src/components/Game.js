@@ -21,7 +21,7 @@ const Game = () => {
   //Modals and info
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
-  const [info, setInfo] = useState("The shark is now officially hungry");
+  const [info, setInfo] = useState("The shark is now officially hungry!");
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -141,6 +141,7 @@ const Game = () => {
         threeCards,
         modalP1Show,
         modalP2Show,
+        info
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -154,6 +155,7 @@ const Game = () => {
         threeCards && setThreeCards(threeCards);
         modalP1Show && setModalP1Show(modalP1Show);
         modalP2Show && setModalP2Show(modalP2Show);
+        info && setInfo(info);
       }
     );
 
@@ -229,6 +231,9 @@ const Game = () => {
           playedCard: cardPlayed,
           p1RemainingTurns: p1RemainingTurns,
           p2RemainingTurns: p2RemainingTurns,
+          p1Cards: [...p1Cards],
+          p2Cards: [...p2Cards],
+          info: "The deck has been Shuffled!"
         });
 
         break;
@@ -251,6 +256,7 @@ const Game = () => {
               p2RemainingTurns: p2RemainingTurns + 1,
               p1RemainingTurns: playerRemainingTurns,
               activePlayer: "P2",
+              info: `${activePlayer} decided to sleep through their turn!`
             });
           } else if (cardPlayedBy === "P2") {
             // setP1RemainingTurns(p1RemainingTurns + 1);
@@ -657,7 +663,7 @@ const Game = () => {
                     <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
                       <div className="card-body items-center text-center">
                         <h2 className="card-title text-orange-700 text-2xl">Info</h2>
-                        <p className="text-gray-300">{info}</p>
+                        <p className="text-gray-300 text-xl">{info}</p>
                       </div>
                     </div>
                     {playedCard && (
@@ -738,7 +744,7 @@ const Game = () => {
                     <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
                       <div className="card-body items-center text-center">
                         <h2 className="card-title text-orange-700 text-2xl">Info</h2>
-                        <p className="text-gray-300">{info}</p>
+                        <p className="text-gray-300 text-xl">{info}</p>
                       </div>
                     </div>
                     {playedCard && (
