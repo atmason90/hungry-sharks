@@ -62,8 +62,9 @@ const Signup = () => {
         <Form.Group>
           <Form.Label htmlFor='username'>Username</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='text'
-            placeholder='Your username'
+            placeholder='Username...'
             name='username'
             onChange={handleInputChange}
             value={userFormData.username}
@@ -74,8 +75,9 @@ const Signup = () => {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='email'
-            placeholder='Your email address'
+            placeholder='Email...'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
@@ -86,6 +88,7 @@ const Signup = () => {
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='password'
             placeholder='Your password'
             name='password'
@@ -96,6 +99,7 @@ const Signup = () => {
         </Form.Group>
         <Button
         //   disabled={!(userFormData.username && userFormData.email && userFormData.password)}
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
           type='submit'
           variant='success'>
           Submit

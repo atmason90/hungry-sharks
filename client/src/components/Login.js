@@ -65,8 +65,9 @@ const Login=()=> {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='text'
-            placeholder='Your email'
+            placeholder='Email...'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
@@ -77,22 +78,27 @@ const Login=()=> {
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='password'
-            placeholder='Your password'
+            placeholder='Password...'
             name='password'
             onChange={handleInputChange}
             value={userFormData.password}
             required
           />
         </Form.Group>
+        <br></br>
         <Form.Group>
 
-          Don't have an account ? 
-          <Link as={Link} to='/signup' > Sign Up! </Link>
+          Don't have an account ?
+          <Link 
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          as={Link} to='/signup' > Sign Up! </Link>
 
         </Form.Group>
-         
-        <Button
+        <br></br>
+        <Button 
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>
