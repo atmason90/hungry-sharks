@@ -625,7 +625,7 @@ const Game = () => {
                     className="player2Deck"
                     style={{ pointerEvents: "none" }}
                   >
-                    <p className="playerDeckText">P2</p>
+                    <p className="playerDeckText text-orange-700 border-b-2 border-dotted">P2</p>
                     {p2Cards.map((item, i) => (
                       <div className="shadow-xl">
                         <img
@@ -664,7 +664,7 @@ const Game = () => {
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
                         />
-                        <h3>{fullname(playedCard)}</h3>
+                        <h3 className="text-orange-700 mt-3">{fullname(playedCard)}</h3>
                       </div>
                     )}
                   </div>
@@ -675,7 +675,7 @@ const Game = () => {
                       activePlayer === "P1" ? null : { pointerEvents: "none" }
                     }
                   >
-                    <p className="playerDeckText text-white">P1</p>
+                    <p className="playerDeckText text-orange-600">P1</p>
                     {p1Cards.map((item, i) => (
                       <div className="player1DeckCards shadow-xl">
                         {/* <span>{fullname(item)}</span> */}
