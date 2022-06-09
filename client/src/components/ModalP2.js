@@ -16,9 +16,6 @@ const ModalP2 = ({ setModalOn, card1, card2, card3 }) => {
             <img src={require(`../assets/${card1}.png`)}></img>
             <img src={require(`../assets/${card2}.png`)}></img>
             <img src={require(`../assets/${card3}.png`)}></img>
-            {/* <span>{card1} - </span>
-            <span>{card2} - </span>
-            <span>{card3} - </span> */}
           </div>
           <div className="flex">
             <button

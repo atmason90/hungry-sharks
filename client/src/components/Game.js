@@ -596,13 +596,13 @@ const Game = () => {
           </h3>
           <h3 className="text-2xl">
             Active Player:{" "}
-            <span className="text-orange-700 text-4xl">{activePlayer}</span>
+            <p className="text-orange-700 text-4xl">{activePlayer}</p>
           </h3>
           <h3 className="text-2xl">
             Player remaining turns:{" "}
-            <span className="text-orange-700 text-4xl">
+            <p className="text-orange-700 text-4xl">
               {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
-            </span>
+            </p>
           </h3>
         </div>
 
