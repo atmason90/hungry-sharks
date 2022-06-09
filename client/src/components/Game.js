@@ -590,6 +590,8 @@ const Game = () => {
         }
       }
     } else if (activePlayer === "P2") {
+      const p2Turns = p2RemainingTurns - 1;
+
       if (cardDrawn === "HS") {
         //Hungry shark handler
         const goatCardIndex = p2Hand.indexOf("SG");
@@ -602,27 +604,42 @@ const Game = () => {
           // setDrawCardsPile([...cardDeck]);
           // setPlayedCard("SG");
           // setP2RemainingTurns(p2RemainingTurns - 1);
-          socket.emit("updateGameState", {
-            p2Cards: [...p2Hand],
-            p1Cards: [...p1Cards],
-            drawCardsPile: [...cardDeck],
-            playedCard: "SG",
-            p2RemainingTurns: p2RemainingTurns - 1,
-            p1RemainingTurns: p1RemainingTurns,
-          });
+          // socket.emit("updateGameState", {
+          //   p2Cards: [...p2Hand],
+          //   p1Cards: [...p1Hand],
+          //   drawCardsPile: [...cardDeck],
+          //   playedCard: "SG",
+          //   p2RemainingTurns: p2RemainingTurns - 1,
+          //   p1RemainingTurns: p1RemainingTurns,
+          // });
 
-          if (p2RemainingTurns === 0) {
+          if (p2Turns === 0) {
             // setP1RemainingTurns(p1RemainingTurns + 1);
             // setActivePlayer("P1");
             socket.emit("updateGameState", {
-              p1Cards: [...p1Cards],
+              p1Cards: [...p1Hand],
               p2Cards: [...p2Hand],
-              p1RemainingTurns: p1RemainingTurns + 1,
-              p2RemainingTurns: p2RemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
+              playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`
             });
           }
+
+          else if(p2Turns === 1) {
+            socket.emit("updateGameState", {
+              p1Cards: [...p1Hand],
+              p2Cards: [...p2Hand],
+              p1RemainingTurns: 0,
+              p2RemainingTurns: 1,
+              playedCard: "SG",
+              drawCardsPile: [...cardDeck],
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`
+            });
+          }
+
         } else {
           // setPlayedCard("HS");
           // setGameOver(true);
@@ -633,31 +650,44 @@ const Game = () => {
             winner: "P1",
           });
         }
-      } else {
-        let rTurns = p2RemainingTurns - 1;
+      } else if(cardDrawn !== "HS") {
+        
         // setDrawCardsPile([...cardDeck]);
         // setP2Cards([...p2Cards, cardDrawn]);
         // setP2RemainingTurns(rTurns);
-        socket.emit("updateGameState", {
-          drawCardsPile: [...cardDeck],
-          p2Cards: [...p2Cards, cardDrawn],
-          p1Cards: [...p1Cards],
-          p2RemainingTurns: rTurns,
-          p1RemainingTurns: p1RemainingTurns,
-        });
-        if (rTurns === 0) {
+        // socket.emit("updateGameState", {
+        //   drawCardsPile: [...cardDeck],
+        //   p2Cards: [...p2Cards, cardDrawn],
+        //   p1Cards: [...p1Cards],
+        //   p2RemainingTurns: rTurns,
+        //   p1RemainingTurns: p1RemainingTurns,
+        // });
+        if (p2Turns === 0) {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");
           socket.emit("updateGameState", {
-            p2Cards: [...p2Cards, cardDrawn],
-            p1Cards: [...p1Cards],
-            p1RemainingTurns: p1RemainingTurns + 1,
+            p2Cards: [...p2Hand, cardDrawn],
+            p1Cards: [...p1Hand],
+            p1RemainingTurns: 1,
             drawCardsPile: [...cardDeck],
-            p2RemainingTurns: rTurns,
+            p2RemainingTurns: 0,
             activePlayer: "P1",
+            info: `${activePlayer} Drew a card and their turns are over`
+          });
+        }
+        else if(p2Turns === 1) {
+          socket.emit("updateGameState", {
+            p2Cards: [...p2Hand, cardDrawn],
+            p1Cards: [...p1Hand],
+            p1RemainingTurns: 0,
+            drawCardsPile: [...cardDeck],
+            p2RemainingTurns: 1,
+            activePlayer: "P1",
+            info: `${activePlayer} Drew a card and they have 1 turn remaining`
           });
         }
       }
+      
     }
   }
 
