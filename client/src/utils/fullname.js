@@ -6,7 +6,7 @@ export default function fullname(card) {
     else if(card === "SH") return "Shuffle"
     else if(card === "SN") return "Snooze"
     else if(card === "CR") return "Communist Regime"
-    else if(card === "back") return ""
+    else if(card === "back") return "Action Cards"
     }
 
    
