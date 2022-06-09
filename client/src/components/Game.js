@@ -13,7 +13,7 @@ const Game = () => {
   const split = locationURL.split("=");
   const codeForRoom = split[1];
 
-  //Websocet stuff
+  //Websocet stufff
   const [room, setRoom] = useState(codeForRoom);
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
