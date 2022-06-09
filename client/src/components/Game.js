@@ -645,8 +645,9 @@ const Game = () => {
                       activePlayer === "P2" ? { pointerEvents: "none" } : null
                     }
                   >
+                    
                     <button
-                      className="game-button"
+                      className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
                       disabled={activePlayer !== "P1"}
                       onClick={drawCardHandler}
                     >
@@ -780,7 +781,7 @@ const Game = () => {
 
       <br />
       <a href="/">
-        <button className="game-button red">QUIT</button>
+        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40  hover:text-white">QUIT</button>
       </a>
 
       {/* Modals down here */}
