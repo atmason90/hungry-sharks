@@ -51,14 +51,18 @@ const Login=()=> {
       });
     };
 
-    const paperStyle={padding :20,height:'100vh',width:280, margin:"20px auto"}
-    // const avatarStyle={backgroundColor:'#1bbd7e'}
-    const btnstyle={margin:'8px 0'}
-
 
     return(
       <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <br></br>
+      <br></br>
+   
+      <div className="container border content-center justify center items-center w-fit rounded pt-8 pb-8 pl-6 pr-6">
+      <Form 
+      className=""
+      noValidate 
+      validated={validated} 
+      onSubmit={handleFormSubmit}>
         <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
@@ -88,11 +92,12 @@ const Login=()=> {
           />
         </Form.Group>
         <br></br>
-        <Form.Group>
+        <Form.Group >
 
-          Don't have an account ?
+          Don't have an account ? &nbsp; &nbsp;
+
           <Link 
-          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          className=" bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
           as={Link} to='/signup' > Sign Up! </Link>
 
         </Form.Group>
@@ -105,6 +110,7 @@ const Login=()=> {
           Submit
         </Button>
       </Form>
+      </div>
     </>
     )
 }
