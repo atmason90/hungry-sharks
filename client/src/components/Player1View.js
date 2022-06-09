@@ -1,6 +1,6 @@
 import React from "react";
 
-const PlayerView = ( {cardPlayedHandler, p2Cards, activePlayer, p1Cards, fullname, drawCardHandler, info, playedCard}) => {
+const Player1View = ( {cardPlayedHandler, p2Cards, activePlayer, p1Cards, fullname, drawCardHandler, info, playedCard}) => {
   return (
     <>
       <div className="player2Deck" style={{ pointerEvents: "none" }}>
@@ -69,4 +69,4 @@ const PlayerView = ( {cardPlayedHandler, p2Cards, activePlayer, p1Cards, fullnam
   );
 };
 
-export default PlayerView;
+export default Player1View;
