@@ -1,9 +1,6 @@
 {
   "name": "hungry-sharks",
   "version": "0.1.0",
-  "engines": {
-    "node": "16.14.2"
-  },
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
