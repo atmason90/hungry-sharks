@@ -4,11 +4,9 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from "socket.io-client";
 import fullname from "../utils/fullname";
-import ToggleP1 from "./ToggleP1";
-import ToggleP2 from "./ToggleP2";
-import ViewCardModal from "./ViewCardModal";
 import Player1View from "./Player1View";
 import Player2View from "./Player2View";
+import Chatbox from "./Chatbox"
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -28,10 +26,10 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
-  const [noobModeP1, setNoobModeP1] = useState(false);
-  const [noobModeP2, setNoobModeP2] = useState(true);
-  const [cardViewP1On, setCardViewP1On] = useState(false);
-  const [cardViewP2On, setCardViewP2On] = useState(false);
+  //Message state
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState([])
+  const [isChatBoxHidden, setChatBoxHidden] = useState(true)
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -92,6 +90,28 @@ const Game = () => {
     "WC",
     "WC",
   ];
+
+//Helper functions
+const toggleChatBox = () => {
+  const chatBody = document.querySelector('.chat-body')
+  if(isChatBoxHidden) {
+      chatBody.style.display = 'block'
+      setChatBoxHidden(false)
+  }
+  else {
+      chatBody.style.display = 'none'
+      setChatBoxHidden(true)
+  }
+}
+const sendMessage= (event) => {
+  event.preventDefault()
+  if(message) {
+      socket.emit('sendMessage', { message: message }, () => {
+          setMessage('')
+      })
+  }
+}
+
   //Initialize socket connection
   useEffect(() => {
     const connectionOptions = {
@@ -135,8 +155,6 @@ const Game = () => {
         setDrawCardsPile(drawCardsPile);
         setP1RemainingTurns(p1RemainingTurns);
         setP2RemainingTurns(p2RemainingTurns);
-        setNoobModeP1(false);
-        setNoobModeP2(false);
       }
     );
 
@@ -172,8 +190,6 @@ const Game = () => {
         modalP1Show && setModalP1Show(modalP1Show);
         modalP2Show && setModalP2Show(modalP2Show);
         info && setInfo(info);
-        noobModeP1 !== null && setNoobModeP1(noobModeP1);
-        noobModeP2 !== null && setNoobModeP2(noobModeP2);
       }
     );
 
@@ -185,6 +201,14 @@ const Game = () => {
       setCurrentUser(name);
       console.log(name);
     });
+
+    socket.on('message', message => {
+      setMessages(messages => [ ...messages, message ])
+
+      const chatBody = document.querySelector('.chat-body')
+      chatBody.scrollTop = chatBody.scrollHeight
+  });
+
   }, []);
 
   // Setup game by distributing cards
@@ -698,36 +722,12 @@ const Game = () => {
     }
   }
 
-  function toggleHandlerP1() {
-    var bool = noobModeP1;
-    if (bool) {
-      console.log("bool was true");
-      socket.emit("updateGameState", {
-        noobModeP1: false,
-      });
-    } else {
-      socket.emit("updateGameState", {
-        noobModeP1: true,
-      });
-    }
-  }
-
-  function toggleHandlerP2() {
-    var bool = noobModeP2;
-    bool = !bool;
-    // setNoobModeP2(bool);
-    socket.emit("updateGameState", {
-      noobModeP2: bool,
-    });
-  }
-
   return (
     <div className={`Game`}>
       <>
         <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
           <h3 className="text-2xl">
             Game Code: <span className="text-orange-700">{room}</span>
-            <h3>Noob Mode P1 : {`${noobModeP1}`}</h3>
           </h3>
           <h3 className="text-2xl">
             Active Player:{" "}
@@ -755,6 +755,7 @@ const Game = () => {
             <div>
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
+                <>
                 <Player1View
                   cardPlayedHandler={cardPlayedHandler}
                   p2Cards={p2Cards}
@@ -765,10 +766,19 @@ const Game = () => {
                   info={info}
                   playedCard={playedCard}
                 />
+                <Chatbox 
+                    toggleChatBox={toggleChatBox}
+                    messages={messages}
+                    message={message}
+                    setMessage={setMessage}
+                    sendMessage={sendMessage}
+                  />
+                </>
               )}
 
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
+                <>
                 <Player2View
                   cardPlayedHandler={cardPlayedHandler}
                   p2Cards={p2Cards}
@@ -779,6 +789,14 @@ const Game = () => {
                   info={info}
                   playedCard={playedCard}
                 />
+                  <Chatbox 
+                    toggleChatBox={toggleChatBox}
+                    messages={messages}
+                    message={message}
+                    setMessage={setMessage}
+                    sendMessage={sendMessage}
+                  />
+                </>
               )}
             </div>
           )}
