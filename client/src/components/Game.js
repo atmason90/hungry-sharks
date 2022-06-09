@@ -749,7 +749,7 @@ const Game = () => {
                           className="Card"
                           onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/back.png`)}
-                          alt={`${item}`} ////////////////////////////////////////
+                          alt={`${fullname(item)}`} ////////////////////////////////////////
                         />
                       </div>
                     ))}
@@ -782,6 +782,7 @@ const Game = () => {
                         <img
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
+                          alt={`${fullname(playedCard)}`}
                         />
                         <h3 className="text-orange-700 mt-3">
                           {fullname(playedCard)}
@@ -799,21 +800,15 @@ const Game = () => {
                     <p className="playerDeckText text-orange-600">P1</p>
                     {p1Cards.map((item, i) => (
                       <div className="player1DeckCards shadow-xl">
-                        {/* <span>{fullname(item)}</span> */}
                         <img
                           key={i}
                           className="Card"
                           onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/${item}.png`)}
+                          alt={`${fullname(item)}`}
                         />
                       </div>
-                      // <span
-                      // key={i}
-                      // onClick={() => {
-                      //   if(item !== "WC" && item !== "SG")
-                      //   cardPlayedHandler(item)}}
-                      // >{item} -
-                      // </span>
+                     
                     ))}
                   </div>
                 </>
@@ -834,6 +829,7 @@ const Game = () => {
                           className="Card"
                           onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/back.png`)}
+                          alt={`${fullname(item)}`}
                         />
                       </div>
                     ))}
@@ -866,6 +862,7 @@ const Game = () => {
                         <img
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
+                          alt={`${fullname(playedCard)}`}
                         />
                         <h3 className="text-orange-700 mt-3">
                           {fullname(playedCard)}
@@ -883,21 +880,15 @@ const Game = () => {
                     <p className="playerDeckText text-orange-600">P2</p>
                     {p2Cards.map((item, i) => (
                       <div className="player1DeckCards shadow-xl">
-                        {/* <span>{fullname(item)}</span> */}
                         <img
                           key={i}
                           className="Card"
                           onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/${item}.png`)}
+                          alt={`${fullname(item)}`}
                         />
                       </div>
-                      // <span
-                      // key={i}
-                      // onClick={() => {
-                      //   if(item !== "WC" && item !== "SG")
-                      //   cardPlayedHandler(item)}}
-                      // >{item} -
-                      // </span>
+                      
                     ))}
                   </div>
                 </>
