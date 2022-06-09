@@ -625,7 +625,7 @@ const Game = () => {
                     className="player2Deck"
                     style={{ pointerEvents: "none" }}
                   >
-                    <p className="playerDeckText text-orange-700 border-b-2 border-dotted">P2</p>
+                    <p className="playerDeckText text-orange-700 ">P2</p>
                     {p2Cards.map((item, i) => (
                       <div className="shadow-xl">
                         <img
@@ -702,21 +702,20 @@ const Game = () => {
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
                 <>
-                  <h3>P1 remaining turns: {p1RemainingTurns}</h3>
-                  <h3>P2 remaining turns: {p2RemainingTurns}</h3>
                   <div
                     className="player1Deck"
                     style={{ pointerEvents: "none" }}
                   >
-                    <p className="playerDeckText">P1</p>
+                    <p className="playerDeckText text-orange-700">P1</p>
                     {p1Cards.map((item, i) => (
-                      <img
-                        key={i}
-                        className="Card"
-                        onClick={() => cardPlayedHandler(item)}
-                        src={require(`../assets/back.png`)}
-                      />
-                      // <span>{item} - </span>
+                      <div className="shadow-xl">
+                        <img
+                          key={i}
+                          className="Card"
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/back.png`)}
+                        />
+                      </div>
                     ))}
                     {activePlayer === "P1"}
                   </div>
@@ -727,53 +726,60 @@ const Game = () => {
                       activePlayer === "P1" ? { pointerEvents: "none" } : null
                     }
                   >
+                    
                     <button
-                      className="game-button"
+                      className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
                       disabled={activePlayer !== "P2"}
                       onClick={drawCardHandler}
                     >
                       DRAW CARD
                     </button>
+                    <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
+                      <div className="card-body items-center text-center">
+                        <h2 className="card-title text-orange-700 text-2xl">Info</h2>
+                        <p className="text-gray-300">{info}</p>
+                      </div>
+                    </div>
                     {playedCard && (
-                      <img
-                        className="Card"
-                        src={require(`../assets/${playedCard}.png`)}
-                      />
-                      // <h3>{playedCard}</h3>
+                      <div className="shadow-xl">
+                        <img
+                          className="Card"
+                          src={require(`../assets/${playedCard}.png`)}
+                        />
+                        <h3 className="text-orange-700 mt-3">{fullname(playedCard)}</h3>
+                      </div>
                     )}
                   </div>
                   <br />
                   <div
                     className="player2Deck"
                     style={
-                      activePlayer === "P1" ? { pointerEvents: "none" } : null
+                      activePlayer === "P2" ? null : { pointerEvents: "none" }
                     }
                   >
-                    <p className="playerDeckText">P2</p>
+                    <p className="playerDeckText text-orange-600">P2</p>
                     {p2Cards.map((item, i) => (
-                      <img
-                        key={i}
-                        className="Card"
-                        onClick={() => {
-                          if (item !== "WC" && item !== "SG") {
-                            cardPlayedHandler(item);
-                          }
-                        }}
-                        src={require(`../assets/${item}.png`)}
-                      />
+                      <div className="player1DeckCards shadow-xl">
+                        {/* <span>{fullname(item)}</span> */}
+                        <img
+                          key={i}
+                          className="Card"
+                          onClick={() => cardPlayedHandler(item)}
+                          src={require(`../assets/${item}.png`)}
+                        />
+                      </div>
                       // <span
-                      //   key={i}
-                      //   onClick={() => {
-                      //     if (item !== "WC" && item !== "SG")
-                      //       cardPlayedHandler(item);
-                      //   }}
-                      // >
-                      //   {item} -
+                      // key={i}
+                      // onClick={() => {
+                      //   if(item !== "WC" && item !== "SG")
+                      //   cardPlayedHandler(item)}}
+                      // >{item} -
                       // </span>
                     ))}
                   </div>
                 </>
               )}
+
             </div>
           )}
         </>
@@ -781,7 +787,7 @@ const Game = () => {
 
       <br />
       <a href="/">
-        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40  hover:text-white">QUIT</button>
+        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">QUIT</button>
       </a>
 
       {/* Modals down here */}
