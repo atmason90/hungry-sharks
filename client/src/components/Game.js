@@ -4,6 +4,8 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from "socket.io-client";
 import fullname from "../utils/fullname";
+import ToggleP1 from "./ToggleP1";
+import ToggleP2 from "./ToggleP2";
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -23,7 +25,8 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
-  const [noobMode, setNoobMode] = useState(true);
+  const [noobModeP1, setNoobModeP1] = useState(true);
+  const [noobModeP2, setNoobModeP2] = useState(true);
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -117,6 +120,8 @@ const Game = () => {
         drawCardsPile,
         p1RemainingTurns,
         p2RemainingTurns,
+        noobModeP1,
+        noobModeP2
       }) => {
         setGameOver(gameOver);
         setActivePlayer(activePlayer);
@@ -125,6 +130,8 @@ const Game = () => {
         setDrawCardsPile(drawCardsPile);
         setP1RemainingTurns(p1RemainingTurns);
         setP2RemainingTurns(p2RemainingTurns);
+        setNoobModeP1(noobModeP1);
+        setNoobModeP2(noobModeP2);
       }
     );
 
@@ -682,11 +689,18 @@ const Game = () => {
     }
   }
 
-  function toggleHandler() {
-    var bool = noobMode;
+  function toggleHandlerP1() {
+    var bool = noobModeP1;
     bool = !bool;
-    setNoobMode(bool);
-    console.log(noobMode);
+    setNoobModeP1(bool);
+    console.log(noobModeP1);
+  }
+
+  function toggleHandlerP2() {
+    var bool = noobModeP2;
+    bool = !bool;
+    setNoobModeP2(bool);
+    console.log(noobModeP2);
   }
 
   return (
@@ -900,23 +914,7 @@ const Game = () => {
             QUIT
           </button>
         </a>
-        <div className="mx-64">
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text text-xl mx-2 text-orange-700">
-                Noob Mode
-              </span>
-              <input
-                type="checkbox"
-                className="toggle"
-                unchecked
-                style={{ backgroundColor: "rgb(194,65,12" }}
-                onClick= {toggleHandler}
-              />
-            </label>
-          </div>
-        </div>
-      </div>
+        {currentUser === "Player 1" ? <ToggleP1 toggleFunction={toggleHandlerP1}/> : <ToggleP2 toggleFunction={toggleHandlerP2}/>}
 
       {/* Modals down here */}
       {currentUser === "Player 1"
@@ -939,6 +937,7 @@ const Game = () => {
             />
           )
         : null}
+    </div>
     </div>
   );
 };
