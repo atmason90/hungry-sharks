@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.167bd0ff.css",
+    "main.js": "/static/js/main.28949079.js",
+    "static/media/game.gif": "/static/media/game.d6c925be835b0fcb653c.gif",
+    "static/media/hero.gif": "/static/media/hero.0da36367f959451fe267.gif",
+    "static/media/back.png": "/static/media/back.4634c4ac8ffd808be9e4.png",
+    "static/media/DT.png": "/static/media/DT.8acedeb673268a46609d.png",
+    "static/media/HS.png": "/static/media/HS.9d84b170f766bbeb3c7a.png",
+    "static/media/WC.png": "/static/media/WC.feff98a5361efc0fa744.png",
+    "static/media/DR.png": "/static/media/DR.e3bf3976badedfb5f54a.png",
+    "static/media/SG.png": "/static/media/SG.a29e8635d3de3cb126a9.png",
+    "static/media/SN.png": "/static/media/SN.4c23187235100298cafc.png",
+    "static/media/SH.png": "/static/media/SH.fffe4859f5721b581443.png",
+    "static/media/CR.png": "/static/media/CR.9c72640c88dd9c4f39cb.png",
+    "static/media/empty.png": "/static/media/empty.72d3d681d715b47baf0f.png",
+    "index.html": "/index.html",
+    "main.167bd0ff.css.map": "/static/css/main.167bd0ff.css.map",
+    "main.28949079.js.map": "/static/js/main.28949079.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.167bd0ff.css",
+    "static/js/main.28949079.js"
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "hungry-sharks",
   "version": "0.1.0",
   "private": true,
-  "engines":{
+  "engines": {
     "node": "16.x",
     "npm": "8.x"
   },
