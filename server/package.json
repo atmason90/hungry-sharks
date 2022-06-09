@@ -3,7 +3,7 @@
     "description": "",
     "main": "server.js",
     "version": "0.1.0",
-    "private": true,
+  
     "dependencies": {
       "bcrypt": "^5.0.1",
       "express": "^4.18.1",
