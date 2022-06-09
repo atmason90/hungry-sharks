@@ -7,6 +7,7 @@ import fullname from "../utils/fullname";
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
+// const ENDPOINT = "http://hungryshark.herokuapp.com"
 
 const Game = () => {
   const locationURL = window.location.href;
