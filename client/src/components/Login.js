@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 // import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -7,6 +8,7 @@ import React, {useState} from 'react'
 import { Form, Button, Alert } from 'react-bootstrap';
 import { loginUser } from '../utils/API';
 import Auth from '../utils/auth'
+import Signup from './Signup';
 
 const Login=()=> {
 
@@ -63,29 +65,40 @@ const Login=()=> {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='text'
-            placeholder='Your email'
+            placeholder='Email...'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
             required
           />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
         </Form.Group>
-
+<br></br>
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+            className="text-slate-1000 mx-1 w-30 bg-slate-800"
             type='password'
-            placeholder='Your password'
+            placeholder='Password...'
             name='password'
             onChange={handleInputChange}
             value={userFormData.password}
             required
           />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
-        <Button
+        <br></br>
+        <Form.Group>
+
+          Don't have an account ?
+          <Link 
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          as={Link} to='/signup' > Sign Up! </Link>
+
+        </Form.Group>
+        <br></br>
+        <Button 
+          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>
