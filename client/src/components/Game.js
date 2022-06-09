@@ -6,7 +6,8 @@ import io from "socket.io-client";
 import fullname from "../utils/fullname";
 
 let socket;
-const ENDPOINT = "http://localhost:3001";
+// const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://hungryshark.herokuapp.com";
 
 const Game = () => {
   const locationURL = window.location.href;
@@ -697,13 +698,13 @@ const Game = () => {
           </h3>
           <h3 className="text-2xl">
             Active Player:{" "}
-            <p className="text-orange-700 text-4xl">{activePlayer}</p>
+            <span className="text-orange-700 text-4xl">{activePlayer}</span>
           </h3>
           <h3 className="text-2xl">
             Player remaining turns:{" "}
-            <p className="text-orange-700 text-4xl">
+            <span className="text-orange-700 text-4xl">
               {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
-            </p>
+            </span>
           </h3>
         </div>
 
