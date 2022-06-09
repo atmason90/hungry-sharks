@@ -206,14 +206,27 @@ const Game = () => {
       ? (playerRemainingTurns = p1RemainingTurns)
       : (playerRemainingTurns = p2RemainingTurns);
 
+      const cardsOfP1 = [...p1Cards];
+      const cardsOfP2 = [...p2Cards];
+
     if (cardPlayedBy === "P1") {
-      const cardToRemove = p1Cards.indexOf(cardPlayed);
-      p1Cards.splice(cardToRemove, 1);
+      const cardToRemove = cardsOfP1.indexOf(cardPlayed);
+      cardsOfP1.splice(cardToRemove, 1);
+      socket.emit("updateGameState", {
+        p1Cards: [...cardsOfP1],
+        p2Cards: [...cardsOfP2]
+      });
     }
     if (cardPlayedBy === "P2") {
-      const cardToRemove = p2Cards.indexOf(cardPlayed);
-      p2Cards.splice(cardToRemove, 1);
+      const cardToRemove = cardsOfP2.indexOf(cardPlayed);
+      cardsOfP2.splice(cardToRemove, 1);
+      socket.emit("updateGameState", {
+        p1Cards: [...cardsOfP1],
+        p2Cards: [...cardsOfP2]
+      });
     }
+
+    
 
     switch (cardPlayed) {
       //---------------Logic for shuffle card---------------------//
@@ -231,8 +244,6 @@ const Game = () => {
           playedCard: cardPlayed,
           p1RemainingTurns: p1RemainingTurns,
           p2RemainingTurns: p2RemainingTurns,
-          p1Cards: [...p1Cards],
-          p2Cards: [...p2Cards],
           info: "The deck has been Shuffled!"
         });
 
@@ -255,8 +266,8 @@ const Game = () => {
               playedCard: cardPlayed,
               p2RemainingTurns: p2RemainingTurns + 1,
               p1RemainingTurns: playerRemainingTurns,
-              p1Cards: [...p1Cards],
-              p2Cards: [...p2Cards],
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
               info: `${activePlayer} decided to sleep through their turn!`
             });
@@ -268,7 +279,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: p1RemainingTurns + 1,
               p2RemainingTurns: playerRemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} decided to sleep through their turn!`
             });
           }
         } else if (playerRemainingTurns !== 0) {
@@ -278,6 +292,9 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: playerRemainingTurns,
               p2RemainingTurns: p2RemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
+              info: `${activePlayer} decided to sleep through their turn!`
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns);
@@ -285,6 +302,9 @@ const Game = () => {
               playedCard: cardPlayed,
               p2RemainingTurns: playerRemainingTurns,
               p1RemainingTurns: p1RemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
+              info: `${activePlayer} decided to sleep through their turn!`
             });
           }
         }
@@ -300,11 +320,11 @@ const Game = () => {
         let opponentsDeck;
         let currentPlayersDeck;
         cardPlayedBy === "P1"
-          ? (opponentsDeck = [...p2Cards])
-          : (opponentsDeck = [...p1Cards]);
+          ? (opponentsDeck = [...cardsOfP2])
+          : (opponentsDeck = [...cardsOfP1]);
         cardPlayedBy === "P1"
-          ? (currentPlayersDeck = [...p1Cards])
-          : (currentPlayersDeck = [...p2Cards]);
+          ? (currentPlayersDeck = [...cardsOfP1])
+          : (currentPlayersDeck = [...cardsOfP2]);
 
         let indexOfCardToRemove = Math.floor(
           Math.random() * opponentsDeck.length
