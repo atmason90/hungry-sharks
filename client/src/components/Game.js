@@ -18,10 +18,11 @@ const Game = () => {
   const [roomFull, setRoomFull] = useState(false);
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-  //Modals and info
+  //Modals, info and toggle
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
-  const [info, setInfo] = useState("The shark is now officially hungry");
+  const [info, setInfo] = useState("The shark is now officially hungry!");
+  const [noobMode, setNoobMode] = useState(true);
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -141,6 +142,7 @@ const Game = () => {
         threeCards,
         modalP1Show,
         modalP2Show,
+        info,
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -154,6 +156,7 @@ const Game = () => {
         threeCards && setThreeCards(threeCards);
         modalP1Show && setModalP1Show(modalP1Show);
         modalP2Show && setModalP2Show(modalP2Show);
+        info && setInfo(info);
       }
     );
 
@@ -204,13 +207,24 @@ const Game = () => {
       ? (playerRemainingTurns = p1RemainingTurns)
       : (playerRemainingTurns = p2RemainingTurns);
 
+    const cardsOfP1 = [...p1Cards];
+    const cardsOfP2 = [...p2Cards];
+
     if (cardPlayedBy === "P1") {
-      const cardToRemove = p1Cards.indexOf(cardPlayed);
-      p1Cards.splice(cardToRemove, 1);
+      const cardToRemove = cardsOfP1.indexOf(cardPlayed);
+      cardsOfP1.splice(cardToRemove, 1);
+      socket.emit("updateGameState", {
+        p1Cards: [...cardsOfP1],
+        p2Cards: [...cardsOfP2],
+      });
     }
     if (cardPlayedBy === "P2") {
-      const cardToRemove = p2Cards.indexOf(cardPlayed);
-      p2Cards.splice(cardToRemove, 1);
+      const cardToRemove = cardsOfP2.indexOf(cardPlayed);
+      cardsOfP2.splice(cardToRemove, 1);
+      socket.emit("updateGameState", {
+        p1Cards: [...cardsOfP1],
+        p2Cards: [...cardsOfP2],
+      });
     }
 
     switch (cardPlayed) {
@@ -229,6 +243,7 @@ const Game = () => {
           playedCard: cardPlayed,
           p1RemainingTurns: p1RemainingTurns,
           p2RemainingTurns: p2RemainingTurns,
+          info: "The deck has been Shuffled!",
         });
 
         break;
@@ -250,7 +265,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p2RemainingTurns: p2RemainingTurns + 1,
               p1RemainingTurns: playerRemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
+              info: `${activePlayer} decided to sleep through their turn!`,
             });
           } else if (cardPlayedBy === "P2") {
             // setP1RemainingTurns(p1RemainingTurns + 1);
@@ -260,7 +278,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: p1RemainingTurns + 1,
               p2RemainingTurns: playerRemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} decided to sleep through their turn!`,
             });
           }
         } else if (playerRemainingTurns !== 0) {
@@ -270,6 +291,9 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: playerRemainingTurns,
               p2RemainingTurns: p2RemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
+              info: `${activePlayer} decided to sleep through their turn!`,
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns);
@@ -277,6 +301,9 @@ const Game = () => {
               playedCard: cardPlayed,
               p2RemainingTurns: playerRemainingTurns,
               p1RemainingTurns: p1RemainingTurns,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
+              info: `${activePlayer} decided to sleep through their turn!`,
             });
           }
         }
@@ -292,11 +319,11 @@ const Game = () => {
         let opponentsDeck;
         let currentPlayersDeck;
         cardPlayedBy === "P1"
-          ? (opponentsDeck = [...p2Cards])
-          : (opponentsDeck = [...p1Cards]);
+          ? (opponentsDeck = [...cardsOfP2])
+          : (opponentsDeck = [...cardsOfP1]);
         cardPlayedBy === "P1"
-          ? (currentPlayersDeck = [...p1Cards])
-          : (currentPlayersDeck = [...p2Cards]);
+          ? (currentPlayersDeck = [...cardsOfP1])
+          : (currentPlayersDeck = [...cardsOfP2]);
 
         let indexOfCardToRemove = Math.floor(
           Math.random() * opponentsDeck.length
@@ -305,6 +332,8 @@ const Game = () => {
         currentPlayersDeck.push(cardToAdd[0]);
 
         if (cardPlayedBy === "P1") {
+          const nameOfCard = fullname(cardToAdd[0]);
+          const announce = `P1 has taken the ${nameOfCard} card from P2`;
           // setP1Cards([...currentPlayersDeck]);
           // setP2Cards([...opponentsDeck]);
           socket.emit("updateGameState", {
@@ -313,8 +342,11 @@ const Game = () => {
             p2Cards: [...opponentsDeck],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            info: announce,
           });
         } else if (cardPlayedBy === "P2") {
+          const nameOfCard = fullname(cardToAdd[0]);
+          const announce = `P2 has taken the ${nameOfCard} card from P1`;
           // setP2Cards([...currentPlayersDeck]);
           // setP1Cards([...opponentsDeck]);
           socket.emit("updateGameState", {
@@ -323,6 +355,7 @@ const Game = () => {
             p1Cards: [...opponentsDeck],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            info: announce,
           });
         }
         break;
@@ -350,7 +383,10 @@ const Game = () => {
             threeCards: [...topThreeCards],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            p1Cards: [...cardsOfP1],
+            p2Cards: [...cardsOfP2],
             modalP1Show: true,
+            info: `The Gods have intervened! ${activePlayer} knows the next 3 cards in the deck`,
           });
         } else if (activePlayer === "P2") {
           socket.emit("updateGameState", {
@@ -358,7 +394,10 @@ const Game = () => {
             threeCards: [...topThreeCards],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            p1Cards: [...cardsOfP1],
+            p2Cards: [...cardsOfP2],
             modalP2Show: true,
+            info: `The Gods have intervened! ${activePlayer} knows the next 3 cards in the deck`,
           });
         }
         break;
@@ -379,7 +418,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 0,
               p2RemainingTurns: 1,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
+              info: `${activePlayer} is Doubling the Trouble`,
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns - 2);
@@ -389,7 +431,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 1,
               p2RemainingTurns: 0,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} is Doubling the Trouble`,
             });
           }
         } else if (playerRemainingTurns === 1) {
@@ -401,7 +446,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 0,
               p2RemainingTurns: 2,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
+              info: `${activePlayer} is Doubling the Trouble`,
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns - 1);
@@ -411,7 +459,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 2,
               p2RemainingTurns: 0,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} is Doubling the Trouble`,
             });
           }
         }
@@ -441,10 +492,16 @@ const Game = () => {
 
     let cardDeck = [...drawCardsPile];
     let cardDrawn = cardDeck.pop();
+
+    const p1Hand = [...p1Cards];
+    const p2Hand = [...p2Cards];
+
     if (activePlayer === "P1") {
+      const p1Turns = p1RemainingTurns - 1;
+
       if (cardDrawn === "HS") {
         //Hungry shark handler
-        const p1Hand = [...p1Cards];
+
         const goatCardIndex = p1Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p1Hand.splice(goatCardIndex, 1);
@@ -455,25 +512,38 @@ const Game = () => {
           // setDrawCardsPile([...cardDeck]);
           // setPlayedCard("SG");
           // setP1RemainingTurns(p1RemainingTurns - 1);
-          socket.emit("updateGameState", {
-            p1Cards: [...p1Hand],
-            p2Cards: [...p2Cards],
-            drawCardsPile: [...cardDeck],
-            playedCard: "SG",
-            p1RemainingTurns: p1RemainingTurns - 1,
-            p2RemainingTurns: p2RemainingTurns,
-          });
 
-          if (p1RemainingTurns === 0) {
+          // socket.emit("updateGameState", {
+          //   p1Cards: [...p1Hand],
+          //   p2Cards: [...p2Hand],
+          //   drawCardsPile: [...cardDeck],
+          //   playedCard: "SG",
+          //   p1RemainingTurns: p1RemainingTurns - 1,
+          //   p2RemainingTurns: p2RemainingTurns,
+          // });
+
+          if (p1Turns === 0) {
             // setP2RemainingTurns(p2RemainingTurns + 1);
             // setActivePlayer("P2");
             socket.emit("updateGameState", {
-              p2RemainingTurns: p2RemainingTurns + 1,
-              p1RemainingTurns: p1RemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...p1Hand],
-              p2Cards: [...p2Cards],
+              p2Cards: [...p2Hand],
+              playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P2",
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
+            });
+          } else if (p1Turns === 1) {
+            socket.emit("updateGameState", {
+              p2RemainingTurns: 0,
+              p1RemainingTurns: 1,
+              p1Cards: [...p1Hand],
+              p2Cards: [...p2Hand],
+              playedCard: "SG",
+              drawCardsPile: [...cardDeck],
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
         } else {
@@ -486,20 +556,20 @@ const Game = () => {
             winner: "P2",
           });
         }
-      } else {
-        const rTurns = p1RemainingTurns - 1;
+      } else if (cardDrawn !== "HS") {
         // setP1Cards([...p1Cards, cardDrawn]);
         // setDrawCardsPile([...cardDeck]);
         // setP1RemainingTurns(rTurns);
-        if (rTurns === 1) {
+        if (p1Turns === 1) {
           socket.emit("updateGameState", {
-            p1Cards: [...p1Cards, cardDrawn],
-            p2Cards: [...p2Cards],
+            p1Cards: [...p1Hand, cardDrawn],
+            p2Cards: [...p2Hand],
             drawCardsPile: [...cardDeck],
-            p1RemainingTurns: rTurns,
-            p2RemainingTurns: p2RemainingTurns,
+            p1RemainingTurns: 1,
+            p2RemainingTurns: 0,
+            info: `${activePlayer} Drew a card and have 1 turn remaining`,
           });
-        } else if (rTurns === 0) {
+        } else if (p1Turns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
           //Yes
@@ -508,16 +578,18 @@ const Game = () => {
             p1Cards: [...p1Cards, cardDrawn],
             p2Cards: [...p2Cards],
             drawCardsPile: [...cardDeck],
-            p2RemainingTurns: p2RemainingTurns + 1,
-            p1RemainingTurns: rTurns,
+            p2RemainingTurns: 1,
+            p1RemainingTurns: 0,
             activePlayer: "P2",
+            info: `${activePlayer} Drew a card and their turns are over`,
           });
         }
       }
     } else if (activePlayer === "P2") {
+      const p2Turns = p2RemainingTurns - 1;
+
       if (cardDrawn === "HS") {
         //Hungry shark handler
-        const p2Hand = [...p2Cards];
         const goatCardIndex = p2Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p2Hand.splice(goatCardIndex, 1);
@@ -528,25 +600,37 @@ const Game = () => {
           // setDrawCardsPile([...cardDeck]);
           // setPlayedCard("SG");
           // setP2RemainingTurns(p2RemainingTurns - 1);
-          socket.emit("updateGameState", {
-            p2Cards: [...p2Hand],
-            p1Cards: [...p1Cards],
-            drawCardsPile: [...cardDeck],
-            playedCard: "SG",
-            p2RemainingTurns: p2RemainingTurns - 1,
-            p1RemainingTurns: p1RemainingTurns,
-          });
+          // socket.emit("updateGameState", {
+          //   p2Cards: [...p2Hand],
+          //   p1Cards: [...p1Hand],
+          //   drawCardsPile: [...cardDeck],
+          //   playedCard: "SG",
+          //   p2RemainingTurns: p2RemainingTurns - 1,
+          //   p1RemainingTurns: p1RemainingTurns,
+          // });
 
-          if (p2RemainingTurns === 0) {
+          if (p2Turns === 0) {
             // setP1RemainingTurns(p1RemainingTurns + 1);
             // setActivePlayer("P1");
             socket.emit("updateGameState", {
-              p1Cards: [...p1Cards],
+              p1Cards: [...p1Hand],
               p2Cards: [...p2Hand],
-              p1RemainingTurns: p1RemainingTurns + 1,
-              p2RemainingTurns: p2RemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
+              playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
+            });
+          } else if (p2Turns === 1) {
+            socket.emit("updateGameState", {
+              p1Cards: [...p1Hand],
+              p2Cards: [...p2Hand],
+              p1RemainingTurns: 0,
+              p2RemainingTurns: 1,
+              playedCard: "SG",
+              drawCardsPile: [...cardDeck],
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
         } else {
@@ -559,32 +643,49 @@ const Game = () => {
             winner: "P1",
           });
         }
-      } else {
-        let rTurns = p2RemainingTurns - 1;
+      } else if (cardDrawn !== "HS") {
         // setDrawCardsPile([...cardDeck]);
         // setP2Cards([...p2Cards, cardDrawn]);
         // setP2RemainingTurns(rTurns);
-        socket.emit("updateGameState", {
-          drawCardsPile: [...cardDeck],
-          p2Cards: [...p2Cards, cardDrawn],
-          p1Cards: [...p1Cards],
-          p2RemainingTurns: rTurns,
-          p1RemainingTurns: p1RemainingTurns,
-        });
-        if (rTurns === 0) {
+        // socket.emit("updateGameState", {
+        //   drawCardsPile: [...cardDeck],
+        //   p2Cards: [...p2Cards, cardDrawn],
+        //   p1Cards: [...p1Cards],
+        //   p2RemainingTurns: rTurns,
+        //   p1RemainingTurns: p1RemainingTurns,
+        // });
+        if (p2Turns === 0) {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");
           socket.emit("updateGameState", {
-            p2Cards: [...p2Cards, cardDrawn],
-            p1Cards: [...p1Cards],
-            p1RemainingTurns: p1RemainingTurns + 1,
+            p2Cards: [...p2Hand, cardDrawn],
+            p1Cards: [...p1Hand],
+            p1RemainingTurns: 1,
             drawCardsPile: [...cardDeck],
-            p2RemainingTurns: rTurns,
+            p2RemainingTurns: 0,
             activePlayer: "P1",
+            info: `${activePlayer} Drew a card and their turns are over`,
+          });
+        } else if (p2Turns === 1) {
+          socket.emit("updateGameState", {
+            p2Cards: [...p2Hand, cardDrawn],
+            p1Cards: [...p1Hand],
+            p1RemainingTurns: 0,
+            drawCardsPile: [...cardDeck],
+            p2RemainingTurns: 1,
+            activePlayer: "P1",
+            info: `${activePlayer} Drew a card and they have 1 turn remaining`,
           });
         }
       }
     }
+  }
+
+  function toggleHandler() {
+    var bool = noobMode;
+    bool = !bool;
+    setNoobMode(bool);
+    console.log(noobMode);
   }
 
   return (
@@ -646,7 +747,6 @@ const Game = () => {
                       activePlayer === "P2" ? { pointerEvents: "none" } : null
                     }
                   >
-                    
                     <button
                       className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
                       disabled={activePlayer !== "P1"}
@@ -656,8 +756,10 @@ const Game = () => {
                     </button>
                     <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
                       <div className="card-body items-center text-center">
-                        <h2 className="card-title text-orange-700 text-2xl">Info</h2>
-                        <p className="text-gray-300">{info}</p>
+                        <h2 className="card-title text-orange-700 text-2xl">
+                          Info
+                        </h2>
+                        <p className="text-gray-300 text-xl">{info}</p>
                       </div>
                     </div>
                     {playedCard && (
@@ -666,7 +768,9 @@ const Game = () => {
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
                         />
-                        <h3 className="text-orange-700 mt-3">{fullname(playedCard)}</h3>
+                        <h3 className="text-orange-700 mt-3">
+                          {fullname(playedCard)}
+                        </h3>
                       </div>
                     )}
                   </div>
@@ -727,7 +831,6 @@ const Game = () => {
                       activePlayer === "P1" ? { pointerEvents: "none" } : null
                     }
                   >
-                    
                     <button
                       className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
                       disabled={activePlayer !== "P2"}
@@ -737,8 +840,10 @@ const Game = () => {
                     </button>
                     <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
                       <div className="card-body items-center text-center">
-                        <h2 className="card-title text-orange-700 text-2xl">Info</h2>
-                        <p className="text-gray-300">{info}</p>
+                        <h2 className="card-title text-orange-700 text-2xl">
+                          Info
+                        </h2>
+                        <p className="text-gray-300 text-xl">{info}</p>
                       </div>
                     </div>
                     {playedCard && (
@@ -747,7 +852,9 @@ const Game = () => {
                           className="Card"
                           src={require(`../assets/${playedCard}.png`)}
                         />
-                        <h3 className="text-orange-700 mt-3">{fullname(playedCard)}</h3>
+                        <h3 className="text-orange-700 mt-3">
+                          {fullname(playedCard)}
+                        </h3>
                       </div>
                     )}
                   </div>
@@ -780,16 +887,35 @@ const Game = () => {
                   </div>
                 </>
               )}
-
             </div>
           )}
         </>
       </>
 
       <br />
-      <a href="/">
-        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">QUIT</button>
-      </a>
+      <div className=" flex flex-row justify-center items-center my-5">
+        <a href="/">
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">
+            QUIT
+          </button>
+        </a>
+        <div className="mx-64">
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text text-xl mx-2 text-orange-700">
+                Noob Mode
+              </span>
+              <input
+                type="checkbox"
+                className="toggle"
+                unchecked
+                style={{ backgroundColor: "rgb(194,65,12" }}
+                onClick= {toggleHandler}
+              />
+            </label>
+          </div>
+        </div>
+      </div>
 
       {/* Modals down here */}
       {currentUser === "Player 1"
