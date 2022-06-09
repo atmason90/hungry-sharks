@@ -1,6 +1,7 @@
 import Auth from '../utils/auth';
 import {getHighscores, getMe, getSingleHighscore} from '../utils/API'
 import React, { useState, useEffect } from 'react';
+import Stats from './Stats';
 
 
 
@@ -37,9 +38,11 @@ const HighScores = () => {
     <div>
           <h2>
           {userData.stats
-            ? `Viewing ${userData.stats} saved ${userData.stats === 1 ? 'stat' : 'stats'}:`
+            ? `Viewing ${userData.username}'s saved ${userData.stats === 1 ? 'stat' : 'stats'}:`
             : 'You have no stats!'}
         </h2>
+        <hr></hr>
+        <Stats />
       
     </div>
   )
