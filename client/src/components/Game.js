@@ -4,9 +4,6 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from "socket.io-client";
 import fullname from "../utils/fullname";
-import ToggleP1 from "./ToggleP1";
-import ToggleP2 from "./ToggleP2";
-import ViewCardModal from "./ViewCardModal";
 import Player1View from "./Player1View";
 import Player2View from "./Player2View";
 
@@ -28,7 +25,10 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
-  
+  //Message state
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState([])
+  const [isChatBoxHidden, setChatBoxHidden] = useState(true)
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -89,6 +89,28 @@ const Game = () => {
     "WC",
     "WC",
   ];
+
+//Helper functions
+const toggleChatBox = () => {
+  const chatBody = document.querySelector('.chat-body')
+  if(isChatBoxHidden) {
+      chatBody.style.display = 'block'
+      setChatBoxHidden(false)
+  }
+  else {
+      chatBody.style.display = 'none'
+      setChatBoxHidden(true)
+  }
+}
+const sendMessage= (event) => {
+  event.preventDefault()
+  if(message) {
+      socket.emit('sendMessage', { message: message }, () => {
+          setMessage('')
+      })
+  }
+}
+
   //Initialize socket connection
   useEffect(() => {
     const connectionOptions = {
@@ -178,6 +200,14 @@ const Game = () => {
       setCurrentUser(name);
       console.log(name);
     });
+
+    socket.on('message', message => {
+      setMessages(messages => [ ...messages, message ])
+
+      const chatBody = document.querySelector('.chat-body')
+      chatBody.scrollTop = chatBody.scrollHeight
+  });
+
   }, []);
 
   // Setup game by distributing cards
@@ -724,6 +754,7 @@ const Game = () => {
             <div>
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
+                <>
                 <Player1View
                   cardPlayedHandler={cardPlayedHandler}
                   p2Cards={p2Cards}
@@ -734,6 +765,27 @@ const Game = () => {
                   info={info}
                   playedCard={playedCard}
                 />
+                <div className="chatBoxWrapper">
+                            <div className="chat-box chat-box-player1">
+                                <div className="chat-head" onClick={toggleChatBox} >
+                                    <h2>Chat Box</h2>
+                                </div>
+                                <div className="chat-body">
+                                    <div className="msg-insert text-black">
+                                        {messages.map(msg => {
+                                            if(msg.user === 'Player 2')
+                                                return <div className="msg-receive">{msg.text}</div>
+                                            if(msg.user === 'Player 1')
+                                                return <div className="msg-send">{msg.text}</div>
+                                        })}
+                                    </div>
+                                    <div className="chat-text">
+                                        <input className="text-black" type='text' placeholder='Type a message...' value={message} onChange={event => setMessage(event.target.value)} onKeyPress={event => event.key==='Enter' && sendMessage(event)} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </>
               )}
 
               {/* P2 VIEW */}
