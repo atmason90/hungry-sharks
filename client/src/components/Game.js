@@ -493,10 +493,16 @@ const Game = () => {
 
     let cardDeck = [...drawCardsPile];
     let cardDrawn = cardDeck.pop();
+
+    const p1Hand = [...p1Cards];
+    const p2Hand = [...p2Cards];
+
     if (activePlayer === "P1") {
+      const p1Turns = p1RemainingTurns - 1;
+
       if (cardDrawn === "HS") {
         //Hungry shark handler
-        const p1Hand = [...p1Cards];
+        
         const goatCardIndex = p1Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p1Hand.splice(goatCardIndex, 1);
@@ -507,27 +513,42 @@ const Game = () => {
           // setDrawCardsPile([...cardDeck]);
           // setPlayedCard("SG");
           // setP1RemainingTurns(p1RemainingTurns - 1);
-          socket.emit("updateGameState", {
-            p1Cards: [...p1Hand],
-            p2Cards: [...p2Cards],
-            drawCardsPile: [...cardDeck],
-            playedCard: "SG",
-            p1RemainingTurns: p1RemainingTurns - 1,
-            p2RemainingTurns: p2RemainingTurns,
-          });
 
-          if (p1RemainingTurns === 0) {
+          // socket.emit("updateGameState", {
+          //   p1Cards: [...p1Hand],
+          //   p2Cards: [...p2Hand],
+          //   drawCardsPile: [...cardDeck],
+          //   playedCard: "SG",
+          //   p1RemainingTurns: p1RemainingTurns - 1,
+          //   p2RemainingTurns: p2RemainingTurns,
+          // });
+
+          if (p1Turns === 0) {
             // setP2RemainingTurns(p2RemainingTurns + 1);
             // setActivePlayer("P2");
             socket.emit("updateGameState", {
-              p2RemainingTurns: p2RemainingTurns + 1,
-              p1RemainingTurns: p1RemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...p1Hand],
-              p2Cards: [...p2Cards],
+              p2Cards: [...p2Hand],
+              playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P2",
+              info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`
             });
           }
+            else if(p1Turns === 1) {
+              socket.emit("updateGameState", {
+                p2RemainingTurns: 0,
+                p1RemainingTurns: 1,
+                p1Cards: [...p1Hand],
+                p2Cards: [...p2Hand],
+                playedCard: "SG",
+                drawCardsPile: [...cardDeck],
+                info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`
+              });
+            }
+
         } else {
           // setPlayedCard("HS");
           // setGameOver(true);
@@ -538,20 +559,21 @@ const Game = () => {
             winner: "P2",
           });
         }
-      } else {
-        const rTurns = p1RemainingTurns - 1;
+      } else if(cardDrawn !== "HS") {
+        
         // setP1Cards([...p1Cards, cardDrawn]);
         // setDrawCardsPile([...cardDeck]);
         // setP1RemainingTurns(rTurns);
-        if (rTurns === 1) {
+        if (p1Turns === 1) {
           socket.emit("updateGameState", {
-            p1Cards: [...p1Cards, cardDrawn],
-            p2Cards: [...p2Cards],
+            p1Cards: [...p1Hand, cardDrawn],
+            p2Cards: [...p2Hand],
             drawCardsPile: [...cardDeck],
-            p1RemainingTurns: rTurns,
-            p2RemainingTurns: p2RemainingTurns,
+            p1RemainingTurns: 1,
+            p2RemainingTurns: 0,
+            info: `${activePlayer} Drew a card and have 1 turn remaining`
           });
-        } else if (rTurns === 0) {
+        } else if (p1Turns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
           //Yes
@@ -560,16 +582,16 @@ const Game = () => {
             p1Cards: [...p1Cards, cardDrawn],
             p2Cards: [...p2Cards],
             drawCardsPile: [...cardDeck],
-            p2RemainingTurns: p2RemainingTurns + 1,
-            p1RemainingTurns: rTurns,
+            p2RemainingTurns: 1,
+            p1RemainingTurns: 0,
             activePlayer: "P2",
+            info: `${activePlayer} Drew a card and their turns are over`
           });
         }
       }
     } else if (activePlayer === "P2") {
       if (cardDrawn === "HS") {
         //Hungry shark handler
-        const p2Hand = [...p2Cards];
         const goatCardIndex = p2Hand.indexOf("SG");
         if (goatCardIndex !== -1) {
           p2Hand.splice(goatCardIndex, 1);
