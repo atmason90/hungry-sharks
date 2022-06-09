@@ -51,14 +51,18 @@ const Login=()=> {
       });
     };
 
-    const paperStyle={padding :20,height:'100vh',width:280, margin:"20px auto"}
-    // const avatarStyle={backgroundColor:'#1bbd7e'}
-    const btnstyle={margin:'8px 0'}
-
 
     return(
       <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <br></br>
+      <br></br>
+   
+      <div className="container border align-middle object-contain w-96 flex-box grid items-center rounded justify-center">
+      <Form 
+      className="flex-box content-center items-center justify-center rounded px-8 pt-6 pb-8 mb-4"
+      noValidate 
+      validated={validated} 
+      onSubmit={handleFormSubmit}>
         <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
@@ -105,6 +109,7 @@ const Login=()=> {
           Submit
         </Button>
       </Form>
+      </div>
     </>
     )
 }
