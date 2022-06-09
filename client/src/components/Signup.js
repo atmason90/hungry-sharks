@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
@@ -51,9 +51,18 @@ const Signup = () => {
   };
 
   return (
+    
     <>
+    <br></br>
+    <br></br>
+ 
+
+    <Container className='grid border justify-center items-center w-fit rounded pt-8 pb-8 pl-9 pr-9'>
       {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form 
+      noValidate 
+      validated={validated} 
+      onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
@@ -97,6 +106,7 @@ const Signup = () => {
             required
           />
         </Form.Group>
+        <br></br>
         <Button
         //   disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
@@ -105,6 +115,7 @@ const Signup = () => {
           Submit
         </Button>
       </Form>
+      </Container>
     </>
   );
 };
