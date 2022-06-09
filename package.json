@@ -1,7 +1,11 @@
 {
-  "name": "blasting-sharks",
+  "name": "hungry-sharks",
   "version": "0.1.0",
   "private": true,
+  "engines":{
+    "node": "16.x",
+    "npm": "8.x"
+  },
   "scripts": {
     "develop": "concurrently \"cd client && npm start\" \"cd server && npm run watch\"",
     "install": "cd client && npm i && cd ../server && npm i",
