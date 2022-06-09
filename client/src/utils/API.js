@@ -38,11 +38,14 @@ export const getMe = (token) => {
     }
   };
   export const getSingleHighscore = (token, username) => {
+    console.log(username)
     return fetch(`/api/users/highscores/${username}`), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`
       },
+      
     }
+    
   }

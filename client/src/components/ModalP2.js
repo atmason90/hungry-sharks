@@ -6,23 +6,23 @@ const ModalP2 = ({ setModalOn, card1, card2, card3 }) => {
   };
 
   return (
-    <div className="   bg-gray-800 opacity-90 fixed inset-0 z-50   ">
+    <div className="   bg-[#030917] opacity-95 fixed inset-0 z-50   ">
       <div className="flex h-screen justify-center items-center ">
-        <div className="flex-col justify-center  bg-white py-12 px-24 border-4 border-sky-500 rounded-xl ">
-          <div className="flex  text-lg  text-zinc-600   mb-10">
-            The Next 3 Cards are:
+        <div className="flex-col justify-center  bg-[#030917] py-12 px-24 border-4 border-orange-700 rounded-xl ">
+          <div className="flex  text-xl  text-white justify-center mb-10">
+            <h1>The Gods have blessed you with some intel! <h1 className="text-orange-600">The Next 3 Cards are: </h1></h1>
           </div>
           <div className="flex flec-col modalDiv">
             <img src={require(`../assets/${card1}.png`)}></img>
             <img src={require(`../assets/${card2}.png`)}></img>
             <img src={require(`../assets/${card3}.png`)}></img>
           </div>
-          <div className="flex">
+          <div className="flex justify-center mt-6">
             <button
               onClick={handleCloseModal}
-              className="rounded px-4 py-2 ml-4 text-white bg-blue-500 "
+              className="rounded px-4 py-2 ml-4 btn-wide text-white bg-black border-orange-700 border-2"
             >
-              Ok
+              Intel Received!
             </button>
           </div>
         </div>
