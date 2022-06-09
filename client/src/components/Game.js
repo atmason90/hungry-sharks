@@ -4,6 +4,11 @@ import ModalP1 from "./ModalP1";
 import ModalP2 from "./ModalP2";
 import io from "socket.io-client";
 import fullname from "../utils/fullname";
+import ToggleP1 from "./ToggleP1";
+import ToggleP2 from "./ToggleP2";
+import ViewCardModal from "./ViewCardModal";
+import Player1View from "./Player1View";
+import Player2View from "./Player2View";
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -23,7 +28,10 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
-  const [noobMode, setNoobMode] = useState(true);
+  const [noobModeP1, setNoobModeP1] = useState(false);
+  const [noobModeP2, setNoobModeP2] = useState(true);
+  const [cardViewP1On, setCardViewP1On] = useState(false);
+  const [cardViewP2On, setCardViewP2On] = useState(false);
   //Game state
   const [gameOver, setGameOver] = useState(true);
   const [winner, setWinner] = useState("");
@@ -117,6 +125,8 @@ const Game = () => {
         drawCardsPile,
         p1RemainingTurns,
         p2RemainingTurns,
+        noobModeP1,
+        noobModeP2,
       }) => {
         setGameOver(gameOver);
         setActivePlayer(activePlayer);
@@ -125,6 +135,8 @@ const Game = () => {
         setDrawCardsPile(drawCardsPile);
         setP1RemainingTurns(p1RemainingTurns);
         setP2RemainingTurns(p2RemainingTurns);
+        setNoobModeP1(false);
+        setNoobModeP2(false);
       }
     );
 
@@ -144,6 +156,8 @@ const Game = () => {
         modalP1Show,
         modalP2Show,
         info,
+        noobModeP1,
+        noobModeP2,
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -158,6 +172,8 @@ const Game = () => {
         modalP1Show && setModalP1Show(modalP1Show);
         modalP2Show && setModalP2Show(modalP2Show);
         info && setInfo(info);
+        noobModeP1 !== null && setNoobModeP1(noobModeP1);
+        noobModeP2 !== null && setNoobModeP2(noobModeP2);
       }
     );
 
@@ -682,11 +698,27 @@ const Game = () => {
     }
   }
 
-  function toggleHandler() {
-    var bool = noobMode;
+  function toggleHandlerP1() {
+    var bool = noobModeP1;
+    if (bool) {
+      console.log("bool was true");
+      socket.emit("updateGameState", {
+        noobModeP1: false,
+      });
+    } else {
+      socket.emit("updateGameState", {
+        noobModeP1: true,
+      });
+    }
+  }
+
+  function toggleHandlerP2() {
+    var bool = noobModeP2;
     bool = !bool;
-    setNoobMode(bool);
-    console.log(noobMode);
+    // setNoobModeP2(bool);
+    socket.emit("updateGameState", {
+      noobModeP2: bool,
+    });
   }
 
   return (
@@ -695,6 +727,7 @@ const Game = () => {
         <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
           <h3 className="text-2xl">
             Game Code: <span className="text-orange-700">{room}</span>
+            <h3>Noob Mode P1 : {`${noobModeP1}`}</h3>
           </h3>
           <h3 className="text-2xl">
             Active Player:{" "}
@@ -722,171 +755,30 @@ const Game = () => {
             <div>
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
-                <>
-                  <div
-                    className="player2Deck"
-                    style={{ pointerEvents: "none" }}
-                  >
-                    <p className="playerDeckText text-orange-700 ">P2</p>
-                    {p2Cards.map((item, i) => (
-                      <div className="shadow-xl">
-                        <img
-                          key={i}
-                          className="Card"
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/back.png`)}
-                          alt={`${item}`} ////////////////////////////////////////
-                        />
-                      </div>
-                    ))}
-                    {activePlayer === "P2"}
-                  </div>
-                  <br />
-                  <div
-                    className="middleInfo"
-                    style={
-                      activePlayer === "P2" ? { pointerEvents: "none" } : null
-                    }
-                  >
-                    <button
-                      className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
-                      disabled={activePlayer !== "P1"}
-                      onClick={drawCardHandler}
-                    >
-                      DRAW CARD
-                    </button>
-                    <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
-                      <div className="card-body items-center text-center">
-                        <h2 className="card-title text-orange-700 text-2xl">
-                          Info
-                        </h2>
-                        <p className="text-gray-300 text-xl">{info}</p>
-                      </div>
-                    </div>
-                    {playedCard && (
-                      <div className="shadow-xl">
-                        <img
-                          className="Card"
-                          src={require(`../assets/${playedCard}.png`)}
-                        />
-                        <h3 className="text-orange-700 mt-3">
-                          {fullname(playedCard)}
-                        </h3>
-                      </div>
-                    )}
-                  </div>
-                  <br />
-                  <div
-                    className="player1Deck"
-                    style={
-                      activePlayer === "P1" ? null : { pointerEvents: "none" }
-                    }
-                  >
-                    <p className="playerDeckText text-orange-600">P1</p>
-                    {p1Cards.map((item, i) => (
-                      <div className="player1DeckCards shadow-xl">
-                        {/* <span>{fullname(item)}</span> */}
-                        <img
-                          key={i}
-                          className="Card"
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/${item}.png`)}
-                        />
-                      </div>
-                      // <span
-                      // key={i}
-                      // onClick={() => {
-                      //   if(item !== "WC" && item !== "SG")
-                      //   cardPlayedHandler(item)}}
-                      // >{item} -
-                      // </span>
-                    ))}
-                  </div>
-                </>
+                <Player1View
+                  cardPlayedHandler={cardPlayedHandler}
+                  p2Cards={p2Cards}
+                  activePlayer={activePlayer}
+                  p1Cards={p1Cards}
+                  fullname={fullname}
+                  drawCardHandler={drawCardHandler}
+                  info={info}
+                  playedCard={playedCard}
+                />
               )}
 
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
-                <>
-                  <div
-                    className="player1Deck"
-                    style={{ pointerEvents: "none" }}
-                  >
-                    <p className="playerDeckText text-orange-700">P1</p>
-                    {p1Cards.map((item, i) => (
-                      <div className="shadow-xl">
-                        <img
-                          key={i}
-                          className="Card"
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/back.png`)}
-                        />
-                      </div>
-                    ))}
-                    {activePlayer === "P1"}
-                  </div>
-                  <br />
-                  <div
-                    className="middleInfo"
-                    style={
-                      activePlayer === "P1" ? { pointerEvents: "none" } : null
-                    }
-                  >
-                    <button
-                      className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40"
-                      disabled={activePlayer !== "P2"}
-                      onClick={drawCardHandler}
-                    >
-                      DRAW CARD
-                    </button>
-                    <div className="card w-96 bg-[#051222] text-neutral-content shadow-2xl bg-opacity-40">
-                      <div className="card-body items-center text-center">
-                        <h2 className="card-title text-orange-700 text-2xl">
-                          Info
-                        </h2>
-                        <p className="text-gray-300 text-xl">{info}</p>
-                      </div>
-                    </div>
-                    {playedCard && (
-                      <div className="shadow-xl">
-                        <img
-                          className="Card"
-                          src={require(`../assets/${playedCard}.png`)}
-                        />
-                        <h3 className="text-orange-700 mt-3">
-                          {fullname(playedCard)}
-                        </h3>
-                      </div>
-                    )}
-                  </div>
-                  <br />
-                  <div
-                    className="player2Deck"
-                    style={
-                      activePlayer === "P2" ? null : { pointerEvents: "none" }
-                    }
-                  >
-                    <p className="playerDeckText text-orange-600">P2</p>
-                    {p2Cards.map((item, i) => (
-                      <div className="player1DeckCards shadow-xl">
-                        {/* <span>{fullname(item)}</span> */}
-                        <img
-                          key={i}
-                          className="Card"
-                          onClick={() => cardPlayedHandler(item)}
-                          src={require(`../assets/${item}.png`)}
-                        />
-                      </div>
-                      // <span
-                      // key={i}
-                      // onClick={() => {
-                      //   if(item !== "WC" && item !== "SG")
-                      //   cardPlayedHandler(item)}}
-                      // >{item} -
-                      // </span>
-                    ))}
-                  </div>
-                </>
+                <Player2View
+                  cardPlayedHandler={cardPlayedHandler}
+                  p2Cards={p2Cards}
+                  activePlayer={activePlayer}
+                  p1Cards={p1Cards}
+                  fullname={fullname}
+                  drawCardHandler={drawCardHandler}
+                  info={info}
+                  playedCard={playedCard}
+                />
               )}
             </div>
           )}
@@ -900,45 +792,29 @@ const Game = () => {
             QUIT
           </button>
         </a>
-        <div className="mx-64">
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text text-xl mx-2 text-orange-700">
-                Noob Mode
-              </span>
-              <input
-                type="checkbox"
-                className="toggle"
-                unchecked
-                style={{ backgroundColor: "rgb(194,65,12" }}
-                onClick= {toggleHandler}
-              />
-            </label>
-          </div>
-        </div>
-      </div>
 
-      {/* Modals down here */}
-      {currentUser === "Player 1"
-        ? modalP1Show && (
-            <ModalP1
-              setModalOn={setModalP1Show}
-              card1={threeCards[0]}
-              card2={threeCards[1]}
-              card3={threeCards[2]}
-            />
-          )
-        : null}
-      {currentUser === "Player 2"
-        ? modalP2Show && (
-            <ModalP2
-              setModalOn={setModalP2Show}
-              card1={threeCards[0]}
-              card2={threeCards[1]}
-              card3={threeCards[2]}
-            />
-          )
-        : null}
+        {/* Modals down here */}
+        {currentUser === "Player 1"
+          ? modalP1Show && (
+              <ModalP1
+                setModalOn={setModalP1Show}
+                card1={threeCards[0]}
+                card2={threeCards[1]}
+                card3={threeCards[2]}
+              />
+            )
+          : null}
+        {currentUser === "Player 2"
+          ? modalP2Show && (
+              <ModalP2
+                setModalOn={setModalP2Show}
+                card1={threeCards[0]}
+                card2={threeCards[1]}
+                card3={threeCards[2]}
+              />
+            )
+          : null}
+      </div>
     </div>
   );
 };
