@@ -55,9 +55,9 @@ const Signup = () => {
     <>
     <br></br>
     <br></br>
- 
 
-    <Container className='grid border justify-center items-center w-fit rounded pt-8 pb-8 pl-9 pr-9'>
+    <div className='flex justify-center h-screen'>
+    <Container className='border w-fit justify-center items-center rounded pt-8 pb-8 pl-9 pr-9' style={{maxHeight: '350px'}}>
       {/* This is needed for the validation functionality above */}
       <Form 
       noValidate 
@@ -107,6 +107,7 @@ const Signup = () => {
           />
         </Form.Group>
         <br></br>
+
         <Button
         //   disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
@@ -114,8 +115,10 @@ const Signup = () => {
           variant='success'>
           Submit
         </Button>
+
       </Form>
       </Container>
+      </div>
     </>
   );
 };
