@@ -57,9 +57,9 @@ const Login=()=> {
       <br></br>
       <br></br>
    
-      <div className="container border align-middle object-contain w-96 flex-box grid items-center rounded justify-center">
+      <div className="container border content-center justify center items-center w-fit rounded pt-8 pb-8 pl-6 pr-6">
       <Form 
-      className="flex-box content-center items-center justify-center rounded px-8 pt-6 pb-8 mb-4"
+      className=""
       noValidate 
       validated={validated} 
       onSubmit={handleFormSubmit}>
@@ -92,11 +92,12 @@ const Login=()=> {
           />
         </Form.Group>
         <br></br>
-        <Form.Group>
+        <Form.Group >
 
-          Don't have an account ?
+          Don't have an account ? &nbsp; &nbsp;
+
           <Link 
-          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          className=" bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
           as={Link} to='/signup' > Sign Up! </Link>
 
         </Form.Group>
