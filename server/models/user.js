@@ -22,7 +22,20 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    stats: [statsSchema]
+    stats: {
+      games: {
+        type: Number,
+        default:0
+      },
+      wins: {
+        type: Number,
+        default: 0
+      },
+      losses: {
+        type: Number,
+        default: 0
+      }
+    }
   },
   // set this to use virtual below
   {
