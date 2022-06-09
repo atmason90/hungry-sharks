@@ -1,11 +1,12 @@
 {
   "name": "blasting-sharks",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.x"
+  },
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://hungryshark.herokuapp.com/",
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@mui/icons-material": "^5.8.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -51,6 +52,7 @@
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.0.24"
-  }
+  },
+  
 }
 

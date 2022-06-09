@@ -18,16 +18,11 @@ function App() {
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/signup" element={<Signup/>}/>
           <Route exact path="/rules" element={<Rules/>}/>
-          <Route path="/highscores" element={<HighScores/>}/>
+          <Route exact path="/highscores" element={<HighScores/>}/>
         </Routes>
       
-    </Router>
-      
-      {/* <Game/> 
-      <Login />
-      <Rules />
-      <Signup />
-      <HighScores /> */}
+      </Router>
+
     </div>
   );
 }

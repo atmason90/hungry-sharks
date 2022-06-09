@@ -633,6 +633,7 @@ const Game = () => {
                           className="Card"
                           onClick={() => cardPlayedHandler(item)}
                           src={require(`../assets/back.png`)}
+                          alt={`${item}`} ////////////////////////////////////////
                         />
                       </div>
                     ))}
