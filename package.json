@@ -1,11 +1,11 @@
 {
   "name": "hungry-sharks",
   "version": "0.1.0",
-
   "engines": {
-    "node": "16.x",
-    "npm": "8.x"
+    "node": "16.14.2"
   },
+  "proxy": "http://localhost:3001",
+  "private": true,
   "scripts": {
     "develop": "concurrently \"cd client && npm start\" \"cd server && npm run watch\"",
     "install": "cd client && npm i && cd ../server && npm i",
