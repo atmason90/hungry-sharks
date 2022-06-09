@@ -333,6 +333,8 @@ const Game = () => {
         currentPlayersDeck.push(cardToAdd[0]);
 
         if (cardPlayedBy === "P1") {
+          const nameOfCard = fullname(cardToAdd[0]);
+          const announce = `P1 has taken the ${nameOfCard} card from P2`
           // setP1Cards([...currentPlayersDeck]);
           // setP2Cards([...opponentsDeck]);
           socket.emit("updateGameState", {
@@ -341,8 +343,11 @@ const Game = () => {
             p2Cards: [...opponentsDeck],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            info: announce
           });
         } else if (cardPlayedBy === "P2") {
+          const nameOfCard = fullname(cardToAdd[0]);
+          const announce = `P2 has taken the ${nameOfCard} card from P1`
           // setP2Cards([...currentPlayersDeck]);
           // setP1Cards([...opponentsDeck]);
           socket.emit("updateGameState", {
@@ -351,6 +356,7 @@ const Game = () => {
             p1Cards: [...opponentsDeck],
             p1RemainingTurns: p1RemainingTurns,
             p2RemainingTurns: p2RemainingTurns,
+            info: announce
           });
         }
         break;
