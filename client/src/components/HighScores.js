@@ -1,3 +1,29 @@
+import React from 'react';
+
+
+const HighScores = () => {
+
+    let highscores;
+
+    
+    async function getHighscores() {
+        const response = await fetch('/api/highscores', {
+            method: "GET",
+        });
+        highscores = await response.json();
+        console.log(highscores);
+    }
+    getHighscores();
+
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default HighScores
+
 
 // import React, { useState, useEffect } from 'react';
 // import Auth from '../utils/auth';
