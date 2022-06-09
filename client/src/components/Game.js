@@ -419,7 +419,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 0,
               p2RemainingTurns: 1,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
+              info: `${activePlayer} is Doubling the Trouble`
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns - 2);
@@ -429,7 +432,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 1,
               p2RemainingTurns: 0,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} is Doubling the Trouble`
             });
           }
         } else if (playerRemainingTurns === 1) {
@@ -441,7 +447,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 0,
               p2RemainingTurns: 2,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P2",
+              info: `${activePlayer} is Doubling the Trouble`
             });
           } else if (cardPlayedBy === "P2") {
             // setP2RemainingTurns(playerRemainingTurns - 1);
@@ -451,7 +460,10 @@ const Game = () => {
               playedCard: cardPlayed,
               p1RemainingTurns: 2,
               p2RemainingTurns: 0,
+              p1Cards: [...cardsOfP1],
+              p2Cards: [...cardsOfP2],
               activePlayer: "P1",
+              info: `${activePlayer} is Doubling the Trouble`
             });
           }
         }
