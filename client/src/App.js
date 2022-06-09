@@ -7,21 +7,26 @@ import Rules from './components/Rules';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
+import PrivateRoute from './PrivateRoute.js';
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <Navbar />
+        <Navbar />
         <Routes>
-        <Route exact path="/" element={<Home/>}/>
-          <Route exact path="/game" element={<Game/>}/>
-          <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/signup" element={<Signup/>}/>
-          <Route exact path="/rules" element={<Rules/>}/>
-          <Route exact path="/highscores" element={<HighScores/>}/>
+          {/* <Route exact path="/" element={<Home/>}/> */}
+          <Route exact
+            path="/game"
+            element={<PrivateRoute>
+              <Game />
+            </PrivateRoute>} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/rules" element={<Rules />} />
+          <Route exact path="/highscores" element={<HighScores />} />
         </Routes>
-      
+
       </Router>
 
     </div>
