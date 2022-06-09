@@ -31,8 +31,8 @@ const HighScores = () => {
   }
   console.log(userData)
   
-  getUserHighscores();
-}, [userDataLength])
+    getUserHighscores();
+    }, [userDataLength])
 
   return (
     <div>

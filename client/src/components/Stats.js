@@ -1,44 +1,61 @@
-import React, { Component } from 'react'
+import Auth from '../utils/auth';
+import {getHighscores, getMe, getSingleHighscore} from '../utils/API'
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-class Stats extends Component {
-    constructor(props) {
-        super(props);
+const Stats = () => {
+    const [userData, setUserData] = useState({})
+    const userDataLength = Object.keys(userData).length;
 
-        this.state = {
-            options: {
-                chart: {
-                    id: 'basic-bar'
-                },
-                xaxis: {
-                    categories: ['wins', 'losses']
+    useEffect(() => {
+            const getUserHighscores = async () => {
+            try {
+                const token = Auth.loggedIn() ? Auth.getToken() : null;
+                if (!token) {
+                return false
                 }
-            },
-            series: [
-                {
-                name: 'series-1',
-                data: [20, 10]
+                const response = await getMe(token);
+                console.log(response)
+                if (!response.ok) {
+                throw new Error('something is wrong')
                 }
-            ]
-        };
-    }
+                const user = await response.json();
+                setUserData(user);
+            }
+            catch(error) {
+            console.log(error);
+            };
+        }
+        console.log(userData)
   
-    render () {
-        return (
-        <div className='app'>
-            <div className='row'>
-                <div className='mixed-chart'>
-                    <Chart 
-                        options={this.state.options}
-                        series={this.state.series}
-                        type='bar'
-                        width='100%'
-                    />
-                </div>
+        getUserHighscores();
+    },  [userDataLength])
+  
+    return (
+    <div className='app'>
+        <div className='row'>
+            <div className='mixed-chart'>
+                <Chart 
+                    options={{
+                        chart: {
+                            id: 'basic-bar'
+                        },
+                        xaxis: {
+                            categories: ['wins', 'losses']
+                        }
+                    }}
+                    series={[{
+                        name: 'series-1',
+                        data: [20, 10]
+                    }]}
+                    type='bar'
+                    width='100%'
+                />
             </div>
         </div>
-        );
-    }
+    </div>
+    );
+    
 }
     
 export default Stats;
