@@ -255,6 +255,8 @@ const Game = () => {
               playedCard: cardPlayed,
               p2RemainingTurns: p2RemainingTurns + 1,
               p1RemainingTurns: playerRemainingTurns,
+              p1Cards: [...p1Cards],
+              p2Cards: [...p2Cards],
               activePlayer: "P2",
               info: `${activePlayer} decided to sleep through their turn!`
             });
