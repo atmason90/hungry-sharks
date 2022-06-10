@@ -31,6 +31,9 @@ const Stats = () => {
         getUserHighscores();
     },  [userDataLength])
   
+    const wins = userData.stats.wins;
+    const losses = userData.stats.losses;
+
     return (
     <div className='app'>
         <div className='row'>
@@ -46,7 +49,11 @@ const Stats = () => {
                             showForSingleSeries: true,
                             showForNullSeries: true,
                             showForZeroSeries: true,
-                            fontSize: '16px'
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            labels: {
+                                useSeriesColors: true
+                            }
                         },
                         plotOptions: {
                             pie: {
@@ -80,7 +87,8 @@ const Stats = () => {
                             }
                         }
                     }}
-                    series={[20, 10]}
+                    series={[wins, losses]}
+                    // series={[10, 20]}
                     type={'donut'}
                     width={'100%'}
                 />
