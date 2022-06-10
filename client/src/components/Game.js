@@ -10,8 +10,8 @@ import Chatbox from "./Chatbox"
 import profanity from "profanity-censor"
 
 let socket;
-const ENDPOINT = "http://localhost:3001";
-// const ENDPOINT = "http://hungryshark.herokuapp.com"
+// const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "http://hungryshark.herokuapp.com"
 
 const Game = () => {
   const locationURL = window.location.href;
@@ -130,7 +130,7 @@ const sendMessage= (event) => {
     //cleanup on component unmount
     return function cleanup() {
       socket.emit("disconnect");
-      //shut down connnection instance
+      //shut down connection instance
       socket.off();
     };
   }, []);
