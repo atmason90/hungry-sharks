@@ -26,9 +26,8 @@ const NewRules = () => {
 
 {/* Put the two inner divs in the same column*/}
 <div className="flex flex-col justify-center items-center">
-    
-    <div className="flex flex-row justify-center items-center mb-10">    
     {/*  */}
+    <div className="flex flex-row justify-center items-center mb-10">    
       <div class="card card-side bg-black shadow-xl w-[600px] mx-5">
         <figure>
           <img
@@ -39,7 +38,7 @@ const NewRules = () => {
         </figure>
         <div class="card-body flex flex-col justify-center items-center">
           <h2 class="card-title text-orange-600 text-3xl">Hungry Shark</h2>
-          <h2>Click the button to watch on Jetflix app.</h2>
+          <h2>Draw this card and it is Game Over! You Lose! (Unless you have a Goat to sacrifice, of course)</h2>
         </div>
       </div>
 
@@ -57,11 +56,41 @@ const NewRules = () => {
           />
         </figure>
       </div>
+      </div>
       {/*  */}
 
-
-
+    {/*  */}
+      <div className="flex flex-row justify-center items-center mb-10">        
+      <div class="card card-side bg-black shadow-xl w-[600px] mx-5">
+        <figure>
+          <img
+            src={require(`../assets/CR.png`)}
+            alt="Hungry Shark Card"
+            style={{ width: "200px" }}
+          />
+        </figure>
+        <div class="card-body flex flex-col justify-center items-center">
+          <h2 class="card-title text-orange-600 text-3xl">Communist Regime</h2>
+          <h2>Play this card to get one Random Card from your opponent's hand</h2>
+        </div>
       </div>
+
+      <div class="card card-side bg-black shadow-xl w-[600px] mx-5">
+        <div class="card-body flex flex-col justify-center items-center">
+          <h2 class="card-title text-orange-600 text-3xl">Shuffler</h2>
+          <h2>Play this card to shuffle the deck if you feel like you have intel of a Hungry Shark coming up</h2>
+        </div>
+        <figure>
+          <img
+            src={require(`../assets/SH.png`)}
+            alt="Movie"
+            style={{ width: "200px" }}
+          />
+        </figure>
+      </div>
+      </div>
+      {/*  */}
+
       </div>
 
     </>
