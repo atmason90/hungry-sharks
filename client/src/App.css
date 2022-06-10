@@ -47,12 +47,8 @@ a {
   line-height: 1.5em;
 }
 
-.yeet {
-  color: rgba(255, 68, 0, 0.918);
-}
-
 .login {
-  background-image: url('./assets/login.gif');
+  background-image: url('./assets/signin.gif');
 }
 
 /* Game.js parent div */
