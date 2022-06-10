@@ -41,6 +41,13 @@ const Stats = () => {
                             type: 'donut'
                         },
                         labels: ['Wins', 'Losses'],
+                        legend: {
+                            show: true,
+                            showForSingleSeries: true,
+                            showForNullSeries: true,
+                            showForZeroSeries: true,
+                            fontSize: '16px'
+                        },
                         plotOptions: {
                             pie: {
                                 donut: {
