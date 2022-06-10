@@ -1,10 +1,25 @@
 import React from 'react'
-import { Navigate, Route } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+
+import Auth from './utils/auth'
 
 
-function PrivateRoute ({children}) {
-  const [jwt, setJwt] = useLocalStorage('', 'jwt')
-    return jwt ? children : <Navigate to='/login'/>
+
+
+function PrivateRoute({children}) {
+  const auth = Auth.getToken();
+  return auth ? children : <Navigate to='/login' />
   };
 
+
+
 export default PrivateRoute
+
+
+// const PrivateRoute = ({children}) => {
+
+//   const [token_id, setJwt] = Auth.getToken()
+//     return token_id ? children : <Navigate to='/login'/>
+//   };
+
+// export default PrivateRoute
