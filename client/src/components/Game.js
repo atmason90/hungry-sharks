@@ -7,6 +7,7 @@ import fullname from "../utils/fullname";
 import Player1View from "./Player1View";
 import Player2View from "./Player2View";
 import Chatbox from "./Chatbox"
+import profanity from "profanity-censor"
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -106,7 +107,7 @@ const toggleChatBox = () => {
 const sendMessage= (event) => {
   event.preventDefault()
   if(message) {
-      socket.emit('sendMessage', { message: message }, () => {
+      socket.emit('sendMessage', { message: profanity.filter(message) }, () => {
           setMessage('')
       })
   }
@@ -174,8 +175,6 @@ const sendMessage= (event) => {
         modalP1Show,
         modalP2Show,
         info,
-        noobModeP1,
-        noobModeP2,
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -772,6 +771,7 @@ const sendMessage= (event) => {
                     message={message}
                     setMessage={setMessage}
                     sendMessage={sendMessage}
+                    user="P1"
                   />
                 </>
               )}
@@ -795,6 +795,7 @@ const sendMessage= (event) => {
                     message={message}
                     setMessage={setMessage}
                     sendMessage={sendMessage}
+                    user="P2"
                   />
                 </>
               )}
