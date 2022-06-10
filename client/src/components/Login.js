@@ -56,20 +56,21 @@ const Login=()=> {
       <>
       <br></br>
       <br></br>
-   
-      <div className="container border content-center justify center items-center w-fit rounded pt-8 pb-8 pl-6 pr-6">
+      <div className='flex justify-center h-screen'>
+      <div className=" container border w-fit content-center h-[300px] justify-center items-center rounded pt-8 pb-8 pl-6 pr-6">
       <Form 
-      className=""
+      className="justify-center"
       noValidate 
       validated={validated} 
       onSubmit={handleFormSubmit}>
         <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
+        <div className='flex justify-center'>
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
-            className="text-slate-1000 mx-1 w-30 bg-slate-800"
+            className="text-slate-1000 mx-1 w-30 bg-slate-800 flex justify-center"
             type='text'
             placeholder='Email...'
             name='email'
@@ -78,7 +79,9 @@ const Login=()=> {
             required
           />
         </Form.Group>
+        </div>
 <br></br>
+        <div className='flex justify-center'>
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
@@ -91,6 +94,7 @@ const Login=()=> {
             required
           />
         </Form.Group>
+        </div>
         <br></br>
         <Form.Group >
 
@@ -110,6 +114,7 @@ const Login=()=> {
           Submit
         </Button>
       </Form>
+      </div>
       </div>
     </>
     )
