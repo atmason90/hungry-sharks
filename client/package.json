@@ -13,6 +13,7 @@
     "mongoose": "^6.3.5",
     "node-fetch": "^3.2.5",
     "path": "^0.12.7",
+    "profanity-censor": "^1.0.5",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
