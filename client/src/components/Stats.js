@@ -46,6 +46,14 @@ const Stats = () => {
                                 donut: {
                                     size: '55%',
                                     labels: {
+                                        show: true,
+                                        value: {
+                                            show: true,
+                                            fontSize: '22px',
+                                            fontFamily: 'Helvetica, Arial, sans-serif',
+                                            fontWeight: '600',
+                                            color: 'white',
+                                        },
                                         total: {
                                             show: true,
                                             showAlways: true,
@@ -53,7 +61,7 @@ const Stats = () => {
                                             fontSize: '22px',
                                             fontFamily: 'Helvetica, Arial, sans-serif',
                                             fontWeight: '600',
-                                            color: '#373d3f',
+                                            color: 'white',
                                             formatter: function(w) {
                                                 return w.globals.seriesTotals.reduce((a, b) => {
                                                     return a + b
@@ -68,21 +76,6 @@ const Stats = () => {
                     series={[20, 10]}
                     type={'donut'}
                     width={'100%'}
-                    // options={{
-                    //     chart: {
-                    //         id: 'basic-bar'
-                    //     },
-                    //     xaxis: {
-                    //         categories: ['wins', 'losses']
-                    //     }
-                    // }}
-                    // series={[{
-                    //     name: 'series-1',
-                    //     // data: [`${userData.stats.wins}`, `${userData.stats.losses}`]
-                    //     data: [20, 10]
-                    // }]}
-                    // type='bar'
-                    // width='100%'
                 />
             </div>
         </div>
