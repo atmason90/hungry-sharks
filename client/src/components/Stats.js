@@ -34,14 +34,14 @@ const Stats = () => {
     // const wins = userData.stats.wins;
     // const losses = userData.stats.losses;
 
-    return (
-    <div className='app bg-[#030917]'>
+    return (  
+    <div className='app bg-[#030917] ml-[25%]'>
         <div className='row'>
             <div className='mixed-chart'>
                 <Chart 
                     options={{
                         chart: {
-                            type: 'donut'
+                            type: 'donut',
                         },
                         labels: ['Wins', 'Losses'],
                         legend: {
@@ -96,7 +96,7 @@ const Stats = () => {
                     // series={[wins, losses]}
                     series={[10, 20]}
                     type={'donut'}
-                    width={'100%'}
+                    width={'60%'}
                 />
             </div>
         </div>
