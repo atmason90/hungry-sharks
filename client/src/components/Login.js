@@ -63,8 +63,8 @@ const Login=()=> {
       noValidate 
       validated={validated} 
       onSubmit={handleFormSubmit}>
-        <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
+        <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger' className='fixed w-auto top-16 bg-orange-700 py-2 px-5'>
+          Invalid Username or Password
         </Alert>
         <div className='flex justify-center'>
         <Form.Group>
