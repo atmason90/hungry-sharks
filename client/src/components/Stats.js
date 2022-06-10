@@ -35,7 +35,7 @@ const Stats = () => {
     const losses = userData.stats.losses;
 
     return (
-    <div className='app'>
+    <div className='app bg-[#030917]'>
         <div className='row'>
             <div className='mixed-chart'>
                 <Chart 
@@ -53,6 +53,12 @@ const Stats = () => {
                             fontWeight: '600',
                             labels: {
                                 useSeriesColors: true
+                            }
+                        },
+                        colors: ['#c2410c', '#1d4ed8'],
+                        tooltip: {
+                            style: {
+                                fontSize: '16px'
                             }
                         },
                         plotOptions: {
