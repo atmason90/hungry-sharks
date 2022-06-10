@@ -31,11 +31,11 @@ const Stats = () => {
         getUserHighscores();
     },  [userDataLength])
   
-    // const wins = userData.stats.wins;
-    // const losses = userData.stats.losses;
+    const wins = userData.stats.wins;
+    const losses = userData.stats.losses;
 
     return (  
-    <div className='app bg-[#030917] ml-[25%]'>
+    <div className='app bg-[#030917] mt-[10%] ml-[25%]'>
         <div className='row'>
             <div className='mixed-chart'>
                 <Chart 
@@ -93,8 +93,8 @@ const Stats = () => {
                             }
                         }
                     }}
-                    // series={[wins, losses]}
-                    series={[10, 20]}
+                    series={[wins, losses]}
+                    // series={[0, 0]}
                     type={'donut'}
                     width={'60%'}
                 />
