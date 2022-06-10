@@ -11,7 +11,7 @@ import profanity from "profanity-censor"
 
 let socket;
 // const ENDPOINT = "http://localhost:3001";
-const ENDPOINT = "http://hungryshark.herokuapp.com"
+const ENDPOINT = "https://hungrysharkcardgame.herokuapp.com"
 
 const Game = () => {
   const locationURL = window.location.href;
