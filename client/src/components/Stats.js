@@ -31,8 +31,8 @@ const Stats = () => {
         getUserHighscores();
     },  [userDataLength])
   
-    const wins = userData.stats.wins;
-    const losses = userData.stats.losses;
+    // const wins = userData.stats.wins;
+    // const losses = userData.stats.losses;
 
     return (
     <div className='app bg-[#030917]'>
@@ -93,8 +93,8 @@ const Stats = () => {
                             }
                         }
                     }}
-                    series={[wins, losses]}
-                    // series={[10, 20]}
+                    // series={[wins, losses]}
+                    series={[10, 20]}
                     type={'donut'}
                     width={'100%'}
                 />
