@@ -1,5 +1,5 @@
 import Auth from '../utils/auth';
-import {getHighscores, getMe, getSingleHighscore} from '../utils/API'
+import { getMe } from '../utils/API'
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
@@ -38,18 +38,51 @@ const Stats = () => {
                 <Chart 
                     options={{
                         chart: {
-                            id: 'basic-bar'
+                            type: 'donut'
                         },
-                        xaxis: {
-                            categories: ['wins', 'losses']
+                        labels: ['Wins', 'Losses'],
+                        plotOptions: {
+                            pie: {
+                                donut: {
+                                    size: '55%',
+                                    labels: {
+                                        total: {
+                                            show: true,
+                                            showAlways: true,
+                                            label: 'Total Games',
+                                            fontSize: '22px',
+                                            fontFamily: 'Helvetica, Arial, sans-serif',
+                                            fontWeight: '600',
+                                            color: '#373d3f',
+                                            formatter: function(w) {
+                                                return w.globals.seriesTotals.reduce((a, b) => {
+                                                    return a + b
+                                                }, 0)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }}
-                    series={[{
-                        name: 'series-1',
-                        data: [20, 10]
-                    }]}
-                    type='bar'
-                    width='100%'
+                    series={[20, 10]}
+                    type={'donut'}
+                    width={'100%'}
+                    // options={{
+                    //     chart: {
+                    //         id: 'basic-bar'
+                    //     },
+                    //     xaxis: {
+                    //         categories: ['wins', 'losses']
+                    //     }
+                    // }}
+                    // series={[{
+                    //     name: 'series-1',
+                    //     // data: [`${userData.stats.wins}`, `${userData.stats.losses}`]
+                    //     data: [20, 10]
+                    // }]}
+                    // type='bar'
+                    // width='100%'
                 />
             </div>
         </div>
