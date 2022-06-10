@@ -11,7 +11,7 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-      <Navbar className="flex flex-row px-6 h-fit" bg='black' variant='dark' expand='lg' style={{position:"fixed"}}>
+      <Navbar className="flex flex-row px-6 h-fit"  variant='dark' expand='lg' style={{position:"fixed"}}>
 
         <Container>
           <div>
