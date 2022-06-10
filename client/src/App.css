@@ -283,22 +283,26 @@ a {
 .chat-box{
 	position: absolute;
 	bottom: 0px;
-	background: white;
+	background: rgb(0, 0, 0);
 	width: 355px;
 	border-radius: 5px 5px 0px 0px;
   z-index: 100;
+  opacity: 90%;
 }
-.chat-box-player1{
+.chat-box-P1{
   right: 20px;
 }
-.chat-box-player2{
+
+.chat-box-P2{
   left: 20px;
 }
+
 .chat-head{
 	width: inherit;
 	height: 45px;
-	background: #2c3e50;
+	background: #000613;
 	border-radius: 5px 5px 0px 0px;
+  border: #ae460a 1px solid;
 }
 .chat-head h2{
 	color: white;
@@ -315,6 +319,7 @@ a {
   display: none;
 	height: 205px;
 	width: inherit;
+  opacity: 100%;
 	overflow: hidden auto;
 	margin-bottom: 45px;
 }
@@ -334,13 +339,14 @@ a {
   outline: none;
 }
 .chat-text input:active, .chat-text input:focus, .chat-text input:hover{
-	border-color: royalblue;
+	border-color: rgb(248, 248, 248);
 }
 .msg-send{
-	background: #406a4b;
+	background: #000816;
+  padding: 5px;
 }
 .msg-receive{
-	background: #595080;
+	background: #ad4200;
 }
 .msg-send, .msg-receive{
 	width: 285px;
@@ -351,14 +357,13 @@ a {
 	line-height: 30px;
 	position: relative;
 	color: white;
+  
 }
 .msg-receive:before{
 	content: '';
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	border: 15px solid;
-	border-color: transparent #595080 transparent transparent;
 	left: -29px;
 	top: 7px;
 }
@@ -367,8 +372,6 @@ a {
 	width: 0px;
 	height: 0px;
 	position: absolute;
-	border: 15px solid;
-	border-color: transparent transparent transparent #406a4b;
 	right: -29px;
 	top: 7px;
 }

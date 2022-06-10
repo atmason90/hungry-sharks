@@ -6,12 +6,13 @@ const Chatbox = ({
   message,
   setMessage,
   sendMessage,
+  user
 }) => {
   return (
     <div className="chatBoxWrapper">
-      <div className="chat-box chat-box-player1">
-        <div className="chat-head" onClick={toggleChatBox}>
-          <h2>Chat Box</h2>
+      <div  className={`chat-box-${user} chat-box`}>
+        <div className="chat-head flex items-center justify-center" onClick={toggleChatBox}>
+          <h2>Trash Talk</h2>
         </div>
         <div className="chat-body">
           <div className="msg-insert text-black">

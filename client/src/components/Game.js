@@ -174,8 +174,6 @@ const sendMessage= (event) => {
         modalP1Show,
         modalP2Show,
         info,
-        noobModeP1,
-        noobModeP2,
       }) => {
         gameOver && setGameOver(gameOver);
         winner && setWinner(winner);
@@ -772,6 +770,7 @@ const sendMessage= (event) => {
                     message={message}
                     setMessage={setMessage}
                     sendMessage={sendMessage}
+                    user="P1"
                   />
                 </>
               )}
@@ -795,6 +794,7 @@ const sendMessage= (event) => {
                     message={message}
                     setMessage={setMessage}
                     sendMessage={sendMessage}
+                    user="P2"
                   />
                 </>
               )}
