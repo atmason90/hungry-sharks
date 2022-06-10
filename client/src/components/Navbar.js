@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 const AppNavbar = () => {
 
   return (
-      <Navbar className="flex flex-row px-6 h-fit items-end justify-end"  variant='dark' expand='lg' style={{position:"fixed"}}>
+      <Navbar className="flex flex-row px-6 h-fit items-end justify-end z-10"  variant='dark' expand='lg' style={{position:"fixed"}}>
 
 
         <Container className="flex flex-row items-center justify-end" fluid>
