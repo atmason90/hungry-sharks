@@ -20,19 +20,29 @@ function App() {
         <Routes>
           {/* <Route exact path="/" element={<Home/>}/> */}
           <Route
+            exact
             path="/"
             element={
             <PrivateRoute>
               <Home />
             </PrivateRoute>} />
             <Route 
+            exact
             path="/game" 
             element={
-            <Game/>}/>
+              <PrivateRoute>
+            <Game/>
+            </PrivateRoute> }/>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/rules" element={<Rules />} />
-          <Route exact path="/highscores" element={<HighScores />} />
+          <Route 
+          exact 
+          path="/highscores" 
+          element={
+            <PrivateRoute>
+          <HighScores />
+          </PrivateRoute>} />
         </Routes>
 
       </Router>
