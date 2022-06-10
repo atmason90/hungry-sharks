@@ -53,13 +53,13 @@ const Login=()=> {
 
 
     return(
-      <>
+      <div className='login h-screen'>
       <br></br>
       <br></br>
-      <div className='flex justify-center h-screen'>
+      <div className='flex mt-20 justify-center items-center'>
       <div className=" container border w-fit content-center h-[300px] justify-center items-center rounded pt-8 pb-8 pl-6 pr-6">
       <Form 
-      className="justify-center"
+      className="justify-center items-center"
       noValidate 
       validated={validated} 
       onSubmit={handleFormSubmit}>
@@ -116,7 +116,7 @@ const Login=()=> {
       </Form>
       </div>
       </div>
-    </>
+    </div>
     )
 }
 

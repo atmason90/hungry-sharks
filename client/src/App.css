@@ -44,6 +44,10 @@ a {
   line-height: 1.5em;
 }
 
+.login {
+  background-image: url('./assets/login.gif');
+}
+
 /* Game.js parent div */
 .Game {
   background-image: url('./assets/game.gif');

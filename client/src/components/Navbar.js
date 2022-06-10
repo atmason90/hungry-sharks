@@ -11,40 +11,46 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <Navbar className="flex flex-row items-center justify-center px-6" bg='black' variant='dark' expand='lg'>
-        <Container className="flex flex-row items-center justify-center" fluid>
+      <Navbar className="flex flex-row px-6 h-fit" bg='black' variant='dark' expand='lg' style={{position:"fixed"}}>
+
+        <Container>
+          <div>
+            <h1 className='text-orange-700 text-xl'>Hungry Sharks</h1>
+          </div>
+        </Container>
+
+        <Container className="flex flex-row items-center justify-end" fluid>
           <Navbar.Brand 
-          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          className="bg-[#040417] hover:bg-orange-700 text-white font-bold py-2  px-10"
           as={Link} to='/'>
             Home
           </Navbar.Brand>
           
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse  id='navbar'>
-            <Nav className='flex flex flex-row items-center  ml-auto'>
+            <Nav className='flex flex-row items-center  ml-auto'>
             <Nav.Link
-            className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+            className="bg-[#040417] hover:bg-orange-700 text-white font-bold py-2  px-10"
             as={Link} to='/rules'>
-                See Game Rules
+                Rules
               </Nav.Link>
               <br></br>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link 
-                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  className="bg-[#040417] hover:bg-orange-700 text-white font-bold py-2  px-10"
                   as={Link} to='/highscores'>
                     See HighScores
                   </Nav.Link>
                   <br></br>
                   <Nav.Link 
-                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  className="bg-[#040417] hover:bg-orange-700 text-white font-bold py-2  px-10"
                   onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
                 <Nav.Link 
-                className="flex flex-row items-center bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                className="bg-[#040417] hover:bg-orange-700 text-white font-bold py-2  px-10"
                 as={Link} to='/login'>Login</Nav.Link>
               )
               }
@@ -52,9 +58,7 @@ const AppNavbar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* set modal data up */}
      
-    </>
   );
 };
 
