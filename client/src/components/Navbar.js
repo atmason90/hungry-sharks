@@ -7,44 +7,48 @@ import Login from './Login';
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
-  // set modal display state
-  const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
-      <Navbar className="flex flex-row items-center justify-center px-6" bg='black' variant='dark' expand='lg'>
-        <Container className="flex flex-row items-center justify-center" fluid>
+      <Navbar className="flex flex-row px-6 h-fit items-end justify-end z-10"  variant='dark' expand='lg' style={{position:"fixed"}}>
+
+
+        <Container className="flex flex-row items-center justify-end" fluid>
           <Navbar.Brand 
-          className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+          className="hover:bg-orange-700 text-white text-2xl py-2  px-10"
+          style={{textShadow: "rgba(255, 68, 0, 0.918) 0 10px 20px"}}
           as={Link} to='/'>
             Home
           </Navbar.Brand>
           
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse  id='navbar'>
-            <Nav className='flex flex flex-row items-center  ml-auto'>
+            <Nav className='flex flex-row items-center  ml-auto'>
             <Nav.Link
-            className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+            className="hover:bg-orange-700 text-white text-2xl py-2  px-10"
+            style={{textShadow: "rgba(255, 68, 0, 0.918) 0 10px 20px"}}
             as={Link} to='/rules'>
-                See Game Rules
+                Rules
               </Nav.Link>
               <br></br>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link 
-                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  className="hover:bg-orange-700 text-white text-2xl py-2  px-10"
+                  style={{textShadow: "rgba(255, 68, 0, 0.918) 0 10px 20px"}}
                   as={Link} to='/highscores'>
-                    See HighScores
+                    HighScores
                   </Nav.Link>
                   <br></br>
                   <Nav.Link 
-                  className="bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                  className="hover:bg-orange-700 text-white text-2xl py-2  px-10"
+                  style={{textShadow: "rgba(255, 68, 0, 0.918) 0 10px 20px"}}
                   onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (
                 <Nav.Link 
-                className="flex flex-row items-center bg-[#000000] hover:bg-orange-700 text-white font-bold py-2 px-4 border border-[#f06c00] rounded mr-10"
+                className="hover:bg-orange-700 text-white text-2xl py-2  px-10"
+                style={{textShadow: "rgba(255, 68, 0, 0.918) 0 10px 20px"}}
                 as={Link} to='/login'>Login</Nav.Link>
               )
               }
@@ -52,9 +56,7 @@ const AppNavbar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* set modal data up */}
      
-    </>
   );
 };
 

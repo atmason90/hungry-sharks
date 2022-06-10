@@ -1,8 +1,12 @@
 .App {
   text-align: center;
-  /* font-family: 'Patrick Hand', cursive; */
-  font-family: 'Bebas Neue', cursive;
+  /* font-family: 'Bebas Neue', cursive; */
+  /* font-family: 'Fredoka One', cursive; */
+  /* font-family: 'Gluten', cursive; */
+  /* font-family: 'Fredoka', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   margin-top: 0;
+  background-color: #020b12;
 }
 
 a {
@@ -42,6 +46,10 @@ a {
   font-size: 15px;
   width: 150px;
   line-height: 1.5em;
+}
+
+.login {
+  background-image: url('./assets/signin.gif');
 }
 
 /* Game.js parent div */

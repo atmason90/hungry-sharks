@@ -58,7 +58,7 @@ const Player1View = ( {cardPlayedHandler, p2Cards, activePlayer, p1Cards, fullna
             <img
               key={i}
               className="Card"
-              onClick={() => cardPlayedHandler(item)}
+              onClick={() => {if(item !== "WC" && item !== "SG") {cardPlayedHandler(item)}}}
               src={require(`../assets/${item}.png`)}
               alt={`${fullname(item)}`}
             />
