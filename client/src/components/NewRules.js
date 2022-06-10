@@ -91,6 +91,38 @@ const NewRules = () => {
       </div>
       {/*  */}
 
+      {/*  */}
+      <div className="flex flex-row justify-center items-center mb-10">        
+      <div class="card card-side bg-black shadow-xl w-[600px] mx-5">
+        <figure>
+          <img
+            src={require(`../assets/SN.png`)}
+            alt="Hungry Shark Card"
+            style={{ width: "200px" }}
+          />
+        </figure>
+        <div class="card-body flex flex-col justify-center items-center">
+          <h2 class="card-title text-orange-600 text-3xl">Snooze</h2>
+          <h2>Skip one turn to potentially avoid drawing a Hungry Shark</h2>
+        </div>
+      </div>
+
+      <div class="card card-side bg-black shadow-xl w-[600px] mx-5">
+        <div class="card-body flex flex-col justify-center items-center">
+          <h2 class="card-title text-orange-600 text-3xl">Divine Revelation</h2>
+          <h2>Take a peek at the top three cards from the draw pile. Plan out your moves accordingly</h2>
+        </div>
+        <figure>
+          <img
+            src={require(`../assets/DR.png`)}
+            alt="Movie"
+            style={{ width: "200px" }}
+          />
+        </figure>
+      </div>
+      </div>
+      {/*  */}
+
       </div>
 
     </>
