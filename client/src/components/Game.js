@@ -10,8 +10,13 @@ import Chatbox from "./Chatbox"
 import profanity from "profanity-censor"
 
 let socket;
+<<<<<<< HEAD
 const ENDPOINT = "http://localhost:3001";
 // const ENDPOINT = "http://hungryshark.herokuapp.com"
+=======
+// const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://hungryshark.herokuapp.com";
+>>>>>>> 5aba2b45a935fd711a1eba25f37b79fdbcd9a465
 
 const Game = () => {
   const locationURL = window.location.href;

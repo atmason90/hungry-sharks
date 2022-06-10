@@ -4,6 +4,7 @@
   "engines": {
     "node": "16.14.2"
   },
+  "proxy": "http://localhost:3001/",
   "private": true,
   "scripts": {
     "develop": "concurrently \"cd client && npm start\" \"cd server && npm run watch\"",
