@@ -52,6 +52,11 @@ a {
   background-image: url('./assets/signin.gif');
 }
 
+.signup {
+  background-image: url('./assets/signin.gif');
+}
+
+
 /* Game.js parent div */
 .Game {
   background-image: url('./assets/game.gif');
