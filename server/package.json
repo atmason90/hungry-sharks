@@ -16,7 +16,7 @@
     "scripts": {
         "start": "node server.js",
         "watch": "nodemon",
-        "seed": "node config/seeds.js"
+        "heroku-postbuild": "npm run build"
     },
     "devDependencies": {
         "nodemon": "^2.0.2"
