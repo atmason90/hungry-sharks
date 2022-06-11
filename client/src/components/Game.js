@@ -8,10 +8,13 @@ import Player1View from "./Player1View";
 import Player2View from "./Player2View";
 import Chatbox from "./Chatbox"
 import profanity from "profanity-censor"
+import GameOverWon from "./GameOverWon";
+import GameOverLose from "./GameOverLose";
+
 
 let socket;
-// const ENDPOINT = "http://localhost:3001";
-const ENDPOINT = "https://hungrysharkcardgame.herokuapp.com"
+const ENDPOINT = "http://localhost:3001";
+// const ENDPOINT = "https://hungrysharkcardgame.herokuapp.com"
 
 const Game = () => {
   const locationURL = window.location.href;
@@ -36,8 +39,8 @@ const Game = () => {
   const [winner, setWinner] = useState("");
   const [drawCardsPile, setDrawCardsPile] = useState([]);
   const [playedCard, setPlayedCard] = useState("back");
-  const [p1Cards, setP1Cards] = useState(["ABC", "DEF", "GHI"]);
-  const [p2Cards, setP2Cards] = useState(["UVW", "XYZ"]);
+  const [p1Cards, setP1Cards] = useState([]);
+  const [p2Cards, setP2Cards] = useState([]);
   const [p1RemainingTurns, setP1RemainingTurns] = useState(0);
   const [p2RemainingTurns, setP2RemainingTurns] = useState(0);
   const [activePlayer, setActivePlayer] = useState("");
@@ -677,10 +680,12 @@ const sendMessage= (event) => {
           // setPlayedCard("HS");
           // setGameOver(true);
           // setWinner("P1");
+          // if() theWinner = userData.username
           socket.emit("updateGameState", {
             playedCard: "HS",
             gameOver: true,
             winner: "P1",
+            //set winner to userData.username if currenUser === "Player 1"
           });
         }
       } else if (cardDrawn !== "HS") {
@@ -741,15 +746,8 @@ const sendMessage= (event) => {
         </div>
 
         <>
-          {gameOver ? (
-            <div>
-              {winner !== "" && (
-                <>
-                  <h1>GAME OVER</h1>
-                  <h2>{winner} wins!</h2>
-                </>
-              )}
-            </div>
+          {gameOver ? ((winner === "P1" && currentUser === "Player 1") || (winner === "P2" && currentUser === "Player 2") ? <GameOverWon/>: <GameOverLose/>
+            
           ) : (
             <div>
               {/* P1 VIEW */}
