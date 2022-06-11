@@ -9,6 +9,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { loginUser } from "../utils/API";
 import Auth from "../utils/auth";
 import Signup from "./Signup";
+import Navbar from "./Navbar"
 
 const Login = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
@@ -51,6 +52,8 @@ const Login = () => {
   };
 
   return (
+    <>
+      <Navbar/>
     <div className="login h-screen">
       <br></br>
       <br></br>
@@ -129,6 +132,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

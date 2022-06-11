@@ -2,6 +2,7 @@ import Auth from '../utils/auth';
 import {getHighscores, getMe, getSingleHighscore} from '../utils/API'
 import React, { useState, useEffect } from 'react';
 import Stats from './Stats';
+import Navbar from "./Navbar"
 
 
 
@@ -36,6 +37,7 @@ const HighScores = () => {
 
   return (
     <div>
+      <Navbar/>
           <h2>
           {userData.stats
             ? `Viewing ${userData.username}'s saved stats:`

@@ -1,8 +1,10 @@
 import React from "react";
+import Navbar from "./Navbar"
 
 const NewRules = () => {
   return (
     <>
+    <Navbar/>
       <div className="w-full h-screen">
         <div className="hero min-h-screen bg-[#020b12]">
           <div className="hero-content flex-col lg:flex-row">
