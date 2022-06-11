@@ -19,10 +19,10 @@ const NewRules = () => {
                 You don't have to swim faster than the Shark! Just faster than
                 the person you're with...
               </p>
-              <p className="py-6 text-xl">In the deck of cards there are some Hungry Sharks. You play the game by taking turns drawing cards until a player draws a Hungry Shark. When that happens, the player is eaten by the Hungry Shark and they lose!</p>
-              <p className="py-6 text-xl">All of the other cards in the deck will give you powerful tools to help avoid being eaten.</p>
-              <p className="py-6 text-xl">Each player starts with one Sacrificial Goat card + 7 other random cards. The Hungry Shark cards are hiding somewhere in the remaining deck of cards.</p>
-              <p className="py-6 text-xl">When it is your turn, you can play a card from your hand or pass. Play as many or as few cards as you'd like. Your turn ends by you drawing a card from the deck and hoping it is not a Hungry Shark.</p>
+              <p className="py-6 text-lg">In the deck of cards there are some Hungry Sharks. You play the game by taking turns drawing cards until a player draws a Hungry Shark. When that happens, the player is eaten by the Hungry Shark and they lose!</p>
+              <p className="py-6 text-lg">All of the other cards in the deck will give you powerful tools to help avoid being eaten.</p>
+              <p className="py-6 text-lg">Each player starts with one Sacrificial Goat card + 7 other random cards. The Hungry Shark cards are hiding somewhere in the remaining deck of cards.</p>
+              <p className="py-6 text-lg">When it is your turn, you can play a card from your hand or pass. Play as many or as few cards as you'd like. Your turn ends by you drawing a card from the deck and hoping it is not a Hungry Shark.</p>
             </div>
           </div>
         </div>
