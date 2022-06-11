@@ -5,6 +5,7 @@ import Chart from 'react-apexcharts';
 
 const Stats = () => {
     const [userData, setUserData] = useState({stats: {
+        game: 0,
         wins: 0,
         losses: 0
     }})
