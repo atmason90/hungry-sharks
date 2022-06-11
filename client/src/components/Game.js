@@ -128,11 +128,11 @@ const sendMessage= (event) => {
     });
 
     //cleanup on component unmount
-    return function cleanup() {
-      socket.emit("disconnect");
-      //shut down connection instance
-      socket.off();
-    };
+    // return function cleanup() {
+    //   socket.emit("disconnect");
+    //   //shut down connection instance
+    //   socket.off();
+    // };
   }, []);
 
   useEffect(() => {
