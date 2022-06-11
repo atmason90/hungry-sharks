@@ -23,16 +23,18 @@ function App() {
             exact
             path="/"
             element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>} />
+            // <PrivateRoute>
+              <Home />} />
+            {/* </PrivateRoute> */}
+          
             <Route 
             exact
             path="/game" 
             element={
-              <PrivateRoute>
-            <Game/>
-            </PrivateRoute> }/>
+              // <PrivateRoute>
+            <Game/>  } /> 
+            {/* // </PrivateRoute>  */}
+          
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/rules" element={<NewRules />} />
