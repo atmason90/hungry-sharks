@@ -54,7 +54,7 @@ const Signup = () => {
 
   return (
     
-    <div className=' signup h-screen'>
+    <div className='signup h-screen'>
     <Navbar/>
     <br></br>
     <br></br>
