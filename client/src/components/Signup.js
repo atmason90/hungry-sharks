@@ -3,6 +3,7 @@ import { Form, Button, Alert, Container } from 'react-bootstrap';
 
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
+import Navbar from "./Navbar"
 
 const Signup = () => {
   // set initial form state
@@ -54,6 +55,7 @@ const Signup = () => {
   return (
     
     <>
+    <Navbar/>
     <br></br>
     <br></br>
 
