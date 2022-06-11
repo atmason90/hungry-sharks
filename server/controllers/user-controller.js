@@ -54,5 +54,16 @@ module.exports = {
         }
   
         res.json(foundStats);
+      },
+
+      async updateStats({ body}, res) {
+        const filter = body.id;
+        const update = {wins: body.gamesWon, losses: body.gamesLost, played: body.gamesPlayed}
+        const userToUpdate =  await User.findOneAndUpdate(filter, update);
+
+        if(!userToUpdate) {
+          res.status(500);
+        }
+
       }
 }
