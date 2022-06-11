@@ -11,7 +11,7 @@
     "cors": "^2.8.5",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
-    "mongoose": "^6.3.5",
+    "mongoose": "^6.3.6",
     "node-fetch": "^3.2.5",
     "path": "^0.12.7",
     "profanity-censor": "^1.0.5",
