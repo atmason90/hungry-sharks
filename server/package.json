@@ -15,8 +15,7 @@
     },
     "scripts": {
         "start": "node server.js",
-        "watch": "nodemon",
-        "heroku-postbuild": "npm run build"
+        "watch": "nodemon"
     },
     "devDependencies": {
         "nodemon": "^2.0.2"
