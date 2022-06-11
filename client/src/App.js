@@ -43,7 +43,6 @@ function App() {
           element={
             <PrivateRoute>
           <HighScores />
-          <GameOverWon/>
           </PrivateRoute>} />
         </Routes>
 
