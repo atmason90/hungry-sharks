@@ -38,7 +38,7 @@ const HighScores = () => {
     <div>
           <h2>
           {userData.stats
-            ? `Viewing ${userData.username}'s saved ${userData.stats === 1 ? 'stat' : 'stats'}:`
+            ? `Viewing ${userData.username}'s saved stats:`
             : 'You have no stats!'}
         </h2>
         <hr></hr>
