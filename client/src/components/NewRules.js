@@ -32,9 +32,9 @@ const NewRules = () => {
       <div className="flex flex-col justify-center items-center">
         {/*  */}
         <div className="flex flex-row justify-center items-center mb-10">
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">Hungry Shark</h2>
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">Hungry Shark</h2>
               <h2>
                 Draw this card and it is Game Over! You Lose! (Unless you have a
                 Goat to sacrifice, of course)
@@ -49,7 +49,7 @@ const NewRules = () => {
             </figure>
           </div>
 
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
             <figure>
               <img
                 src={require(`../assets/SG.png`)}
@@ -57,8 +57,8 @@ const NewRules = () => {
                 style={{ width: "200px" }}
               />
             </figure>
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">
                 Sacrificial Goat
               </h2>
               <h2>
@@ -73,9 +73,9 @@ const NewRules = () => {
 
         {/*  */}
         <div className="flex flex-row justify-center items-center mb-10">
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">
                 Communist Regime
               </h2>
               <h2>
@@ -91,7 +91,7 @@ const NewRules = () => {
             </figure>
           </div>
 
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
             <figure>
               <img
                 src={require(`../assets/SH.png`)}
@@ -99,8 +99,8 @@ const NewRules = () => {
                 style={{ width: "200px" }}
               />
             </figure>
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">Shuffler</h2>
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">Shuffler</h2>
               <h2>
                 Play this card to shuffle the deck if you feel like you have
                 intel of a Hungry Shark coming up
@@ -112,9 +112,9 @@ const NewRules = () => {
 
         {/*  */}
         <div className="flex flex-row justify-center items-center mb-10">
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">Snooze</h2>
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">Snooze</h2>
               <h2>Skip one turn to potentially avoid drawing a Hungry Shark</h2>
             </div>
             <figure>
@@ -126,7 +126,7 @@ const NewRules = () => {
             </figure>
           </div>
 
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
             <figure>
               <img
                 src={require(`../assets/DR.png`)}
@@ -134,8 +134,8 @@ const NewRules = () => {
                 style={{ width: "200px" }}
               />
             </figure>
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">
                 Divine Revelation
               </h2>
               <h2>
@@ -149,9 +149,9 @@ const NewRules = () => {
 
         {/*  */}
         <div className="flex flex-row justify-center items-center mb-10">
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">White Crayon</h2>
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">White Crayon</h2>
               <h2>
                 You can not play this card because it is just as useless as a
                 white crayon. But hey, at least it is not a Hungry Shark!
@@ -166,7 +166,7 @@ const NewRules = () => {
             </figure>
           </div>
 
-          <div class="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
+          <div className="card card-side bg-[#670c0c] shadow-xl w-[600px] mx-5">
             <figure>
               <img
                 src={require(`../assets/DT.png`)}
@@ -174,8 +174,8 @@ const NewRules = () => {
                 style={{ width: "200px" }}
               />
             </figure>
-            <div class="card-body flex flex-col justify-center items-center">
-              <h2 class="card-title text-orange-600 text-3xl">
+            <div className="card-body flex flex-col justify-center items-center">
+              <h2 className="card-title text-orange-600 text-3xl">
                 Double Trouble
               </h2>
               <h2>

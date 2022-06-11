@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import NewRules from './components/NewRules';
 import PrivateRoute from './PrivateRoute.js';
+import GameOverWon from './components/GameOverWon';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           element={
             <PrivateRoute>
           <HighScores />
+          <GameOverWon/>
           </PrivateRoute>} />
         </Routes>
 

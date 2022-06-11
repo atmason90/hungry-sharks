@@ -5,6 +5,7 @@ const {
   getSingleUser,
   login,
   getUserStats,
+  updateStats,
 //   getStats
 } = require('../../controllers/user-controller');
 
@@ -20,5 +21,8 @@ router.route('/me').get(authMiddleware, getSingleUser);
 
 // router.route('/scores').get(getStats)
 router.route('/highscores').get(authMiddleware, getUserStats)
+
+router.route('/game').get(authMiddleware, getSingleUser)
+.put(authMiddleware, updateStats)
 
 module.exports = router;
