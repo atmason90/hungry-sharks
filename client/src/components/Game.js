@@ -147,8 +147,7 @@ const Game = () => {
         drawCardsPile,
         p1RemainingTurns,
         p2RemainingTurns,
-        noobModeP1,
-        noobModeP2,
+        playedCard
       }) => {
         setGameOver(gameOver);
         setActivePlayer(activePlayer);
@@ -157,6 +156,7 @@ const Game = () => {
         setDrawCardsPile(drawCardsPile);
         setP1RemainingTurns(p1RemainingTurns);
         setP2RemainingTurns(p2RemainingTurns);
+        setPlayedCard(playedCard);
       }
     );
 
@@ -236,6 +236,7 @@ const Game = () => {
       p1RemainingTurns: 1,
       p2RemainingTurns: 0,
       activePlayer: "P1",
+      playedCard: "back",
     });
   }, []);
 

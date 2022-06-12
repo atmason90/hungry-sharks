@@ -37,7 +37,7 @@ const Player1View = ( {cardPlayedHandler, p2Cards, activePlayer, p1Cards, fullna
           </div>
         </div>
         {playedCard && (
-          <div className="shadow-xl">
+          <div className="shadow-xl flex flex-col justify-center items-center">
             <img
               className="Card"
               src={require(`../assets/${playedCard}.png`)}
