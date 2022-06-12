@@ -7,11 +7,12 @@
   "private": true,
   "scripts": {
     "develop": "cd client && npm start",
-    "start": "concurrently \"cd client && npm start\" \"cd server && npm run watch\"",
+    "start_old": "concurrently \"cd client && npm start\" \"cd server && npm run watch\"",
+    "start": "export ENVIRONMENT=prod && cd server && node server.js",
     "install": "cd client && npm i && cd ../server && npm i",
     "build": "cd client && npm run build",
     "server": "node server/server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm run build && cd .."
   },
   "eslintConfig": {
     "extends": [

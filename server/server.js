@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 const routes = require('./routes');
 const socketio = require('socket.io');
-
 const { addPlayer, removePlayer, getPlayer, getRoomPlayers } = require('./utils/players');
 
 const http = require('http')
@@ -13,15 +12,26 @@ const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+if (process.env.ENVIRONMENT === "prod") {
+    console.log("Environment makes me happy");
+    const publicPath = path.join(__dirname, '..', 'client', 'build');
+    app.use(express.static(publicPath));
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors())
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'prod') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 app.use(routes);
+if (process.env.ENVIRONMENT === "prod") {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(publicPath, 'index.html'));
+    })  
+}
 
 db.once('open', () => {
   server.listen(PORT, () => console.log(`Now listening on localhost:${PORT}`));
