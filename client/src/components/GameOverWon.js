@@ -59,6 +59,12 @@ fetch("/api/users/me", {method: "PUT", body})
       >
         GOATS WERE SACRIFICED BUT IN THE END...
       </h1>
+      <h1
+        className="text-xl mt-20 text-gray-200"
+        style={{ letterSpacing: "10px" }}
+      >
+        YOU MADE IT TO THE SHORE
+      </h1>
       <h1 className="text-8xl text-orange-600">YOU WON!</h1>
       <div className=" flex flex-row justify-center items-center my-5">
         <a href="/">
