@@ -5,7 +5,7 @@ const Stats = ({data}) => {
     let wins;
     let losses;
     if(data.stats) {
-        wins = data.stats.win;
+        wins = data.stats.wins;
         losses = data.stats.losses;
     } 
     else {
