@@ -8,12 +8,14 @@ const HighScores = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    console.log("Highscore user data ", userData);
+    getUserHighscores();
+  })
 
+  useEffect(() => {
+    console.log("Highscore user data ", userData);
    
   }, [userData]);
 
-  getUserHighscores();
 
   const getUserHighscores = async () => {
     try {
