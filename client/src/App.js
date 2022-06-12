@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import NewRules from './components/NewRules';
 import PrivateRoute from './PrivateRoute.js';
 import GameOverWon from './components/GameOverWon';
+import GameOverLose from './components/GameOverLose';
 
 
 function App() {

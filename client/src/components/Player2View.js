@@ -46,7 +46,7 @@ const Player2View = ({
           </div>
         </div>
         {playedCard && (
-          <div className="shadow-xl">
+          <div className="shadow-xl flex flex-col justify-center items-center">
             <img
               className="Card"
               src={require(`../assets/${playedCard}.png`)}
