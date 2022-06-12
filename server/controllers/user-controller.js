@@ -83,7 +83,7 @@ module.exports = {
         res.status(200).json(result);
         console.log(`Updated: ${result}`);
       } else {
-        console.log("YYYYYYYYYYYYYYYYYYYY" + err);
+        console.log("YYYYYYYYYYYYYYYYYYYYY" + err);
         res.status(500).json({ message: 'something went wrong' });
       }
     });
