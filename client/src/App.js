@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import NewRules from './components/NewRules';
 import PrivateRoute from './PrivateRoute.js';
 import GameOverWon from './components/GameOverWon';
+import GameOverLose from './components/GameOverLose';
 
 
 function App() {
@@ -37,6 +38,8 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/rules" element={<NewRules />} />
+          <Route exact path='/gow' element={<GameOverWon/>}/>
+          <Route exact path='/gol' element={<GameOverLose/>}/>
           <Route 
           exact 
           path="/highscores" 

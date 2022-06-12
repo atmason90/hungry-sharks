@@ -51,8 +51,9 @@ fetch("/api/users/me", {method: "PUT", body})
 
 
   return (
-    <div>
-      Oh no you Lose
+    <div className='gol h-screen flex flex-col items-center'>
+      <h1 className='text-xl mt-20 text-gray-200' style={{letterSpacing: "10px"}}>WHERE YOUR GOATS AT?</h1>
+      <h1 className='text-8xl text-orange-600'>YOU LOSE!</h1>
     </div>
   )
 }

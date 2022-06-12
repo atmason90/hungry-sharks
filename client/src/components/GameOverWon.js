@@ -52,8 +52,8 @@ fetch("/api/users/me", {method: "PUT", body})
 
 
   return (
-    <div>
-      Yay you won!
+    <div className='gow h-screen'>
+      
     </div>
   )
 }

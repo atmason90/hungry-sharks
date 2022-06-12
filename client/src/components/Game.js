@@ -729,6 +729,7 @@ const sendMessage= (event) => {
   return (
     <div className={`Game`}>
       <>
+      {gameOver ? null: ( 
         <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
           <h3 className="text-2xl">
             Game Code: <span className="text-orange-700">{room}</span>
@@ -744,6 +745,7 @@ const sendMessage= (event) => {
             </span>
           </h3>
         </div>
+        ) }
 
         <>
           {gameOver ? ((winner === "P1" && currentUser === "Player 1") || (winner === "P2" && currentUser === "Player 2") ? <GameOverWon/>: <GameOverLose/>
