@@ -52,7 +52,7 @@ const GameOverLose = ({ winner }) => {
       >
         WHERE YOUR GOATS AT?
       </h1>
-      <h1 className="text-8xl text-orange-600">YOU LOSE!</h1>
+      <h1 className="text-8xl text-orange-600">YOU LOST!</h1>
       <div className=" flex flex-row justify-center items-center my-5">
         <a href="/">
           <button className="btn btn-wide sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">
