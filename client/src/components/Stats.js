@@ -1,45 +1,18 @@
-import Auth from '../utils/auth';
-import { getMe } from '../utils/API'
-import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const Stats = () => {
-    const [userData, setUserData] = useState({stats: {
-        game: 0,
-        wins: 0,
-        losses: 0
-    }})
-    const userDataLength = Object.keys(userData).length;
+const Stats = ({data}) => {
 
-    useEffect(() => {
-            const getUserHighscores = async () => {
-            try {
-                const token = Auth.loggedIn() ? Auth.getToken() : null;
-                if (!token) {
-                return false
-                }
-                const response = await getMe(token);
-                console.log(response)
-                if (!response.ok) {
-                throw new Error('something is wrong')
-                }
-                const user = await response.json();
-                setUserData(user);
-            }
-            catch(error) {
-            console.log(error);
-            };
-        }
-        console.log(userData)
-  
-        getUserHighscores();
-    }, [])
-  
-    const wins = userData.stats.wins;
-    const losses = userData.stats.losses;
+    let wins;
+    let losses;
+    if(data.stats) {
+        wins = data.stats.wins;
+        losses = data.stats.losses;
+    } 
+    else {
+        wins =0;
+        losses = 0;
+    }
 
-   
-    
     return (
 
         <div className='app bg-[#030917] mt-[10%] ml-[25%]'>
@@ -100,7 +73,7 @@ const Stats = () => {
                                 }
                             }
                         }}
-                        series={[wins, losses]}
+                        series={[wins , losses]}
                         // series={[0, 0]}
                         type={'donut'}
                         width={'60%'}

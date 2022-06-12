@@ -1,58 +1,54 @@
-import Auth from '../utils/auth';
-import { getMe } from '../utils/API'
-import React, { useState, useEffect } from 'react';
+import Auth from "../utils/auth";
+import { getMe } from "../utils/API";
+import React, { useState, useEffect } from "react";
 
+const GameOverWon = () => {
+  const [userData, setUserData] = useState({});
 
-const GameOverWon = ({ winner }) => {
+  useEffect(() => {
+    updateUserWin();
+  }, []);
 
-  const [userData, setUserData] = useState({stats: {
-    games:0,
-    wins: 0,
-    losses: 0
-}})
-
-
-useEffect(() => {
-        const getUserHighscores = async () => {
-        try {
-            const token = Auth.loggedIn() ? Auth.getToken() : null;
-            if (!token) {
-            return false
-            }
-            const response = await getMe(token);
-            console.log(response)
-            if (!response.ok) {
-            throw new Error('something is wrong')
-            }
-            const user = await response.json();
-            setUserData(user);
-        }
-        catch(error) {
-        console.log(error);
-        };
+  const updateUserWin = async () => {
+    try {
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+      if (!token) {
+        return false;
+      }
+      const response = await getMe(token);
+      if (!response.ok) {
+        throw new Error("something is wrong");
+      }
+      const user = await response.json();
+      console.log('Prev Losses: ', user.stats.losses);
+      user.stats.wins += 1;
+      user.stats.games += 1;
+      console.log('New Losses: ', user.stats.losses);
+      const body = { 
+        usersID: user.id,
+        gamesWon: user.stats.wins,
+        gamesLost: user.stats.losses,
+        gamesPlayed: user.stats.games
+      };
+      console.log("Body is: ", body);
+      const options = {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body) 
+      }
+      const newUserRequest = await fetch("/api/users/me", options);
+      const newUserData = await newUserRequest.json();
+      console.log('newUserData:', newUserData);
+      setUserData(newUserData);
+    } catch (error) {
+      console.log(error);
     }
-    console.log("User data: " + userData);
-
-    getUserHighscores();
-}, [])
-
-useEffect(() => {
-  if(userData) {
-const gamesWon = userData.stats.wins +1;
-const gamesLost = userData.stats.losses;
-const gamesPlayed = userData.stats.games +1;
-const usersID = userData.id;
-const body = {usersID, gamesWon, gamesLost, gamesPlayed}
-
-fetch("/api/users/me", {method: "PUT", body}) 
-}
-}, [userData])
-
-
+    console.log("The user data is: ", userData);
+  };
 
 
   return (
-    <div className="gol h-screen flex flex-col items-center">
+    <div className="gow h-screen flex flex-col items-center">
       <h1
         className="text-xl mt-20 text-gray-200"
         style={{ letterSpacing: "10px" }}
