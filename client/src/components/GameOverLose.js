@@ -2,18 +2,10 @@ import Auth from "../utils/auth";
 import { getMe } from "../utils/API";
 import React, { useState, useEffect } from "react";
 
-const GameOverLose = ({ winner }) => {
-  const [userData, setUserData] = useState({
-    stats: {
-      games: 0,
-      wins: 0,
-      losses: 0,
-    },
-  });
+const GameOverLose = () => {
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-
-    getUserHighscores();
 
     const gamesWon = userData.stats.wins;
     const gamesLost = userData.stats.losses + 1;
@@ -23,6 +15,8 @@ const GameOverLose = ({ winner }) => {
 
     fetch("/api/users/me", { method: "PUT", body });
   }, [userData]);
+
+  getUserHighscores();
 
   const getUserHighscores = async () => {
     try {
