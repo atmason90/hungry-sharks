@@ -1,6 +1,6 @@
 import Chart from 'react-apexcharts';
 
-const Stats = ({wins, losses}) => {
+const Stats = ({data}) => {
 
     return (
 
@@ -62,7 +62,7 @@ const Stats = ({wins, losses}) => {
                                 }
                             }
                         }}
-                        series={[wins, losses]}
+                        series={[data.stats.wins, data.stats.wins]}
                         // series={[0, 0]}
                         type={'donut'}
                         width={'60%'}

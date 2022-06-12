@@ -9,7 +9,7 @@ const HighScores = () => {
 
   useEffect(() => {
     getUserHighscores();
-  })
+  }, [])
 
   useEffect(() => {
     console.log("Highscore user data ", userData);
@@ -44,7 +44,7 @@ const HighScores = () => {
             ? `Viewing ${userData.username}'s Game Stats:`
             : "You have no stats!"}
         </h2>
-        <Stats  wins={userData.stats.wins} losses={userData.stats.losses}/>
+        <Stats  data={userData}/>
       </div>
     </div>
   );
