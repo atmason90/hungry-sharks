@@ -12,8 +12,8 @@ import GameOverWon from "./GameOverWon";
 import GameOverLose from "./GameOverLose";
 
 let socket;
-const ENDPOINT = "http://localhost:3001";
-// const ENDPOINT = "https://hungrysharkcardgame.herokuapp.com"
+// const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://hungryshark.herokuapp.com"
 
 const Game = () => {
   const locationURL = window.location.href;
