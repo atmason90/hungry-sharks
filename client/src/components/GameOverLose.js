@@ -22,7 +22,7 @@ const GameOverLose = ({ winner }) => {
     const body = { usersID, gamesWon, gamesLost, gamesPlayed };
 
     fetch("/api/users/me", { method: "PUT", body });
-  }, []);
+  }, [userData]);
 
   const getUserHighscores = async () => {
     try {
