@@ -52,7 +52,7 @@ fetch("/api/users/me", {method: "PUT", body})
 
 
   return (
-    <div className="gol h-screen flex flex-col items-center">
+    <div className="gow h-screen flex flex-col items-center">
       <h1
         className="text-xl mt-20 text-gray-200"
         style={{ letterSpacing: "10px" }}

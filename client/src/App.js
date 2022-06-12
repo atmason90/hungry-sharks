@@ -38,6 +38,8 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/rules" element={<NewRules />} />
+          <Route exact path="/gol" element={<GameOverLose />} />
+          <Route exact path="/gow" element={<GameOverWon/>}/>
           <Route 
           exact 
           path="/highscores" 
