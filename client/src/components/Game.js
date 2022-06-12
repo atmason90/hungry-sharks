@@ -816,7 +816,7 @@ const Game = () => {
                 QUIT
               </button>
             </a>
-          </div>{" "}
+          </div>
         </>
       )}
 
