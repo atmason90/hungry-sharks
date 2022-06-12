@@ -6,11 +6,10 @@ import io from "socket.io-client";
 import fullname from "../utils/fullname";
 import Player1View from "./Player1View";
 import Player2View from "./Player2View";
-import Chatbox from "./Chatbox"
-import profanity from "profanity-censor"
+import Chatbox from "./Chatbox";
+import profanity from "profanity-censor";
 import GameOverWon from "./GameOverWon";
 import GameOverLose from "./GameOverLose";
-
 
 let socket;
 const ENDPOINT = "http://localhost:3001";
@@ -31,9 +30,9 @@ const Game = () => {
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
   //Message state
-  const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([])
-  const [isChatBoxHidden, setChatBoxHidden] = useState(true)
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [isChatBoxHidden, setChatBoxHidden] = useState(true);
   //Game state
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState("");
@@ -95,26 +94,25 @@ const Game = () => {
     "WC",
   ];
 
-//Helper functions
-const toggleChatBox = () => {
-  const chatBody = document.querySelector('.chat-body')
-  if(isChatBoxHidden) {
-      chatBody.style.display = 'block'
-      setChatBoxHidden(false)
-  }
-  else {
-      chatBody.style.display = 'none'
-      setChatBoxHidden(true)
-  }
-}
-const sendMessage= (event) => {
-  event.preventDefault()
-  if(message) {
-      socket.emit('sendMessage', { message: profanity.filter(message) }, () => {
-          setMessage('')
-      })
-  }
-}
+  //Helper functions
+  const toggleChatBox = () => {
+    const chatBody = document.querySelector(".chat-body");
+    if (isChatBoxHidden) {
+      chatBody.style.display = "block";
+      setChatBoxHidden(false);
+    } else {
+      chatBody.style.display = "none";
+      setChatBoxHidden(true);
+    }
+  };
+  const sendMessage = (event) => {
+    event.preventDefault();
+    if (message) {
+      socket.emit("sendMessage", { message: profanity.filter(message) }, () => {
+        setMessage("");
+      });
+    }
+  };
 
   //Initialize socket connection
   useEffect(() => {
@@ -204,13 +202,12 @@ const sendMessage= (event) => {
       console.log(name);
     });
 
-    socket.on('message', message => {
-      setMessages(messages => [ ...messages, message ])
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
 
-      const chatBody = document.querySelector('.chat-body')
-      chatBody.scrollTop = chatBody.scrollHeight
-  });
-
+      const chatBody = document.querySelector(".chat-body");
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
   }, []);
 
   // Setup game by distributing cards
@@ -729,43 +726,48 @@ const sendMessage= (event) => {
   return (
     <div className={`Game`}>
       <>
-      {gameOver ? null: ( 
-        <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
-          <h3 className="text-2xl">
-            Game Code: <span className="text-orange-700">{room}</span>
-          </h3>
-          <h3 className="text-2xl">
-            Active Player:{" "}
-            <span className="text-orange-700 text-4xl">{activePlayer}</span>
-          </h3>
-          <h3 className="text-2xl">
-            Player remaining turns:{" "}
-            <span className="text-orange-700 text-4xl">
-              {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
-            </span>
-          </h3>
-        </div>
-        ) }
+        {gameOver ? null : (
+          <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
+            <h3 className="text-2xl">
+              Game Code: <span className="text-orange-700">{room}</span>
+            </h3>
+            <h3 className="text-2xl">
+              Active Player:{" "}
+              <span className="text-orange-700 text-4xl">{activePlayer}</span>
+            </h3>
+            <h3 className="text-2xl">
+              Player remaining turns:{" "}
+              <span className="text-orange-700 text-4xl">
+                {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
+              </span>
+            </h3>
+          </div>
+        )}
 
         <>
-          {gameOver ? ((winner === "P1" && currentUser === "Player 1") || (winner === "P2" && currentUser === "Player 2") ? <GameOverWon/>: <GameOverLose/>
-            
+          {gameOver ? (
+            (winner === "P1" && currentUser === "Player 1") ||
+            (winner === "P2" && currentUser === "Player 2") ? (
+              <GameOverWon />
+            ) : (
+              <GameOverLose />
+            )
           ) : (
             <div>
               {/* P1 VIEW */}
               {currentUser === "Player 1" && (
                 <>
-                <Player1View
-                  cardPlayedHandler={cardPlayedHandler}
-                  p2Cards={p2Cards}
-                  activePlayer={activePlayer}
-                  p1Cards={p1Cards}
-                  fullname={fullname}
-                  drawCardHandler={drawCardHandler}
-                  info={info}
-                  playedCard={playedCard}
-                />
-                <Chatbox 
+                  <Player1View
+                    cardPlayedHandler={cardPlayedHandler}
+                    p2Cards={p2Cards}
+                    activePlayer={activePlayer}
+                    p1Cards={p1Cards}
+                    fullname={fullname}
+                    drawCardHandler={drawCardHandler}
+                    info={info}
+                    playedCard={playedCard}
+                  />
+                  <Chatbox
                     toggleChatBox={toggleChatBox}
                     messages={messages}
                     message={message}
@@ -779,17 +781,17 @@ const sendMessage= (event) => {
               {/* P2 VIEW */}
               {currentUser === "Player 2" && (
                 <>
-                <Player2View
-                  cardPlayedHandler={cardPlayedHandler}
-                  p2Cards={p2Cards}
-                  activePlayer={activePlayer}
-                  p1Cards={p1Cards}
-                  fullname={fullname}
-                  drawCardHandler={drawCardHandler}
-                  info={info}
-                  playedCard={playedCard}
-                />
-                  <Chatbox 
+                  <Player2View
+                    cardPlayedHandler={cardPlayedHandler}
+                    p2Cards={p2Cards}
+                    activePlayer={activePlayer}
+                    p1Cards={p1Cards}
+                    fullname={fullname}
+                    drawCardHandler={drawCardHandler}
+                    info={info}
+                    playedCard={playedCard}
+                  />
+                  <Chatbox
                     toggleChatBox={toggleChatBox}
                     messages={messages}
                     message={message}
@@ -804,36 +806,40 @@ const sendMessage= (event) => {
         </>
       </>
 
-      <br />
-      <div className=" flex flex-row justify-center items-center my-5">
-        <a href="/">
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">
-            QUIT
-          </button>
-        </a>
+      {gameOver ? null : (
+        <>
+          <br />
+          <div className=" flex flex-row justify-center items-center my-5">
+            <a href="/">
+              <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-md hover:bg-orange-700 border-orange-700 bg-red-700 bg-opacity-40 hover:text-white">
+                QUIT
+              </button>
+            </a>
+          </div>{" "}
+        </>
+      )}
 
-        {/* Modals down here */}
-        {currentUser === "Player 1"
-          ? modalP1Show && (
-              <ModalP1
-                setModalOn={setModalP1Show}
-                card1={threeCards[0]}
-                card2={threeCards[1]}
-                card3={threeCards[2]}
-              />
-            )
-          : null}
-        {currentUser === "Player 2"
-          ? modalP2Show && (
-              <ModalP2
-                setModalOn={setModalP2Show}
-                card1={threeCards[0]}
-                card2={threeCards[1]}
-                card3={threeCards[2]}
-              />
-            )
-          : null}
-      </div>
+      {/* Modals down here */}
+      {currentUser === "Player 1"
+        ? modalP1Show && (
+            <ModalP1
+              setModalOn={setModalP1Show}
+              card1={threeCards[0]}
+              card2={threeCards[1]}
+              card3={threeCards[2]}
+            />
+          )
+        : null}
+      {currentUser === "Player 2"
+        ? modalP2Show && (
+            <ModalP2
+              setModalOn={setModalP2Show}
+              card1={threeCards[0]}
+              card2={threeCards[1]}
+              card3={threeCards[2]}
+            />
+          )
+        : null}
     </div>
   );
 };
