@@ -65,6 +65,7 @@ a {
 }
 
 /* Game.js parent div! */
+
 .Game {
   background-image: url('./assets/game.gif');
   background-size: cover;
