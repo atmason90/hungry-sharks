@@ -31,12 +31,13 @@ useEffect(() => {
         console.log(error);
         };
     }
-    console.log(userData)
+    console.log("User data: " + userData);
 
     getUserHighscores();
 }, [])
 
 useEffect(() => {
+  if(userData) {
 const gamesWon = userData.stats.wins +1;
 const gamesLost = userData.stats.losses;
 const gamesPlayed = userData.stats.games +1;
@@ -44,8 +45,8 @@ const usersID = userData.id;
 const body = {usersID, gamesWon, gamesLost, gamesPlayed}
 
 fetch("/api/users/me", {method: "PUT", body}) 
-
-}, [])
+}
+}, [userData])
 
 
 

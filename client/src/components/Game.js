@@ -35,7 +35,7 @@ const Game = () => {
   const [messages, setMessages] = useState([])
   const [isChatBoxHidden, setChatBoxHidden] = useState(true)
   //Game state
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState("");
   const [drawCardsPile, setDrawCardsPile] = useState([]);
   const [playedCard, setPlayedCard] = useState("back");

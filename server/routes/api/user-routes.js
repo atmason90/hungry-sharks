@@ -17,7 +17,7 @@ router.route('/').post(createUser);
 
 router.route('/login').post(login);
 
-router.route('/me').get(authMiddleware, getSingleUser);
+router.route('/me').get(authMiddleware, getSingleUser).put( updateStats);
 
 // router.route('/scores').get(getStats)
 router.route('/highscores').get(authMiddleware, getUserStats)

@@ -30,7 +30,7 @@ const HighScores = () => {
       console.log(error);
     };
   }
-  console.log(userData)
+  console.log("Highscore user data ",userData);
   
     getUserHighscores();
     }, [userDataLength])
