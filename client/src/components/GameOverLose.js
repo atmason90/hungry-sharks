@@ -41,7 +41,7 @@ const GameOverLose = ({ winner }) => {
     const usersID = userData.id;
     const body = { usersID, gamesWon, gamesLost, gamesPlayed };
 
-    fetch("/api/users/me", { method: "PUT", body });
+    fetch("/api/users/stats", { method: "PUT", body });
   }, []);
 
   return (

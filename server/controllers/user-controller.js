@@ -72,21 +72,13 @@ module.exports = {
   async updateStats({ body }, res) {
     console.log("Put was hit", body, "----------");
     const filter = { id: body.usersID };
-    const update = {
+    const stats = {
       wins: body.gamesWon,
       losses: body.gamesLost,
       games: body.gamesPlayed,
     };
-    console.log("Filter: ", filter, "Update: ", update);
-    const userToUpdate = await User.findOneAndUpdate(filter, update, {new:true}, (err, result) => {
-      if (result) {
-        res.status(200).json(result);
-        console.log(`Updated: ${result}`);
-      } else {
-        console.log("YYYYYYYYYYYYYYYYYYYYY" + err);
-        res.status(500).json({ message: 'something went wrong' });
-      }
-    });
+    console.log("Filter: ", filter, "Update: ", stats);
+    const userToUpdate = User.findOneAndUpdate(filter, { stats }, {new:true})
     console.log(userToUpdate);
 
     if (!userToUpdate) {
