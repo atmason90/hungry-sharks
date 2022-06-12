@@ -78,12 +78,12 @@ module.exports = {
       games: body.gamesPlayed,
     };
     console.log("Filter: ", filter, "Update: ", stats);
-    const userToUpdate = User.findOneAndUpdate(filter, { stats }, {new:true})
+    const userToUpdate = await User.findOneAndUpdate(filter, { stats }, {new:true})
     console.log(userToUpdate);
 
     if (!userToUpdate) {
       res.status(500);
     }
-    res.status(200).send("Updated successfully");
+    res.status(200).send(userToUpdate);
   },
 };
