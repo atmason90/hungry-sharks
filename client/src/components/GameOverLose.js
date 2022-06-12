@@ -6,6 +6,10 @@ const GameOverLose = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
+    getUserHighscores();
+  }, []);
+
+  useEffect(() => {
 
     const gamesWon = userData.stats.wins;
     const gamesLost = userData.stats.losses + 1;
@@ -16,7 +20,7 @@ const GameOverLose = () => {
     fetch("/api/users/me", { method: "PUT", body });
   }, [userData]);
 
-  getUserHighscores();
+  
 
   const getUserHighscores = async () => {
     try {

@@ -10,8 +10,10 @@ const HighScores = () => {
   useEffect(() => {
     console.log("Highscore user data ", userData);
 
-    getUserHighscores();
+   
   }, [userData]);
+
+  getUserHighscores();
 
   const getUserHighscores = async () => {
     try {
