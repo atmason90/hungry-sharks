@@ -33,7 +33,7 @@ const HighScores = () => {
   console.log("Highscore user data ",userData);
   
     getUserHighscores();
-    }, [userDataLength])
+    })
 
   return (
     <div className='h-screen'>

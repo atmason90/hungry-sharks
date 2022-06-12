@@ -12,29 +12,9 @@ const GameOverLose = ({ winner }) => {
   });
 
   useEffect(() => {
-    const getUserHighscores = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-        if (!token) {
-          return false;
-        }
-        const response = await getMe(token);
-        console.log(response);
-        if (!response.ok) {
-          throw new Error("something is wrong");
-        }
-        const user = await response.json();
-        setUserData(user);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    console.log(userData);
 
     getUserHighscores();
-  }, []);
 
-  useEffect(() => {
     const gamesWon = userData.stats.wins;
     const gamesLost = userData.stats.losses + 1;
     const gamesPlayed = userData.stats.games + 1;
@@ -43,6 +23,25 @@ const GameOverLose = ({ winner }) => {
 
     fetch("/api/users/me", { method: "PUT", body });
   }, []);
+
+  const getUserHighscores = async () => {
+    try {
+      const token = Auth.loggedIn() ? Auth.getToken() : null;
+      if (!token) {
+        return false;
+      }
+      const response = await getMe(token);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("something is wrong");
+      }
+      const user = await response.json();
+      setUserData(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(userData);
 
   return (
     <div className="gol h-screen flex flex-col items-center">
