@@ -2,6 +2,17 @@ import Chart from 'react-apexcharts';
 
 const Stats = ({data}) => {
 
+    let wins;
+    let losses;
+    if(data.stats) {
+        wins = data.stats.win;
+        losses = data.stats.losses;
+    } 
+    else {
+        wins =0;
+        losses = 0;
+    }
+
     return (
 
         <div className='app bg-[#030917] mt-[10%] ml-[25%]'>
@@ -62,7 +73,7 @@ const Stats = ({data}) => {
                                 }
                             }
                         }}
-                        series={[data.stats.wins, data.stats.wins]}
+                        series={[wins , losses]}
                         // series={[0, 0]}
                         type={'donut'}
                         width={'60%'}
