@@ -20,7 +20,7 @@ Hungry Sharks is a multiplayer card game that is built with a React frontend and
 
 ## Screenshot
 
-**ADD DIRECTLY IN GITHUB**
+![2022-06-11 19 57 04](https://user-images.githubusercontent.com/99947655/173212352-40d96d5a-b440-46c2-8453-20a0e6e4e7ea.gif)
 
 ## Code Examples
 
