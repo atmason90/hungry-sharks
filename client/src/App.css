@@ -83,8 +83,6 @@ a {
 
 /* Game.js Top Row */
 .topInfo {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
   padding: 0 60px;
   height: 100px;
