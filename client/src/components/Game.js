@@ -14,6 +14,7 @@ import SharkModal from "./SharkModal";
 
 let socket;
 // const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
+//Deployment Endpoint
 const ENDPOINT = "https://hungryshark.herokuapp.com/";
 
 const Game = () => {
