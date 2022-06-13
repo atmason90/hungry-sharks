@@ -736,6 +736,8 @@ const Game = () => {
             <h3 className="text-2xl">
               Game Code: <span className="text-orange-700">{room}</span>
             </h3>
+            {users.length > 1 ? (
+             <> 
             <h3 className="text-2xl">
               Active Player:{" "}
               <span className="text-orange-700 text-4xl">{activePlayer}</span>
@@ -746,7 +748,10 @@ const Game = () => {
                 {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
               </span>
             </h3>
+            </>
+            ) : (<h1 className="text-xl text-orange-600">Waiting for Player 2</h1>)}
           </div>
+          
         )}
 
         <>
