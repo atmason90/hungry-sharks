@@ -82,28 +82,11 @@ a {
 }
 
 /* Game.js Top Row */
-.topInfo {
+/* .topInfo {
   justify-content: space-between;
   padding: 0 60px;
   height: 100px;
-}
-
-.topInfo>img {
-  width: 7%;
-  margin: 0;
-  padding: 0;
-}
-
-.topInfo>h1 {
-  margin-top: 10px;
-  font-size: 1.8rem;
-  padding-top: 2%;
-}
-
-.topInfoText {
-  font-size: 2rem;
-  margin: 0;
-}
+} */
 
 /* Player Decks */
 .player1Deck {

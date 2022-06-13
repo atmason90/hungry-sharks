@@ -10,10 +10,11 @@ import Chatbox from "./Chatbox";
 import profanity from "profanity-censor";
 import GameOverWon from "./GameOverWon";
 import GameOverLose from "./GameOverLose";
+import SharkModal from "./SharkModal";
 
 let socket;
-const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
-// const ENDPOINT = "https://hungryshark.herokuapp.com";
+// const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
+const ENDPOINT = "https://hungryshark.herokuapp.com/";
 
 const Game = () => {
   const locationURL = window.location.href;
@@ -29,6 +30,7 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
+  const [sharkModalShow, setSharkModalShow] = useState(false);
   //Message state
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -175,6 +177,7 @@ const Game = () => {
         threeCards,
         modalP1Show,
         modalP2Show,
+        sharkModalShow,
         info,
       }) => {
         gameOver && setGameOver(gameOver);
@@ -189,6 +192,7 @@ const Game = () => {
         threeCards  && setThreeCards(threeCards);
         modalP1Show !== null && setModalP1Show(modalP1Show);
         modalP2Show !== null && setModalP2Show(modalP2Show);
+        sharkModalShow !== null && setSharkModalShow(sharkModalShow);
         info && setInfo(info);
       }
     );
@@ -575,6 +579,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P2",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           } else if (p1Turns === 1) {
@@ -586,6 +591,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
@@ -594,6 +600,7 @@ const Game = () => {
           // setGameOver(true);
           // setWinner("P2");
           socket.emit("updateGameState", {
+            sharkModalShow: true,
             playedCard: "HS",
             gameOver: true,
             winner: "P2",
@@ -664,6 +671,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           } else if (p2Turns === 1) {
@@ -674,6 +682,7 @@ const Game = () => {
               p2RemainingTurns: 1,
               playedCard: "SG",
               activePlayer: "P2",
+              sharkModalShow: true,
               drawCardsPile: [...cardDeck],
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
@@ -684,6 +693,7 @@ const Game = () => {
           // setWinner("P1");
           // if() theWinner = userData.username
           socket.emit("updateGameState", {
+            sharkModalShow: true,
             playedCard: "HS",
             gameOver: true,
             winner: "P1",
@@ -732,17 +742,17 @@ const Game = () => {
     <div className={`Game`}>
       <>
         {gameOver ? null : (
-          <div className="topInfo flex flex-row justify-center items-center mb-10 bg-[#051222] bg-opacity-50 shadow-2xl">
-            <h3 className="text-2xl">
+          <div className="flex flex-row justify-center h-[100px] items-center mb-10 bg-[#051222] bg-opacity-50 shadow-2xl">
+            <h3 className="text-2xl px-20">
               Game Code: <span className="text-orange-700">{room}</span>
             </h3>
             {users.length > 1 ? (
              <> 
-            <h3 className="text-2xl">
+            <h3 className="text-2xl px-20">
               Active Player:{" "}
               <span className="text-orange-700 text-4xl">{activePlayer}</span>
             </h3>
-            <h3 className="text-2xl">
+            <h3 className="text-2xl px-20">
               Player remaining turns:{" "}
               <span className="text-orange-700 text-4xl">
                 {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
@@ -850,6 +860,7 @@ const Game = () => {
             />
           )
         : null}
+        { sharkModalShow && (<SharkModal setModalOn={setSharkModalShow}/>) }
     </div>
   );
 };
