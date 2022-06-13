@@ -732,17 +732,17 @@ const Game = () => {
     <div className={`Game`}>
       <>
         {gameOver ? null : (
-          <div className="topInfo flex flex-row justify-center items-center mb-10 bg-[#051222] bg-opacity-50 shadow-2xl">
-            <h3 className="text-2xl">
+          <div className="flex flex-row justify-center h-[100px] items-center mb-10 bg-[#051222] bg-opacity-50 shadow-2xl">
+            <h3 className="text-2xl px-20">
               Game Code: <span className="text-orange-700">{room}</span>
             </h3>
             {users.length > 1 ? (
              <> 
-            <h3 className="text-2xl">
+            <h3 className="text-2xl px-20">
               Active Player:{" "}
               <span className="text-orange-700 text-4xl">{activePlayer}</span>
             </h3>
-            <h3 className="text-2xl">
+            <h3 className="text-2xl px-20">
               Player remaining turns:{" "}
               <span className="text-orange-700 text-4xl">
                 {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
