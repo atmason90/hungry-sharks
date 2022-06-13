@@ -39,7 +39,7 @@ const HighScores = () => {
     <div className="h-screen">
       <Navbar />
       <div className="pt-24">
-        <h2 className="text-4xl text-orange-600">
+        <h2 className="text-4xl text-orange-700">
           {userData.stats
             ? `Viewing ${userData.username}'s Game Stats:`
             : "You have no stats!"}
