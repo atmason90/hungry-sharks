@@ -10,6 +10,7 @@ import Chatbox from "./Chatbox";
 import profanity from "profanity-censor";
 import GameOverWon from "./GameOverWon";
 import GameOverLose from "./GameOverLose";
+import SharkModal from "./SharkModal";
 
 let socket;
 // const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
@@ -29,6 +30,7 @@ const Game = () => {
   const [modalP1Show, setModalP1Show] = useState(false);
   const [modalP2Show, setModalP2Show] = useState(false);
   const [info, setInfo] = useState("The shark is now officially hungry!");
+  const [sharkModalShow, setSharkModalShow] = useState(false);
   //Message state
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -850,6 +852,7 @@ const Game = () => {
             />
           )
         : null}
+        <SharkModal setModalOn={setSharkModalShow}/>
     </div>
   );
 };

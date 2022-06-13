@@ -5,7 +5,7 @@ const SharkModal = ({setModalOn}) => {
         setModalOn(false);
     }
   return (
-    <div className="   bg-[#030917] opacity-95 fixed inset-0 z-50   ">
+    <div className="   bg-[#170303] opacity-95 fixed inset-0 z-50   ">
       <div className="flex h-screen justify-center items-center ">
         <div className="flex-col justify-center  bg-[#030917] py-12 px-24 border-4 border-orange-700 rounded-xl ">
           <div className="flex  text-xl  text-white justify-center mb-10">
