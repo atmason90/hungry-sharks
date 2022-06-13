@@ -177,6 +177,7 @@ const Game = () => {
         threeCards,
         modalP1Show,
         modalP2Show,
+        sharkModalShow,
         info,
       }) => {
         gameOver && setGameOver(gameOver);
@@ -191,6 +192,7 @@ const Game = () => {
         threeCards  && setThreeCards(threeCards);
         modalP1Show !== null && setModalP1Show(modalP1Show);
         modalP2Show !== null && setModalP2Show(modalP2Show);
+        sharkModalShow !== null && setSharkModalShow(sharkModalShow);
         info && setInfo(info);
       }
     );
@@ -577,6 +579,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P2",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           } else if (p1Turns === 1) {
@@ -588,6 +591,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
@@ -596,6 +600,7 @@ const Game = () => {
           // setGameOver(true);
           // setWinner("P2");
           socket.emit("updateGameState", {
+            sharkModalShow: true,
             playedCard: "HS",
             gameOver: true,
             winner: "P2",
@@ -666,6 +671,7 @@ const Game = () => {
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
               activePlayer: "P1",
+              sharkModalShow: true,
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           } else if (p2Turns === 1) {
@@ -676,6 +682,7 @@ const Game = () => {
               p2RemainingTurns: 1,
               playedCard: "SG",
               activePlayer: "P2",
+              sharkModalShow: true,
               drawCardsPile: [...cardDeck],
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
@@ -686,6 +693,7 @@ const Game = () => {
           // setWinner("P1");
           // if() theWinner = userData.username
           socket.emit("updateGameState", {
+            sharkModalShow: true,
             playedCard: "HS",
             gameOver: true,
             winner: "P1",
@@ -852,7 +860,7 @@ const Game = () => {
             />
           )
         : null}
-        <SharkModal setModalOn={setSharkModalShow}/>
+        { sharkModalShow && (<SharkModal setModalOn={setSharkModalShow}/>) }
     </div>
   );
 };

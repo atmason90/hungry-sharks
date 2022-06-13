@@ -14,7 +14,7 @@ const SharkModal = ({setModalOn}) => {
               <h1 className="text-orange-600">If the player has a Sacrificial Goat, it will be played.</h1>
             </h1>
           </div>
-          <div className="flex modalDiv">
+          <div className="flex items-center justify-center modalDiv">
             <img src={require(`../assets/HS.png`)} alt="Hungry Shark"></img>
           </div>
           <div className="flex justify-center mt-6">
