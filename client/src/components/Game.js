@@ -12,8 +12,8 @@ import GameOverWon from "./GameOverWon";
 import GameOverLose from "./GameOverLose";
 
 let socket;
-const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
-// const ENDPOINT = "https://hungryshark.herokuapp.com";
+// const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
+const ENDPOINT = "https://hungryshark.herokuapp.com/";
 
 const Game = () => {
   const locationURL = window.location.href;
