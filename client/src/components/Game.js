@@ -177,16 +177,16 @@ const Game = () => {
         modalP2Show,
         info,
       }) => {
-        gameOver !== null && setGameOver(gameOver);
-        winner !== null && setWinner(winner);
-        activePlayer !== null && setActivePlayer(activePlayer);
-        playedCard !== null && setPlayedCard(playedCard);
-        p1Cards !== null && setP1Cards(p1Cards);
-        p2Cards !== null && setP2Cards(p2Cards);
+        gameOver && setGameOver(gameOver);
+        winner && setWinner(winner);
+        activePlayer  && setActivePlayer(activePlayer);
+        playedCard && setPlayedCard(playedCard);
+        p1Cards && setP1Cards(p1Cards);
+        p2Cards && setP2Cards(p2Cards);
         drawCardsPile && setDrawCardsPile(drawCardsPile);
         p1RemainingTurns !== null && setP1RemainingTurns(p1RemainingTurns);
         p2RemainingTurns !== null && setP2RemainingTurns(p2RemainingTurns);
-        threeCards !== null && setThreeCards(threeCards);
+        threeCards  && setThreeCards(threeCards);
         modalP1Show !== null && setModalP1Show(modalP1Show);
         modalP2Show !== null && setModalP2Show(modalP2Show);
         info && setInfo(info);
