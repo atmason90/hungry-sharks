@@ -282,6 +282,8 @@ const Game = () => {
         socket.emit("updateGameState", {
           drawCardsPile: [...drawDeck],
           playedCard: cardPlayed,
+          p1RemainingTurns: p1RemainingTurns,
+          p2RemainingTurns: p2RemainingTurns,
           info: "The deck has been Shuffled!",
         });
 
