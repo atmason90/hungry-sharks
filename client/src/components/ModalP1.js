@@ -10,12 +10,29 @@ const ModalP1 = ({ setModalOn, card1, card2, card3 }) => {
       <div className="flex h-screen justify-center items-center ">
         <div className="flex-col justify-center  bg-[#030917] py-12 px-24 border-4 border-orange-700 rounded-xl ">
           <div className="flex  text-xl  text-white justify-center mb-10">
-            <h1>The Gods have blessed you with some intel! <h1 className="text-orange-600">The Next 3 Cards are: </h1></h1>
+            <h1>
+              The Gods have blessed you with some intel!{" "}
+              <h1 className="text-orange-600">The Next 3 Cards are: </h1>
+            </h1>
           </div>
-          <div className="flex flec-col modalDiv">
-            <img src={require(`../assets/${card1}.png`)}></img>
-            <img src={require(`../assets/${card2}.png`)}></img>
-            <img src={require(`../assets/${card3}.png`)}></img>
+          <div className="flex modalDiv">
+            <img src={require(`../assets/${card1}.png`)} alt={`${card1}`}></img>
+            <img
+              src={
+                card2
+                  ? require(`../assets/${card2}.png`)
+                  : require(`../assets/back.png`)
+              }
+              alt={`${card2}`}
+            ></img>
+            <img
+              src={
+                card3
+                  ? require(`../assets/${card3}.png`)
+                  : require(`../assets/back.png`)
+              }
+              alt={`${card3}`}
+            ></img>
           </div>
           <div className="flex justify-center mt-6">
             <button
@@ -32,7 +49,3 @@ const ModalP1 = ({ setModalOn, card1, card2, card3 }) => {
 };
 
 export default ModalP1;
-
-
-   
-

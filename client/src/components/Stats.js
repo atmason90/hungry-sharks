@@ -15,7 +15,7 @@ const Stats = ({data}) => {
 
     return (
 
-        <div className='app bg-[#030917] mt-[10%] ml-[25%]'>
+        <div className='app  mt-[10%] ml-[25%]'>
             <div className='row'>
                 <div className='mixed-chart'>
                     <Chart 
@@ -35,7 +35,7 @@ const Stats = ({data}) => {
                                     useSeriesColors: true
                                 }
                             },
-                            colors: ['#c2410c', '#1d4ed8'],
+                            colors: ['#00243f', '#cc4501'],
                             tooltip: {
                                 style: {
                                     fontSize: '16px'

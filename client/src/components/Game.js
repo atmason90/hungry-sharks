@@ -13,6 +13,7 @@ import GameOverLose from "./GameOverLose";
 
 let socket;
 const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
+// const ENDPOINT = "https://hungryshark.herokuapp.com";
 
 const Game = () => {
   const locationURL = window.location.href;
@@ -79,8 +80,8 @@ const Game = () => {
     "DR",
     "DR",
     "DR",
-    "WC",
-    "WC",
+    "DR",
+    "CR",
     "WC",
     "WC",
     "WC",
@@ -176,16 +177,16 @@ const Game = () => {
         modalP2Show,
         info,
       }) => {
-        gameOver !== null && setGameOver(gameOver);
-        winner !== null && setWinner(winner);
-        activePlayer !== null && setActivePlayer(activePlayer);
-        playedCard !== null && setPlayedCard(playedCard);
-        p1Cards !== null && setP1Cards(p1Cards);
-        p2Cards !== null && setP2Cards(p2Cards);
+        gameOver && setGameOver(gameOver);
+        winner && setWinner(winner);
+        activePlayer  && setActivePlayer(activePlayer);
+        playedCard && setPlayedCard(playedCard);
+        p1Cards && setP1Cards(p1Cards);
+        p2Cards && setP2Cards(p2Cards);
         drawCardsPile && setDrawCardsPile(drawCardsPile);
         p1RemainingTurns !== null && setP1RemainingTurns(p1RemainingTurns);
         p2RemainingTurns !== null && setP2RemainingTurns(p2RemainingTurns);
-        threeCards !== null && setThreeCards(threeCards);
+        threeCards  && setThreeCards(threeCards);
         modalP1Show !== null && setModalP1Show(modalP1Show);
         modalP2Show !== null && setModalP2Show(modalP2Show);
         info && setInfo(info);
@@ -303,8 +304,8 @@ const Game = () => {
             // setActivePlayer("P2");
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p2RemainingTurns: p2RemainingTurns + 1,
-              p1RemainingTurns: playerRemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               activePlayer: "P2",
@@ -316,21 +317,21 @@ const Game = () => {
             // setActivePlayer("P1");
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p1RemainingTurns: p1RemainingTurns + 1,
-              p2RemainingTurns: playerRemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               activePlayer: "P1",
               info: `${activePlayer} decided to sleep through their turn!`,
             });
           }
-        } else if (playerRemainingTurns !== 0) {
+        } else if (playerRemainingTurns === 1) {
           if (cardPlayedBy === "P1") {
             // setP1RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p1RemainingTurns: playerRemainingTurns,
-              p2RemainingTurns: p2RemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               info: `${activePlayer} decided to sleep through their turn!`,
@@ -339,8 +340,8 @@ const Game = () => {
             // setP2RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p2RemainingTurns: playerRemainingTurns,
-              p1RemainingTurns: p1RemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               info: `${activePlayer} decided to sleep through their turn!`,
@@ -537,7 +538,8 @@ const Game = () => {
     const p2Hand = [...p2Cards];
 
     if (activePlayer === "P1") {
-      const p1Turns = p1RemainingTurns - 1;
+      const turnsP1 = p1RemainingTurns - 1;
+      const p1Turns = turnsP1;
 
       if (cardDrawn === "HS") {
         //Hungry shark handler
@@ -583,6 +585,7 @@ const Game = () => {
               p2Cards: [...p2Hand],
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
+              activePlayer: "P1",
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
@@ -607,13 +610,13 @@ const Game = () => {
             drawCardsPile: [...cardDeck],
             p1RemainingTurns: 1,
             p2RemainingTurns: 0,
+            activePlayer: "P1",
             info: `${activePlayer} Drew a card and have 1 turn remaining`,
           });
         } else if (p1Turns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
           //Yes
-          console.log("This was done");
           socket.emit("updateGameState", {
             p1Cards: [...p1Cards, cardDrawn],
             p2Cards: [...p2Cards],
@@ -626,7 +629,8 @@ const Game = () => {
         }
       }
     } else if (activePlayer === "P2") {
-      const p2Turns = p2RemainingTurns - 1;
+      const turnsP2 = p2RemainingTurns - 1;
+      const p2Turns = turnsP2;
 
       if (cardDrawn === "HS") {
         //Hungry shark handler
@@ -669,6 +673,7 @@ const Game = () => {
               p1RemainingTurns: 0,
               p2RemainingTurns: 1,
               playedCard: "SG",
+              activePlayer: "P2",
               drawCardsPile: [...cardDeck],
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
@@ -715,7 +720,7 @@ const Game = () => {
             p1RemainingTurns: 0,
             drawCardsPile: [...cardDeck],
             p2RemainingTurns: 1,
-            activePlayer: "P1",
+            activePlayer: "P2",
             info: `${activePlayer} Drew a card and they have 1 turn remaining`,
           });
         }
@@ -727,10 +732,12 @@ const Game = () => {
     <div className={`Game`}>
       <>
         {gameOver ? null : (
-          <div className="topInfo flex flex-row justify-center items-center bg-[#051222] bg-opacity-50 mb-10 shadow-2xl">
+          <div className="topInfo flex flex-row justify-center items-center mb-10 bg-[#051222] bg-opacity-50 shadow-2xl">
             <h3 className="text-2xl">
               Game Code: <span className="text-orange-700">{room}</span>
             </h3>
+            {users.length > 1 ? (
+             <> 
             <h3 className="text-2xl">
               Active Player:{" "}
               <span className="text-orange-700 text-4xl">{activePlayer}</span>
@@ -741,7 +748,10 @@ const Game = () => {
                 {activePlayer === "P1" ? p1RemainingTurns : p2RemainingTurns}
               </span>
             </h3>
+            </>
+            ) : (<h1 className="text-xl text-orange-600">Waiting for Player 2</h1>)}
           </div>
+          
         )}
 
         <>
