@@ -282,8 +282,6 @@ const Game = () => {
         socket.emit("updateGameState", {
           drawCardsPile: [...drawDeck],
           playedCard: cardPlayed,
-          p1RemainingTurns: p1RemainingTurns,
-          p2RemainingTurns: p2RemainingTurns,
           info: "The deck has been Shuffled!",
         });
 
@@ -304,8 +302,8 @@ const Game = () => {
             // setActivePlayer("P2");
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p2RemainingTurns: p2RemainingTurns + 1,
-              p1RemainingTurns: playerRemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               activePlayer: "P2",
@@ -317,21 +315,21 @@ const Game = () => {
             // setActivePlayer("P1");
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p1RemainingTurns: p1RemainingTurns + 1,
-              p2RemainingTurns: playerRemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               activePlayer: "P1",
               info: `${activePlayer} decided to sleep through their turn!`,
             });
           }
-        } else if (playerRemainingTurns !== 0) {
+        } else if (playerRemainingTurns === 1) {
           if (cardPlayedBy === "P1") {
             // setP1RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p1RemainingTurns: playerRemainingTurns,
-              p2RemainingTurns: p2RemainingTurns,
+              p1RemainingTurns: 1,
+              p2RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               info: `${activePlayer} decided to sleep through their turn!`,
@@ -340,8 +338,8 @@ const Game = () => {
             // setP2RemainingTurns(playerRemainingTurns);
             socket.emit("updateGameState", {
               playedCard: cardPlayed,
-              p2RemainingTurns: playerRemainingTurns,
-              p1RemainingTurns: p1RemainingTurns,
+              p2RemainingTurns: 1,
+              p1RemainingTurns: 0,
               p1Cards: [...cardsOfP1],
               p2Cards: [...cardsOfP2],
               info: `${activePlayer} decided to sleep through their turn!`,
@@ -538,7 +536,8 @@ const Game = () => {
     const p2Hand = [...p2Cards];
 
     if (activePlayer === "P1") {
-      const p1Turns = p1RemainingTurns - 1;
+      const turnsP1 = p1RemainingTurns - 1;
+      const p1Turns = turnsP1;
 
       if (cardDrawn === "HS") {
         //Hungry shark handler
@@ -584,6 +583,7 @@ const Game = () => {
               p2Cards: [...p2Hand],
               playedCard: "SG",
               drawCardsPile: [...cardDeck],
+              activePlayer: "P1",
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
           }
@@ -608,13 +608,13 @@ const Game = () => {
             drawCardsPile: [...cardDeck],
             p1RemainingTurns: 1,
             p2RemainingTurns: 0,
+            activePlayer: "P1",
             info: `${activePlayer} Drew a card and have 1 turn remaining`,
           });
         } else if (p1Turns === 0) {
           // setP2RemainingTurns(p2RemainingTurns + 1);
           // setActivePlayer("P2");
           //Yes
-          console.log("This was done");
           socket.emit("updateGameState", {
             p1Cards: [...p1Cards, cardDrawn],
             p2Cards: [...p2Cards],
@@ -627,7 +627,8 @@ const Game = () => {
         }
       }
     } else if (activePlayer === "P2") {
-      const p2Turns = p2RemainingTurns - 1;
+      const turnsP2 = p2RemainingTurns - 1;
+      const p2Turns = turnsP2;
 
       if (cardDrawn === "HS") {
         //Hungry shark handler
@@ -670,6 +671,7 @@ const Game = () => {
               p1RemainingTurns: 0,
               p2RemainingTurns: 1,
               playedCard: "SG",
+              activePlayer: "P2",
               drawCardsPile: [...cardDeck],
               info: `${activePlayer} sacrificed a goat to the shark. The Shark has accepted their sacrifice!`,
             });
@@ -716,7 +718,7 @@ const Game = () => {
             p1RemainingTurns: 0,
             drawCardsPile: [...cardDeck],
             p2RemainingTurns: 1,
-            activePlayer: "P1",
+            activePlayer: "P2",
             info: `${activePlayer} Drew a card and they have 1 turn remaining`,
           });
         }
