@@ -20,17 +20,14 @@ const GameOverLose = () => {
         throw new Error("something is wrong");
       }
       const user = await response.json();
-      console.log('Prev Losses: ', user.stats.losses);
       user.stats.losses += 1;
       user.stats.games += 1;
-      console.log('New Losses: ', user.stats.losses);
       const body = { 
         usersID: user.id,
         gamesWon: user.stats.wins,
         gamesLost: user.stats.losses,
         gamesPlayed: user.stats.games
       };
-      console.log("Body is: ", body);
       const options = {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
@@ -38,12 +35,11 @@ const GameOverLose = () => {
       }
       const newUserRequest = await fetch("/api/users/me", options);
       const newUserData = await newUserRequest.json();
-      console.log('newUserData:', newUserData);
+      
       setUserData(newUserData);
     } catch (error) {
       console.log(error);
     }
-    console.log("The user data is: ", userData);
   };
   
 

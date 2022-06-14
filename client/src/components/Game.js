@@ -204,7 +204,6 @@ const Game = () => {
 
     socket.on("currentUserData", ({ name }) => {
       setCurrentUser(name);
-      console.log(name);
     });
 
     socket.on("message", (message) => {
