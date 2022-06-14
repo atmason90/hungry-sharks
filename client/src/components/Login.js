@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import { FormControl, FormGroup } from '@material-ui/core';
-// import Checkbox from '@material-ui/core/Checkbox';
 import { Form, Button, Alert } from "react-bootstrap";
 import { loginUser } from "../utils/API";
 import Auth from "../utils/auth";
-import Signup from "./Signup";
 import Navbar from "./Navbar"
 
 const Login = () => {
@@ -138,73 +132,3 @@ const Login = () => {
 
 export default Login;
 
-// import React, { useState } from 'react'
-// import {
-//     Checkbox,
-//     Grid,
-//     TextField,
-//     FormControlLabel,
-//     Paper,
-//     Button
-//   } from '@material-ui/core';
-
-// const Login = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const validateForm = () => {
-//       return username.length > 0 && password.length > 0;
-//   }
-
-//   const handleFormSubmit = (event) => {
-//       event.preventDefault();
-//   }
-
-//   return (
-//     <div style={{ padding: 30 }}>
-//         <Paper>
-//         <Grid
-//           container
-//           spacing={3}
-//           direction={'column'}
-//           justify={'center'}
-//           alignItems={'center'}
-//         >
-//           <Form onSubmit={handleFormSubmit}>
-//             <Grid item xs={12}>
-//                 <TextField onChange={(e) => setUsername(e.target.value)} label="Username"></TextField>
-//             </Grid>
-//             <Grid item xs={12}>
-//                 <TextField onChange={(e) => setPassword(e.target.value)} label="Password" type={'password'}></TextField>
-//             </Grid>
-//             <Grid item xs={12}>
-//                 <Button type='submit' fullWidth> Login </Button>
-//             </Grid>
-//           </Form>
-//         </Grid>
-//       </Paper>
-//       {/* <Form onSubmit={handleFormSubmit}>
-//           <Form.Group>
-//               <Form.Label>Username</Form.Label>
-//               <Form.Control
-//                 autoFocus
-//                 type='String'
-//                 value='username'
-//                 onChange={(e) => setUsername(e.target.value)}
-//               />
-//           </Form.Group>
-//           <Form.Group>
-//               <Form.Label>Password</Form.Label>
-//               <Form.Control
-//                 type='password'
-//                 value='password'
-//                 onChange={(e) => setPassword(e.target.value)}
-//               />
-//           </Form.Group>
-//           <Button type='submit' disabled={!validateForm}>Login</Button>
-//       </Form> */}
-//     </div>
-//   )
-// }
-
-// e

@@ -30,7 +30,6 @@ const AppNavbar = () => {
                 Rules
               </Nav.Link>
               <br></br>
-              {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link 
