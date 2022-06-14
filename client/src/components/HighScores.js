@@ -11,11 +11,6 @@ const HighScores = () => {
     getUserHighscores();
   }, [])
 
-  useEffect(() => {
-    console.log("Highscore user data ", userData);
-   
-  }, [userData]);
-
 
   const getUserHighscores = async () => {
     try {
@@ -24,7 +19,6 @@ const HighScores = () => {
         return false;
       }
       const response = await getMe(token);
-      console.log(response);
       if (!response.ok) {
         throw new Error("something is wrong");
       }

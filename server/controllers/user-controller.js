@@ -70,15 +70,12 @@ module.exports = {
   },
 
   async updateStats({ body }, res) {
-    console.log("Put was hit", body, "----------");
     const stats = {
       wins: body.gamesWon,
       losses: body.gamesLost,
       games: body.gamesPlayed,
     };
-    console.log("Filter: ", body.usersID, "Update: ", stats);
     const userToUpdate = await User.findByIdAndUpdate(body.usersID, { stats }, {new:true})
-    console.log(userToUpdate);
 
     if (!userToUpdate) {
       res.status(500);

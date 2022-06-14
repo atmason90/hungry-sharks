@@ -15,7 +15,6 @@ const Signup = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    // console.log(name)
     setUserFormData({ ...userFormData, [name]: value });
   };
 
@@ -31,14 +30,11 @@ const Signup = () => {
 
     try {
       const response = await createUser(userFormData);
-      console.log(response)
       if (!response.ok) {
-        console.log("Not okay")
         throw new Error('something went wrong!');
       }
 
       const { token, user } = await response.json();
-      console.log(user);
       Auth.login(token);
     } catch (err) {
       console.error(err);

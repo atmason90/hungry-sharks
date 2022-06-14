@@ -13,7 +13,6 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 if (process.env.ENVIRONMENT === "prod") {
-    console.log("Environment makes me happy");
     const publicPath = path.join(__dirname, '..', 'client', 'build');
     app.use(express.static(publicPath));
 }

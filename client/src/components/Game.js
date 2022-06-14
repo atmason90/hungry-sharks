@@ -14,6 +14,7 @@ import SharkModal from "./SharkModal";
 
 let socket;
 // const ENDPOINT = process.env.ENVIRONMENT === "prod" ? "https://hungryshark.herokuapp.com" : "http://localhost:3001" 
+//Deployment Endpoint
 const ENDPOINT = "https://hungryshark.herokuapp.com/";
 
 const Game = () => {
@@ -203,7 +204,6 @@ const Game = () => {
 
     socket.on("currentUserData", ({ name }) => {
       setCurrentUser(name);
-      console.log(name);
     });
 
     socket.on("message", (message) => {
@@ -559,15 +559,6 @@ const Game = () => {
           // setPlayedCard("SG");
           // setP1RemainingTurns(p1RemainingTurns - 1);
 
-          // socket.emit("updateGameState", {
-          //   p1Cards: [...p1Hand],
-          //   p2Cards: [...p2Hand],
-          //   drawCardsPile: [...cardDeck],
-          //   playedCard: "SG",
-          //   p1RemainingTurns: p1RemainingTurns - 1,
-          //   p2RemainingTurns: p2RemainingTurns,
-          // });
-
           if (p1Turns === 0) {
             // setP2RemainingTurns(p2RemainingTurns + 1);
             // setActivePlayer("P2");
@@ -651,14 +642,6 @@ const Game = () => {
           // setDrawCardsPile([...cardDeck]);
           // setPlayedCard("SG");
           // setP2RemainingTurns(p2RemainingTurns - 1);
-          // socket.emit("updateGameState", {
-          //   p2Cards: [...p2Hand],
-          //   p1Cards: [...p1Hand],
-          //   drawCardsPile: [...cardDeck],
-          //   playedCard: "SG",
-          //   p2RemainingTurns: p2RemainingTurns - 1,
-          //   p1RemainingTurns: p1RemainingTurns,
-          // });
 
           if (p2Turns === 0) {
             // setP1RemainingTurns(p1RemainingTurns + 1);
@@ -704,13 +687,6 @@ const Game = () => {
         // setDrawCardsPile([...cardDeck]);
         // setP2Cards([...p2Cards, cardDrawn]);
         // setP2RemainingTurns(rTurns);
-        // socket.emit("updateGameState", {
-        //   drawCardsPile: [...cardDeck],
-        //   p2Cards: [...p2Cards, cardDrawn],
-        //   p1Cards: [...p1Cards],
-        //   p2RemainingTurns: rTurns,
-        //   p1RemainingTurns: p1RemainingTurns,
-        // });
         if (p2Turns === 0) {
           // setP1RemainingTurns(p1RemainingTurns + 1);
           // setActivePlayer("P1");

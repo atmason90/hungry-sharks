@@ -74,7 +74,6 @@ const Stats = ({data}) => {
                             }
                         }}
                         series={[wins , losses]}
-                        // series={[0, 0]}
                         type={'donut'}
                         width={'60%'}
                     />
