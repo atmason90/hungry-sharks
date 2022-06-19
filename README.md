@@ -1,7 +1,7 @@
 # Hungry Sharks
 
 ![License Badge](https://img.shields.io/badge/License-MIT-blue)  
-Deployed Application: http://hungryshark.herokuapp.com/  
+Deployed Application: https://hungryshark.herokuapp.com/  
 GitHub Repository: https://github.com/MoeCancode/hungry-sharks
 
 ## Table of Contents
