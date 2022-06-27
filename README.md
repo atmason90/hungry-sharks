@@ -4,6 +4,16 @@
 Deployed Application: https://hungryshark.herokuapp.com/  
 GitHub Repository: https://github.com/MoeCancode/hungry-sharks
 
+## Usage Instructions
+- Visit deployed application: https://hungryshark.herokuapp.com/  
+- Signup to create a profile
+- Review the rules page to learn how to play
+- Find and opponent
+- Click "Create Game" on the home page
+- Share game code with your opponent so that they can join the game you created
+- Play Hungry Sharks. Good Luck!
+- To view your stats, visit the Highscores page
+
 ## Table of Contents
 
 - [Description](#description)
